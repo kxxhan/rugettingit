@@ -86,11 +86,35 @@ print(' '.join('%5s' % classes[labels[j]] for j in range(4)))
 
 - 아래의 모델은 예시이므로, layer를 직접 추가해보면서 실험하시길 바랍니다.
 
-```
-Conv2d(30, 16, kernel_size=(5, 5), stride=(1, 1))
-MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
-Linear(in_features=3136, out_features=128, bias=True)
-Linear(in_features=128, out_features=10, bias=True)
+```python
+import torch.nn as nn
+import torch.nn.functional as F
+
+# Req. 1-2	분류기 모델 설계
+class Classifier(nn.Module):
+      def __init__(self):
+          super().__init__()
+          self.conv1 = nn.Conv2d(3, 6, 5)
+          self.pool = nn.MaxPool2d(2, 2)
+          self.conv2 = nn.Conv2d(6, 16, 5)
+          self.fc1 = nn.Linear(16 * 5 * 5, 120)
+          self.fc2 = nn.Linear(120, 84)
+          self.fc3 = nn.Linear(84, 10)
+
+      def forward(self, x):
+          x = self.pool(F.relu(self.conv1(x)))
+          x = self.pool(F.relu(self.conv2(x)))
+          x = torch.flatten(x, 1) # 배치를 제외한 모든 차원을 평탄화(flatten)
+          x = F.relu(self.fc1(x))
+          x = F.relu(self.fc2(x))
+          x = self.fc3(x)
+          return x
+classifier = Classifier()
+print(classifier.conv1)
+print(classifier.pool)
+
+print(classifier.fc1)
+print(classifier.fc2)
 ```
 
 # 1-3 모델 학습
