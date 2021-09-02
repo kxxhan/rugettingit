@@ -228,3 +228,31 @@ print('Accuracy of the network on the 10000 test images: %d %%' % (
 
 ![image-20210902000204102](readme.assets/image-20210902000204102.png)
 
+
+
+# 3-1 Image Captioning 실행 및 결과 확인
+
+```
+# requirements.txt
+pyyaml==5.3.1
+yacs==0.1.8
+opencv-contrib-python==4.4.0.46
+requests==2.25.0
+```
+
+
+
+```
+$ pwd
+/Users/chloe/conda-test/skeleton-project/speak_image/IC/vqa_origin
+
+$ python setup.py build develop
+
+```
+
+
+
+![image-20210902163227631](readme.assets/image-20210902163227631.png)
+
+![image-20210902163417316](readme.assets/image-20210902163417316.png)
+
