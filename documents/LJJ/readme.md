@@ -247,12 +247,52 @@ $ pwd
 /Users/chloe/conda-test/skeleton-project/speak_image/IC/vqa_origin
 
 $ python setup.py build develop
+: 안돼면 MicroSoft C++ Build Tools를 깔아야 한다... 무려 6.75GB
+```
 
+![image-20210902185016342](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210902185016342.png)
+
+```
+Installed c:\chloe\pjt02\skeleton-project\speak_image\ic\vqa_origin
+Processing dependencies for maskrcnn-benchmark==0.1
+Finished processing dependencies for maskrcnn-benchmark==0.1
+```
+
+![image-20210902191049512](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210902191049512.png)
+
+`conda install pytorch torchvision torchaudio cudatoolkit=11 -c pytorch`
+
+### cuda 를 11버전으로 깔아줘야 에러가 안난다..
+
+
+
+# 3-3 
+
+`RuntimeError: Not compiled with GPU support`
+
+https://developer.nvidia.com/cuda-downloads?target_os=Windows&target_arch=x86_64&target_version=10&target_type=exe_local
+
+에서 다운 받아준다.
+
+
+
+```python
+if __name__ == '__main__':
+    img_path = 'test_img.jpg' # 캡셔닝할 이미지 경로 지정
+    caption_model = Caption_Model() # Caption_Model인스턴스 생성
+    img = cv2.imread(img_path) # 이미지를 로드하고
+    img_caption = caption_model.inference(img_path) # 캡션 생성후,
+    print(img_caption) # 출력
+    cv2.imshow('sample', img) # 이미지 띄우기
+    cv2.waitKey() # 안사라지게 하기
 ```
 
 
 
-![image-20210902163227631](readme.assets/image-20210902163227631.png)
+결과가 나름 비슷한것 같다..
 
-![image-20210902163417316](readme.assets/image-20210902163417316.png)
 
+
+![image-20210903021327251](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210903021327251.png)
+
+<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210903021347651.png" alt="image-20210903021347651" style="zoom:25%;" />
