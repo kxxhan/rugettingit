@@ -250,7 +250,7 @@ $ python setup.py build develop
 : 안돼면 MicroSoft C++ Build Tools를 깔아야 한다... 무려 6.75GB
 ```
 
-![image-20210902185016342](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210902185016342.png)
+<img src="readme.assets/image-20210902185016342.png" alt="image-20210902185016342.png" style="zoom:50%;" />
 
 ```
 Installed c:\chloe\pjt02\skeleton-project\speak_image\ic\vqa_origin
@@ -258,7 +258,7 @@ Processing dependencies for maskrcnn-benchmark==0.1
 Finished processing dependencies for maskrcnn-benchmark==0.1
 ```
 
-![image-20210902191049512](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210902191049512.png)
+<img src="readme.assets/image-20210902191049512.png" alt="image-20210902191049512.png" style="zoom:50%;" />
 
 `conda install pytorch torchvision torchaudio cudatoolkit=11 -c pytorch`
 
@@ -292,7 +292,6 @@ if __name__ == '__main__':
 결과가 나름 비슷한것 같다..
 
 
+<img src="readme.assets/image-20210903021327251.png" alt="image-20210903021327251" style="zoom:50%;" />
 
-![image-20210903021327251](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210903021327251.png)
-
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210903021347651.png" alt="image-20210903021347651" style="zoom:25%;" />
+<img src="readme.assets/image-20210903021347651.png" alt="image-20210901133850754" style="zoom:25%;" />
