@@ -12,22 +12,22 @@ const routes = [
     component: Home
   },
   {
-    path: '/Lobby',
+    path: '/:room_id',
     name: 'Lobby',
     component: Lobby
   },
   {
-    path: '/GameInit',
+    path: '/:room_id/init',
     name: 'GameInit',
     component: GameInit
   },
   {
-    path: '/GamePlay',
+    path: '/:room_id/play',
     name: 'GamePlay',
     component: GamePlay
   },
   {
-    path: '/GameResult',
+    path: '/:room_id/result',
     name: 'GameResult',
     component: GameResult
   },
