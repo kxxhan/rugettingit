@@ -151,13 +151,13 @@ Ubuntu에 Docker 설치 후
 
 
 
-	### Jenkins
+## Jenkins
 
 > 환경설정
 
 /var/jenkins_home/secrets/initialAdminPassword 패스워드 받아와서 접속하기
 
-### Jenkins - Gitlab 연결하기
+#### Jenkins - Gitlab 연결하기
 
 플러그인 관리에서 Gitlab관련 플러그인 설치 (GitLab, Gitlab Authentication)
 
