@@ -147,4 +147,39 @@ Ubuntu에 Docker 설치 후
   `docker exec -it abf21e9a9730 /bin/bash` 로 접속해서
 
   `docker ps` 로 확인해보고, 결과가 로컬에서와 같은지 확인해보면 된다.
+  
+
+
+
+	### Jenkins
+
+> 환경설정
+
+/var/jenkins_home/secrets/initialAdminPassword 패스워드 받아와서 접속하기
+
+### Jenkins - Gitlab 연결하기
+
+플러그인 관리에서 Gitlab관련 플러그인 설치 (GitLab, Gitlab Authentication)
+
+Gitlab에서 토큰 발급 받기 (scopes: api)
+
+1. Jenkins관리 →시스템 설정 → Gitlab
+
+2. connection이름 설정 후
+
+3. Host url 입력( `https://ssafy.gitlab.com/` )
+
+4. Credential- Jenkins - add
+
+5. GitLabAPI token- 발급받은 토큰 번호, gitlab로그인 아이디 입력 후 Add
+
+6. Test Connection결과가 Success 면 연결 완료
+
+   
+
+
+
+
+
+
 
