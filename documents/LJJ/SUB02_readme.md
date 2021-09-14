@@ -164,22 +164,230 @@ Ubuntu에 Docker 설치 후
 Gitlab에서 토큰 발급 받기 (scopes: api)
 
 1. Jenkins관리 →시스템 설정 → Gitlab
-
 2. connection이름 설정 후
-
 3. Host url 입력( `https://ssafy.gitlab.com/` )
-
 4. Credential- Jenkins - add
-
 5. GitLabAPI token- 발급받은 토큰 번호, gitlab로그인 아이디 입력 후 Add
-
 6. Test Connection결과가 Success 면 연결 완료
 
-   
+
+
+# Docker 이미지 생성
+
+### Jenkins이미지 생성
+
+Dockerfile 활용
+
+- learn more
+
+  ### Jenkins Docker이미지 가져오기
+
+  `docker pull jenkins/jenkins:lts`
+
+  ### Docker 실행 파일 생성
+
+  ```bash
+  #Dockerfile
+  FROM jenkins/jenkins:lts
+  
+  #root 계정으로 변경후, 도커 설치. 
+  USER root
+  RUN curl -fsSLO <https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz> \\
+    && tar xzvf docker-17.04.0-ce.tgz \\
+    && mv docker/docker /usr/local/bin \\
+    && rm -r docker docker-17.04.0-ce.tgz \\
+    && usermod -a -G root jenkins
+  
+  # Docker compose 설치
+  RUN curl -L "<https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$>(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  RUN chmod +x /usr/local/bin/docker-compose
+  
+  #다시 젠킨스 유저로 변경
+  USER jenkins
+  ```
+
+  ### Dockerfile 빌드
+
+  `docker build . -t jenkins-docker:latest`
+
+  ### Docker 실행
+
+  ```bash
+  docker run --name jenkins-b106 -d -p 7777:8080 -p 50000:50000 -v /var/run/docker.sock:/var/run/docker.sock -v /var/jenkins_home:/var/jenkins_home jenkins-docker:latest
+  ```
+
+  ubuntu 의 7777포트와 도커컨테이너(jenkins)의 8080포트를 연결하고
+
+  ubuntu의 50000포트와 도커컨테이너(jenkins)의 50000포트를 매핑한다.
+
+  여기서 docker ps 했을때 실행이 되지 않고, docker logs <container id>로 확인 했을때 실행이 되지 않는다면, 권한 문제를 의심해보자
+
+  `chmod 777 /var/jenkins_home` 로 권한을 준다..
+
+  (권한을 어느정도까지 줘야하는지는 더 알아봐야 한다. 일단 간편하게 777로 줬다.)
+
+  `docker ps` 로 재확인(ubuntu에서)
+
+  ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c7380e33-143a-42c7-95b4-b0da938e454b/Untitled.png)
+
+  ### ubuntu와 container가 제대로 통신중인지 확인하기
+
+  `chmod 666 /var/run/docker.sock`  로 권한을 준후
+
+  `docker exec -it abf21e9a9730 /bin/bash` 로 접속해서
+
+  > `docker exec -it -u root 컨테이너ID /bin/bash`
+
+  *exec는 컨테이너에 명령어를 실행시키는 명령어 /bin/bash와 옵션을 줌으로써 컨테이너의 쉘에 접속*
+
+  `docker ps` 로 확인해보고, 결과가 로컬에서와 같은지 확인
 
 
 
+## Spring 이미지 생성
 
+# 01 spring-boot-gradle-plugin 과 bootJar 활용한 방법
+
+- learn more
+
+  방법 1
+
+  ```java
+  # build.gralde에 의존성과 태스크 추가
+  implementation 'org.springframework.boot:spring-boot-gradle-plugin:2.5.0'
+  
+  bootJar {
+  	layered()
+  }
+  ```
+
+  `./gradlew clean bootBuildImage`  하면 도커 이미지 생성된걸 확인할 수 있다. ( `docker images`  )
+
+  이를 이용해 스프링 도커 이미지를 생성한다.
+
+  ### CI/CD를 위한 젠킨스 프로젝트 생성
+
+  Dashboard → 새로운 아이템 생성 → Freestyle project →
+
+  소스코드관리 `Git`
+
+  [`https://jenkins_deploy_b106:i_7gNba4xVj5GqpczsW7@lab.ssafy.com/s05-ai-speech/S05P21B106.git`](https://jenkins_deploy_b106:i_7gNba4xVj5GqpczsW7@lab.ssafy.com/s05-ai-speech/S05P21B106.git)
+
+  (Repository URL : [`https://토큰이름:토큰값@레포지토리경로`](https://토큰이름:토큰값@xn--289a47sihi0c827bvzkt1d/))
+
+  ### Build
+
+  → Execute shell
+
+  ```bash
+  cd spring_backend/aipjt # 스프링 경로로 이동
+  chmod +x gradlew # 권한 추가
+  ./gradlew clean bootBuildImage # 프로젝트 빌드 이미지 생성
+  ```
+
+  → Execute shell
+
+  ```bash
+  docker images # 생성된 이미지 리스트 확인
+  docker ps -q --filter "name=aipjt" | grep -q . && docker stop aipjt && docker rm aipjt | true
+  # 앞으로 만들어줄 컨테이너명과 겹치는 컨테이너 있으면 미리 죽이고
+  ```
+
+  → Execute shell
+
+  ```bash
+  docker run -p 8080:8080 -d --name=aipjt aipjt:0.0.1-SNAPSHOT # 컨테이너 실행
+  ```
+
+  → Execute shell
+
+  ```bash
+  docker rmi -f $(docker images -f "dangling=true" -q) || true 
+  # dangling=true 옵션을 사용해서 사용되지 않는 불필요한 이미지 삭제
+  ```
+
+  1. 도커 파일 활용.
+
+  ```java
+  # 스프링 프로젝트 최상단에 생성
+  # Dockerfile
+  FROM java:11
+  EXPOSE 8080
+  ARG JAR_FILE=build/libs/*.jar
+  COPY ${JAR_FILE} app.jar
+  ENTRYPOINT ["java", "-jar", "/app.jar"]
+  ```
+
+  프로젝트트 경로에서 아래 커맨드 실행
+
+  `docker build . -t jenkins/aipjt_sprin`CI/CD 세팅
+
+# 02 Dockerfile 활용한 방법
+
+- learn more
+
+  > 경로는 모두 `./gradlew` 가 있는 백엔드 프로젝트 경로로 이동후 커맨드 라인을 입력해야 한다. git의 최상위에서 `cd spring_backend/aipjt` 로 이동해야 함에 주의 ‼️
+
+  프로젝트 경로에 `Dockerfile` 생성
+
+  ```java
+  # Dockerfile
+  FROM openjdk:11-jdk
+  EXPOSE 8080
+  ARG JAR_FILE=build/libs/*.jar
+  COPY ${JAR_FILE} app.jar
+  ENTRYPOINT ["java", "-jar", "/app.jar"]
+  ```
+
+  `docker build . -t jenkins/aipjt_spring`
+
+  *현재 경로에 있는 `Dockerfile` 에서 jenkins/aipjt_spring 이라는 이름의 이미지를 생성하겠다.*
+
+  ### CI/CD를 위한 젠킨스 프로젝트 생성
+
+  Dashboard → 새로운 아이템 생성 → Freestyle project →
+
+  소스코드관리 `Git`
+
+  (Repository URL : [`https://토큰이름:토큰값@레포지토리경로`](https://토큰이름:토큰값@xn--289a47sihi0c827bvzkt1d/))
+
+  ### Build
+
+  → Execute shell
+
+  ```bash
+  cd spring_backend/aipjt // 경로 이동
+  ./gradlew clean build // 빌드
+  ```
+
+  → Execute shell
+
+  ```bash
+  cd spring_backend/aipjt  // Dockerfile이 있는 경로로 이동
+  docker build . -t jenkins/aipjt_spring 
+  // *현재 경로에 있는 Dockerfile 에서 jenkins/aipjt_spring 이라는 이름의 이미지를 생성하겠다.*
+  ```
+
+  → Execute shell
+
+  ```bash
+  docker images # 생성된 이미지 리스트 확인
+  docker ps -q --filter "name=aipjt" | grep -q . && docker stop aipjt && docker rm aipjt | true
+  # 앞으로 만들어줄 컨테이너명과 겹치는 컨테이너 있으면 미리 죽이고
+  ```
+
+  → Execute shell
+
+  ```bash
+  docker run -p 8080:8080 -d --name=aipjt aipjt:0.0.1-SNAPSHOT # 컨테이너 실행
+  ```
+
+  → Execute shell
+
+  ```bash
+  docker rmi -f $(docker images -f "dangling=true" -q) || true 
+  # dangling=true 옵션을 사용해서 사용되지 않는 불필요한 이미지 삭제
+  ```
 
 
 
