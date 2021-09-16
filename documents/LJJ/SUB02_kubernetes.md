@@ -234,7 +234,7 @@ kube-proxy는 클러스터의 각 [노드](https://kubernetes.io/ko/docs/concept
   다른 두 개 이상의 런타임이 감지되면, kubeadm은 오류와 함께 종료된다.
   ```
 
-  운영환경 : 컨테이너 런타임:
+  ~~운영환경 : 컨테이너 런타임~~
 
   운영 환경: Containerd
 
@@ -285,7 +285,7 @@ kube-proxy는 클러스터의 각 [노드](https://kubernetes.io/ko/docs/concept
   # Docker의 공식 GPG 키를 시스템에 추가
   curl -fsSL <https://download.docker.com/linux/ubuntu/gpg> | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
   # Docker 설치
-  echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] <https://download.docker.com/linux/ubuntu> $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   
   sudo apt-get update
   # containerd.io를 설치
@@ -453,7 +453,9 @@ kube-proxy는 클러스터의 각 [노드](https://kubernetes.io/ko/docs/concept
   1. `kubectl` 커맨드 사용을 일반 유저가 할수 있게하는명령어
   2. CNI 설치를 해야한다는 이야기
   3. 클러스터에 워커 노드를 조인시킬때 사용할 명령어, 토큰이 포함되어있다.(토큰의 수명은 24시간 이다.)
-
+     1. `kubeadm token list` 발급한 토큰리스트 확인
+     2. `kubeadm token create` 만료후에 새로운 토큰 발급
+  
   ```bash
   # 일반 유저가 kubectl 명령어 사용할수 있게	
   	mkdir -p $HOME/.kube
@@ -515,24 +517,23 @@ kube-proxy는 클러스터의 각 [노드](https://kubernetes.io/ko/docs/concept
   `kubectl get po -n kube-system` dns 서버들이 running 중인지 확인
 
   ‼️ CNI는 하나만 설치해야한다. 여러개 설치해서 문제가 생기면... 이전것과 관련된걸 찾아서 지워줘야한다.
-
+  
   ```bash
   ls /etc/cni/net.d/
   # calico 했다가 flannel로 바꿔서 생김
   10-calico.conflist  10-flannel.conflist  calico-kubeconfig
-  kubectl apply -f [<https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml>](<https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml>) 
   ```
-
+  
   상태 확인후 dns 러닝중인거 확인하고나면,
-
+  
   ### cluster join
-
+  
   워커노드로 가서 클러스터 생성후 받은 `kubeadm join` 명령어 입력
-
+  
   ### 워커노드 클러스터 조인 완료 ❤️‍🔥
-
+  
   ➕... https://kubenav.io/
-
+  
   핸드폰으로 쿠버네티스를 관리하는 앱.
 
 
