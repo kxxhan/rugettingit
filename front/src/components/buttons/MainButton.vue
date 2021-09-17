@@ -22,6 +22,7 @@ export default {
         url: 'api/hi',
       }).then((res) => {
         console.log(res)
+        this.$router.push( { name: 'Lobby'})
       })
     }
   }
