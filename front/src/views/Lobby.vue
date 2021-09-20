@@ -2,11 +2,11 @@
   <div>
     <div>로비</div>
     ----------------------------------
-    <UserList/>
+    <UserList />
     ----------------------------------
-    <GameSetting/>
+    <GameSetting />
     ----------------------------------
-    <LobbyButton/>
+    <LobbyButton />
   </div>
 </template>
 
