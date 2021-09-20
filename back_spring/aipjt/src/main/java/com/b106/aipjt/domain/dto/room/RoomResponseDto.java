@@ -14,10 +14,15 @@ import java.util.List;
 @Builder
 public class RoomResponseDto {
     private String id;
+    @Builder.Default
     private boolean isStart = false;
+    @Builder.Default
     private int round = 0;
+    @Builder.Default
     private int maxRound = 3;
+    @Builder.Default
     private int roundTime = 60;
-    private List<RoomUserResponseDto> userList = new ArrayList();
+    @Builder.Default
+    private List<RoomUserResponseDto> userList = new ArrayList<>();
 
 }

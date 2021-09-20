@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class RoomRedisService {
     private final UserRedisRepository userRedisRepository;
     private final RoomRedisRepository roomRedisRepository;
-    private final RoundRedisRepository roundRedisRepository;
 
+    // 방 생성
     public Room createRoom(String userId, String avatar, String nickname) {
         Optional<User> result = userRedisRepository.findById(userId);
         if (result.isEmpty()) {
@@ -32,6 +32,7 @@ public class RoomRedisService {
         return roomRedisRepository.save(room);
     }
 
+    // 방 조회
     public Room findOne(String roomId) {
         Optional<Room> result = roomRedisRepository.findById(roomId);
         if (result.isEmpty()) {
@@ -39,6 +40,7 @@ public class RoomRedisService {
         }
         return result.get();
     }
+
     // 방 입장 : 중복 입장이 안되도록 처리가 필요함 -> 나중에 다시 확인할 것. filter를 사용하는게 맞을지..?
     public Room joinRoom(String userId, String roomId) {
         Optional<User> userResult = userRedisRepository.findById(userId);
@@ -62,11 +64,8 @@ public class RoomRedisService {
         return room;
     }
 
-
-
     // 방 퇴장
     public Room leaveRoom(String userId, String roomId) {
-
         Optional<Room> roomResult = roomRedisRepository.findById(roomId);
         if (roomResult.isEmpty()) {
             throw new RuntimeException("방이 존재하지 않습니다");
@@ -81,5 +80,4 @@ public class RoomRedisService {
         roomRedisRepository.save(room);
         return room;
     }
-
 }

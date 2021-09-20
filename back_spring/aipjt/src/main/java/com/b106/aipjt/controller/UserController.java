@@ -21,6 +21,7 @@ public class UserController {
 
     private final UserRedisService userRedisService;
 
+    // 유저 조회
     @GetMapping("")
     public ResponseDto<UserResponseDto> getUser(@RequestHeader(value="User-Id") String userId) {
         User user = userRedisService.findOne(userId);
@@ -30,7 +31,7 @@ public class UserController {
             new UserResponseDto(user.getId(), user.getAvatar(), user.getNickname()));
     }
 
-
+    // 유저 생성 & 수정
     @PostMapping("")
     public ResponseDto<UserResponseDto> createUser(@Valid @RequestBody UserCreateDto data) {
         User user = userRedisService.join(data.getId(), data.getAvatar(), data.getNickname());
@@ -40,7 +41,7 @@ public class UserController {
             new UserResponseDto(user.getId(), user.getAvatar(), user.getNickname()));
     }
 
-
+    // 유저 삭제
     @DeleteMapping("")
     public void deleteUser(@RequestHeader(value="User-Id") String userId) {
         userRedisService.remove(userId);
