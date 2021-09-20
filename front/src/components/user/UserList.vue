@@ -7,7 +7,6 @@
       <div>{{ user.isSuperUser }}</div>
     </div>
   </div>
-
 </template>
 
 <script>
