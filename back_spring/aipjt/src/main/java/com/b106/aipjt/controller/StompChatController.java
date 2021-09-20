@@ -16,15 +16,17 @@ public class StompChatController {
         this.template = template;
     }
 
-    // prefix로 topic이 설정이 되어있으므로 /app/chat/enter로 퍼블리쉬 요청이 오는 것
+    // prefix로 topic이 설정이 되어있으므로 /pub/chat/enter로 퍼블리쉬 요청이 오는 것
     @MessageMapping(value = "/chat/enter")
-    public void enterRoom(ChatMessageDto message) {
-        message.setMessage(message.getWriter() + " 두둥 등장!");
-        template.convertAndSend("/topic/chat/room/" + message.getRoomId(), message);
+    public void enterRoom(ChatMessageDto chatMessageDto) {
+        chatMessageDto.setMessage(chatMessageDto.getWriter() + " 두둥 등장!");
+        // /topic/chat/room/{roomId}를 구독하는 애들한테 메시지를 퍼블리쉬
+        template.convertAndSend("/topic/chat/room/" + chatMessageDto.getRoomId(), chatMessageDto);
     }
 
     @MessageMapping(value = "/chat/message")
-    public void message(ChatMessageDto message) {
-        template.convertAndSend("/topic/chat/room/" + message.getRoomId(), message);
+    public void message(ChatMessageDto chatMessageDto) {
+        // /topic/chat/room/{roomId}를 구독하는 애들한테 메시지를 퍼블리쉬
+        template.convertAndSend("/topic/chat/room/" + chatMessageDto.getRoomId(), chatMessageDto);
     }
 }
