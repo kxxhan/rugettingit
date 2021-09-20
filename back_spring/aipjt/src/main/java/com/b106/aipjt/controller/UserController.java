@@ -24,7 +24,6 @@ public class UserController {
     @GetMapping("")
     public ResponseDto<UserResponseDto> getUser(@RequestHeader(value="User-Id") String userId) {
         User user = userRedisService.findOne(userId);
-        System.out.println(userId);
         return new ResponseDto(
             HttpStatus.OK.value(),
             "유저 조회",
@@ -40,4 +39,11 @@ public class UserController {
             "유저 생성",
             new UserResponseDto(user.getId(), user.getAvatar(), user.getNickname()));
     }
+
+
+    @DeleteMapping("")
+    public void deleteUser(@RequestHeader(value="User-Id") String userId) {
+        userRedisService.remove(userId);
+    }
+
 }
