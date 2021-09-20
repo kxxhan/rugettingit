@@ -21,12 +21,12 @@ public class StompChatController {
     public void enterRoom(ChatMessageDto chatMessageDto) {
         chatMessageDto.setMessage(chatMessageDto.getWriter() + " 두둥 등장!");
         // /topic/chat/room/{roomId}를 구독하는 애들한테 메시지를 퍼블리쉬
-        template.convertAndSend("/topic/chat/room/" + chatMessageDto.getRoomId(), chatMessageDto);
+        template.convertAndSend("/sub/chat/room/" + chatMessageDto.getRoomId(), chatMessageDto);
     }
 
     @MessageMapping(value = "/chat/message")
     public void message(ChatMessageDto chatMessageDto) {
         // /topic/chat/room/{roomId}를 구독하는 애들한테 메시지를 퍼블리쉬
-        template.convertAndSend("/topic/chat/room/" + chatMessageDto.getRoomId(), chatMessageDto);
+        template.convertAndSend("/sub/chat/room/" + chatMessageDto.getRoomId(), chatMessageDto);
     }
 }
