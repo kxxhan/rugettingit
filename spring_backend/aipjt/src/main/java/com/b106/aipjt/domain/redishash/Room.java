@@ -17,7 +17,8 @@ public class Room {
     private Member superUser;
     private boolean isStart = false;
     private int round = 0;
-    private int maxRound = 3;
+    private
+    int maxRound = 3;
     private int roundTime = 60;
     private List<Member> memberList = new ArrayList<>();
 
