@@ -1,12 +1,12 @@
 <template>
   <body>
-    <button id="craeteSession">방만들기</button>
+    <button id="craeteSession" @click="clickCreate">방만들기</button>
     <button id="enterSession">입장하기</button>
   </body>
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   name: 'MainButton',
@@ -17,6 +17,7 @@ export default {
 
   methods: {
     clickCreate: function () {
+<<<<<<< HEAD
       axios({
         method: 'post',
         url: 'api/hi',
@@ -24,6 +25,15 @@ export default {
         console.log(res)
         this.$router.push( { name: 'Lobby'})
       })
+=======
+    //   axios({
+    //     method: 'post',
+    //     url: 'api/hi',
+    //   }).then((res) => {
+    //     console.log(res)
+    //   })
+      this.$router.push({ name : 'Lobby' , params: { room_id : 1}})
+>>>>>>> feature/lobby/fe
     }
   }
 }
