@@ -17,15 +17,6 @@ export default {
 
   methods: {
     clickCreate: function () {
-<<<<<<< HEAD
-      axios({
-        method: 'post',
-        url: 'api/hi',
-      }).then((res) => {
-        console.log(res)
-        this.$router.push( { name: 'Lobby'})
-      })
-=======
     //   axios({
     //     method: 'post',
     //     url: 'api/hi',
@@ -33,7 +24,6 @@ export default {
     //     console.log(res)
     //   })
       this.$router.push({ name : 'Lobby' , params: { room_id : 1}})
->>>>>>> feature/lobby/fe
     }
   }
 }
