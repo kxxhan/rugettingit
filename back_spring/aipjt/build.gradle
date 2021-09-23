@@ -27,7 +27,8 @@ dependencies {
 	implementation 'mysql:mysql-connector-java'
 	// Jpa Hibernate
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	// Dev Tools
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // Dev Tools
 	developmentOnly('org.springframework.boot:spring-boot-devtools')
 	// web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
