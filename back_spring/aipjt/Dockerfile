@@ -1,5 +1,5 @@
 FROM openjdk:11-jdk AS build
-WORKDIR /application
+WORKDIR /app
 
 COPY gradlew .
 COPY gradle gradle
