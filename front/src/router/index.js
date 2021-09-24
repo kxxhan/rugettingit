@@ -4,6 +4,7 @@ import Lobby from "../views/Lobby.vue";
 import GameInit from "../views/GameInit.vue";
 import GamePlay from "../views/GamePlay.vue";
 import GameResult from "../views/GameResult.vue";
+import Chat from "../views/Chat.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/:room_id/result',
     name: 'GameResult',
     component: GameResult
+  },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: Chat
   }
 ];
 
