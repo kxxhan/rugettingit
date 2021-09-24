@@ -15,7 +15,6 @@
 <script>
 import axios from 'axios'
 
-// const API_URL = 'localhost'
 export default {
   name: 'MainButton',
 
@@ -23,18 +22,19 @@ export default {
     clickCreate: function () {
       axios({
         method: 'post',
-        // url: `${API_URL}:8080/api/room/`,
-        url:'http://localhost:8080/api/room/',
+        url: 'http://localhost:8080/api/room',
         data: {
-          "avatar": "/avatar/1",
-          "nickname": "건건"
+          'avatar': `${this.$store.state.avatar}`,
+          'nickname': `${this.$store.state.nickname}`
         }
       }).then((res) => {
         console.log(res)
+      }).catch((err) => {
+        console.log(err)
       })
-      // this.$router.push({ name : 'Lobby' , params: { room_id : 1}})
+
     }
-  }
+  },
 }
 </script>
 
