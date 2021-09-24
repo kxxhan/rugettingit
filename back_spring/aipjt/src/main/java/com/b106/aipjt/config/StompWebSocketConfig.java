@@ -14,7 +14,7 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // WebSocket(또는 SockJS) 클라이언트가 WebSocket 핸드셰이크를 위해
         // 연결해야 하는 엔드포인트의 HTTP URL
-        registry.addEndpoint("/").setAllowedOriginPatterns("*").withSockJS();
+        registry.addEndpoint("/stomp/chat").setAllowedOriginPatterns("*").withSockJS();
     }
 
     @Override
