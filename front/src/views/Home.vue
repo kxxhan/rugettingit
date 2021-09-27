@@ -5,35 +5,40 @@
     </header>
     <h1>서 비 스 명</h1>
     <div class="mainService">
-      <Avatar />
+      <AvatarSetting />
       <Main-button />
     </div>
   </div>
 </template>
 
 <script>
-import Avatar from '../components/setting/Avatar.vue'
+import AvatarSetting from '../components/setting/AvatarSetting.vue'
 import MainButton from '../components/buttons/MainButton.vue'
 import axios from 'axios'
-
+axios.defaults.baseURL = process.env.VUE_APP_API_URL
 export default {
   name: 'Home',
   components: {
-    Avatar,
+    AvatarSetting,
     MainButton
   },
   // mounted: function () 와 동일하게 동작
   mounted() {
     axios({
       method: 'post',
-      url: 'http://localhost:8080/api/user',
+      url: '/user',
       data: {
+        //기본 아바타, 닉네임 설정 할 수 있게 해줘야 한다.
         "avatar": "/avatar/1",
         "nickname": "nickname"
       }
     }).then((res) => {
-      console.log('유저생성',res.data.data)
+      console.log('yes', axios.defaults.baseURL)
+      axios.defaults.headers.common['User-id'] = res.data.data.id
       this.$store.dispatch('setUserData', res.data.data)
+    }).catch((err) => {
+      console.log('no', axios.defaults.baseURL)
+      console.log(err.response)
     })
   }
 }

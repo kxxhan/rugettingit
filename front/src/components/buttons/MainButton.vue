@@ -3,19 +3,22 @@
     <Button
       id="createSession"
       @click="clickCreate"
-      class="p-button-raised p-button-text p-button-secondary"
-      icon="pi pi-apple"
+      class="p-button-raised p-button-text p-button-secondary p-button-lg"
       label="방만들기"
     >
     </Button>
-    <Button id="enterSession">입장하기</Button>
+    <Button
+      id="enterSession"
+      class="p-button-raised p-button-text p-button-secondary p-button-lg"
+    >
+      입장하기
+    </Button>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 
-// const API_URL = 'localhost'
 export default {
   name: 'MainButton',
 
@@ -23,13 +26,15 @@ export default {
     clickCreate: function () {
       axios({
         method: 'post',
-        url: 'http://localhost:8080/api/room',
-        headers: {
-          "avatar": "/avatar/1",
-          "nickname": "asdfasdfasddf"
+        url: '/room',
+        data: {
+          'avatar': `${this.$store.state.avatar}`,
+          'nickname': `${this.$store.state.nickname}`
         }
-      }).then((res) => {
-        console.log(res)
+      }).then(() => {
+        this.$router.push({ name: "Lobby", query: {room: this.$store.state.id} })
+      }).catch((err) => {
+        console.log(err)
       })
 
     }
@@ -42,5 +47,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.p-button-raised {
+  margin-top: 25px !important;
+  margin-left: 25px !important;
 }
 </style>
