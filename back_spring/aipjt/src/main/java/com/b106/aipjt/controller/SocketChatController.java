@@ -20,7 +20,7 @@ public class SocketChatController {
     @MessageMapping(value = "/chat/enter")
     public void enterRoom(ChatMessageDto chatMessageDto) {
         System.out.println(chatMessageDto.getRoomId());
-        chatMessageDto.setMessage(chatMessageDto.getWriter() + " 두둥 등장!");
+        chatMessageDto.setMessage("두둥 등장!");
         // /pub/chat/room/{roomId}를 구독하는 애들한테 메시지를 퍼블리쉬
         template.convertAndSend("/sub/chat/room/" + chatMessageDto.getRoomId(), chatMessageDto);
     }
