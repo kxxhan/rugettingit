@@ -57,12 +57,7 @@ public class RoomRedisService {
             room.getUserList().add(user);
             roomRedisRepository.save(room);
         }
-//        List<User> collect = room.getUserList()
-//            .stream()
-//            .filter(u -> u.getId() == userId)
-//            .collect(Collectors.toList());
-//        collect.add(user);
-//        room.setUserList(collect);
+
         return room;
     }
 
@@ -78,7 +73,11 @@ public class RoomRedisService {
             .filter(u -> u.getId() == userId)
             .collect(Collectors.toList());
         room.setUserList(collect);
-        roomRedisRepository.save(room);
+        if (collect.size() == 0) {
+            roomRedisRepository.delete(room);
+        }else{
+            roomRedisRepository.save(room);
+        }
         return room;
     }
 }
