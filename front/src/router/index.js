@@ -4,7 +4,7 @@ import Lobby from "../views/Lobby.vue";
 import GameInit from "../views/GameInit.vue";
 import GamePlay from "../views/GamePlay.vue";
 import GameResult from "../views/GameResult.vue";
-import Chat from "../views/Chat.vue";
+import Chat from "../views/Chat2.vue";
 
 const routes = [
   {
@@ -34,7 +34,7 @@ const routes = [
   },
   {
     path: '/chat',
-    name: 'Chat',
+    name: 'Chat2',
     component: Chat
   }
 ];
