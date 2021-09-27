@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'Avatar',
+  name: 'AvatarSetting',
   data: function() {
     return {
       nickname : '',
