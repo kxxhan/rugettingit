@@ -5,21 +5,21 @@
     </header>
     <h1>서 비 스 명</h1>
     <div class="mainService">
-      <Avatar />
+      <AvatarSetting />
       <Main-button />
     </div>
   </div>
 </template>
 
 <script>
-import Avatar from '../components/setting/Avatar.vue'
+import AvatarSetting from '../components/setting/AvatarSetting.vue'
 import MainButton from '../components/buttons/MainButton.vue'
 import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_URL
 export default {
   name: 'Home',
   components: {
-    Avatar,
+    AvatarSetting,
     MainButton
   },
   // mounted: function () 와 동일하게 동작
