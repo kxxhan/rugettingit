@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    유저이름: 
-    {{ nickname }}
     내용: <input
       v-model="message"
       type="text"
@@ -10,9 +8,11 @@
     <div
       v-for="(item, idx) in recvList"
       :key="idx"
-    >
-      <h3>유저이름: {{ item.writer }}</h3>
-      <h3>내용: {{ item.message }}</h3>
+    > 
+    <p>
+    {{ item.writer}} {{item.message}}  
+    </p>
+
     </div>
   </div>
 </template>
@@ -49,13 +49,22 @@ export default {
           writer: this.nickname,
           message: this.message
         }
+        JSON.stringify(msg)
         console.log(msg)
-        this.recvList(msg)
-        this.stompClient.send('/pub/chat/message', {}, msg)
+        this.stompClient.send('/pub/chat/message', JSON.stringify(msg))
       }
-    }, 
+    },
+    recv() {
+      this.stompClient.subscribe('/sub/chat/room/' + this.roomId, chat => {
+        // 받은 데이터를 json으로 파싱하고 리스트에 넣어줍니다.
+        this.recvList.push(JSON.parse(chat.body))
+        console.log('구독으로 받은 메시지 입니다.', chat.body)
+      })
+    },
     connect() {
+      // const serverURL = 'http://j5b106.p.ssafy.io:8080/api/stomp/chat'
       const serverURL = 'http://localhost:8080/api/stomp/chat'
+
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
       console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`)
@@ -80,7 +89,7 @@ export default {
               message: this.message 
             }
             console.log(greeting)
-            this.stompClient.send('/pub/chat/enter', {}, greeting)
+            this.stompClient.send('/pub/chat/enter', JSON.stringify(greeting))
           }
         },
         error => {
@@ -95,7 +104,9 @@ export default {
       // 로비에 입장하면 소켓 연결 시도 핸드셰이킹 요청
     console.log('****', this.nickname)
     this.connect()
-  },  
+  },
+  updated() {
+  }
 }
 
 </script>
