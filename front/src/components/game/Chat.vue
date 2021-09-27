@@ -93,6 +93,7 @@ export default {
   },
   created() {
       // 로비에 입장하면 소켓 연결 시도 핸드셰이킹 요청
+    console.log('****', this.nickname)
     this.connect()
   },  
 }
