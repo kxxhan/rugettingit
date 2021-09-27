@@ -62,7 +62,7 @@ export default {
       })
     },
     connect() {
-      const serverURL = 'http://j5b106.p.ssafy.io:8080/api/stomp/chat'
+      const serverURL = 'https://j5b106.p.ssafy.io:8080/api/stomp/chat'
       // const serverURL = 'http://localhost:8080/api/stomp/chat'
 
       let socket = new SockJS(serverURL);
