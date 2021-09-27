@@ -17,8 +17,4 @@ public class AipjtApplication {
             .run(args);
     }
 
-//	public static void main(String[] args) {
-//		SpringApplication.run(AipjtApplication.class, args);
-//	}
-
 }
