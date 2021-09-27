@@ -5,7 +5,6 @@ import com.b106.aipjt.domain.dto.user.UserCreateDto;
 import com.b106.aipjt.domain.dto.user.UserResponseDto;
 import com.b106.aipjt.domain.redishash.User;
 import com.b106.aipjt.service.UserRedisService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

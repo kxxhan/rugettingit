@@ -18,12 +18,12 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String img_url;
-    private String img_caption;
+    private String imgUrl;
+    private String imgCaption;
 
-    public Question(String img_url, String img_caption) {
-        this.img_url = img_url;
-        this.img_caption = img_caption;
+    public Question(String imgUrl, String imgCaption) {
+        this.imgUrl = imgUrl;
+        this.imgCaption = imgCaption;
     }
 
 
