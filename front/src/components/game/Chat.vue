@@ -29,7 +29,7 @@ export default {
     return {
       roomId: this.$route.query.room,
       nickname: this.$store.state.nickname,
-      message: "",
+      message: '',
       recvList: []
     }
   },
