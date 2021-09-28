@@ -8,7 +8,12 @@
       <div class="hi">
         아바타설정
       </div>
-      <Avatar class="avatar" :image="require(`@/assets/avatar/${avatar}.png`)" size="xlarge" shape="circle" />
+      <Avatar 
+        class="avatar" 
+        :image="require(`@/assets/avatar/${avatar}.png`)" 
+        size="xlarge" 
+        shape="circle" 
+      />
       <!-- 여기 우측 화살표 -->
 
       <div class="p-float-label why">
@@ -19,7 +24,15 @@
           @input="setNickName"
         >
         </InputText>
-        <label for="username">Nickname</label>
+        <label v-if="nickname.length"
+        for="username">
+        <!-- 닉네임이 있는 경우 닉네임 -->
+        {{ nickname }}
+        </label>
+        <label v-else>
+        <!-- 없으면 default 값 노출 -->
+          Nickname
+        </label>
       </div>
     </div>
   </div>
@@ -33,7 +46,8 @@ export default {
   name: 'AvatarSetting',
   data: function() {
     return {
-      nickname : '',
+      // 로컬 스토리지에 저장된 닉네임 불러오기
+      nickname : this.$store.state.nickname,
       avatar: 0,
       avatarCount: 28 // 이미지 개수만큼 여기만 수정하면 됨
     }
@@ -57,6 +71,10 @@ export default {
       this.$store.dispatch('setNickName', this.nickname)
     }
   },
+  created: function () {
+    // 접속시 아바타 랜덤 설정
+    this.randomAvatar()
+  }
 }
 </script>
 
