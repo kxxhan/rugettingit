@@ -57,7 +57,7 @@ public class RoomRedisService {
         // 퇴장을 위한 필터링
         List<User> collect = room.getUserList()
             .stream()
-            .filter(u -> u.getId() == userId)
+            .filter(u -> !u.getId().equals(userId))
             .collect(Collectors.toList());
         room.setUserList(collect);
         if (collect.size() == 0) {
