@@ -1,6 +1,6 @@
 package com.b106.aipjt.domain.dto.room;
 
-import com.b106.aipjt.domain.redishash.User;
+import com.b106.aipjt.domain.redishash.Room;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,5 +24,16 @@ public class RoomResponseDto {
     private int roundTime = 60;
     @Builder.Default
     private List<RoomUserResponseDto> userList = new ArrayList<>();
+
+
+
+    public static RoomResponseDto toRoom(Room room, List<RoomUserResponseDto> roomUsers) {
+        return RoomResponseDto.builder().id(room.getId())
+            .currentRound(room.getCurrentRound())
+            .maxRound(room.getMaxRound())
+            .roundTime(room.getRoundTime())
+            .userList(roomUsers)
+            .build();
+    }
 
 }
