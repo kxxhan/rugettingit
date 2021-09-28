@@ -144,7 +144,7 @@ export default {
       while(n--) {
         u8arr[n] = bstr.charCodeAt(n)
       }
-      var file = new File([u8arr], "image", {type:"mine"})
+      var file = new File([u8arr], "image1111", {type:"mine"})
       console.log(file)
 
       let form = new FormData()
