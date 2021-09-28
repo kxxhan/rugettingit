@@ -27,7 +27,18 @@ public class RoomRedisService {
         Room room = roomRedisRepository.save(new Room(null, result.get()));
         return roomRedisRepository.save(room);
     }
+    // 방 수정
+    public Room configRoom(String userId, String roomId, int maxRound, int roundTime) {
+        Optional<Room> roomById = roomRedisRepository.findById(roomId);
+        if (roomById.isEmpty()) throw new RuntimeException("방이 존재하지 않습니다.");
+        Room room = roomById.get();
+        if (!room.getSuperUser().getId().equals(userId)) throw new RuntimeException("방장만 방을 변경할 수 있습니다.");
+        if (room.isStart()) throw new RuntimeException("게임중에는 방 설정을 변경할 수 없습니다.");
 
+        room.setMaxRound(maxRound);
+        room.setRoundTime(roundTime);
+        return roomRedisRepository.save(room);
+    }
 
     // 방 입장
     public Room joinRoom(String userId, String roomId) {
@@ -73,4 +84,6 @@ public class RoomRedisService {
         }
         return room;
     }
+
+
 }
