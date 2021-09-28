@@ -10,9 +10,6 @@
         <LobbyButton />
       </div>
     </div>
-    <div>
-      <Chat />
-    </div>
   </div>
 </template>
 
@@ -21,14 +18,12 @@
 import LobbyButton from '@/components/buttons/LobbyButton.vue'
 import GameSetting from '@/components/setting/GameSetting.vue'
 import UserList from '@/components/user/UserList.vue'
-import Chat from '@/components/game/Chat.vue'
 
 export default {
   components: {
     GameSetting,
     LobbyButton,
     UserList,
-    Chat
   },
   name: 'Lobby',
   data() {
