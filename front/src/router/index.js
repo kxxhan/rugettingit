@@ -19,8 +19,8 @@ const routes = [
     component: Game
   },
   {
-    path: '/lobby',
-    name: 'Lobby',
+    path: "/lobby",
+    name: "Lobby",
     component: Lobby
   },
   {
@@ -28,6 +28,10 @@ const routes = [
     name: 'GamePlay',
     component: GamePlay
   },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: { name: "Home"}
+  }
   // {
   //   path: '/:room_id/init',
   //   name: 'GameInit',

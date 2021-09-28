@@ -2,13 +2,14 @@
   <div class="mainButtonBody">
     <Button
       id="createSession"
-      @click="clickCreate"
+      @click="clickCreateSession"
       class="p-button-raised p-button-text p-button-secondary p-button-lg"
       label="방만들기"
     >
     </Button>
     <Button
       id="enterSession"
+      @click="clickEnterSession"
       class="p-button-raised p-button-text p-button-secondary p-button-lg"
     >
       입장하기
@@ -23,7 +24,7 @@ export default {
   name: 'MainButton',
 
   methods: {
-    clickCreate: function () {
+    clickCreateSession: function () {
       axios({
         method: 'post',
         url: '/room',
@@ -31,13 +32,20 @@ export default {
           'avatar': `${this.$store.state.avatar}`,
           'nickname': `${this.$store.state.nickname}`
         }
-      }).then(() => {
-        this.$router.push({ name: "Game", query: {room: this.$store.state.id} })
-        // this.$router.push({ name: "Lobby", query: {room: this.$store.state.id} })
+      }).then((res) => {
+        this.$store.dispatch('setRoomId', res.data.data.id)
+        this.$router.push({ name: "Game", query: {room: res.data.data.id} })
+        console.log(res)
       }).catch((err) => {
         console.log(err)
       })
-
+    },
+    clickEnterSession: function () {
+      if (this.$store.state.roomId) {
+        this.$router.push( {name : 'Game', query: {room: this.$store.state.roomId}})
+      } else {
+        // roomId가 없어요! Random 방 입장
+      }
     }
   },
 }

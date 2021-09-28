@@ -1,17 +1,11 @@
 <template>
   <div class="lobbyBody">
-    <header>
-      <img alt="Vue logo" src="@/assets/ccc.png" height="200" width="200">
-    </header>
     <div class="lobbyComponents">
       <UserList />
       <div class="gameBody">
         <GameSetting />
         <LobbyButton />
       </div>
-    </div>
-    <div>
-      <Chat />
     </div>
   </div>
 </template>
@@ -21,14 +15,12 @@
 import LobbyButton from '@/components/buttons/LobbyButton.vue'
 import GameSetting from '@/components/setting/GameSetting.vue'
 import UserList from '@/components/user/UserList.vue'
-import Chat from '@/components/game/Chat.vue'
 
 export default {
   components: {
     GameSetting,
     LobbyButton,
     UserList,
-    Chat
   },
   name: 'Lobby',
   data() {
@@ -38,7 +30,8 @@ export default {
   methods: {
   },
   created() {
-  },  
+    // console.log('query test', this.$route.query.room)
+  },
 }
 
 </script>
