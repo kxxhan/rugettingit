@@ -5,6 +5,7 @@ import Lobby from "@/components/game/Lobby.vue";
 import Game from "@/views/Game.vue"
 // import GameInit from "../views/GameInit.vue";
 // import GamePlay from "../views/GamePlay.vue";
+import GamePlay from "@/components/game/GamePlay.vue"
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     path: '/lobby',
     name: 'Lobby',
     component: Lobby
+  },
+  {
+    path: '/gameplay',
+    name: 'GamePlay',
+    component: GamePlay
   },
   // {
   //   path: '/:room_id/init',
