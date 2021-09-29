@@ -62,7 +62,7 @@
         <div class="controls_color jsColor" style="background-color: #0579ff;"></div>
         <div class="controls_color jsColor" style="background-color: #5856d6;"></div>
       </div>
-      <ColorPicker v-model="ctxcolor"/>
+      <ColorPicker v-model="ctxcolor" />
     </div>
   </body>
 </template>
