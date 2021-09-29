@@ -144,17 +144,29 @@ export default {
       while(n--) {
         u8arr[n] = bstr.charCodeAt(n)
       }
-      var file = new File([u8arr], "image1111", {type:"mine"})
+
+      let today = new Date()
+
+      let year = today.getFullYear()
+      let month = today.getMonth() + 1
+      let date = today.getDate()
+      let hours = today.getHours(); // 시
+      let minutes = today.getMinutes();  // 분
+      let seconds = today.getSeconds();  // 초
+
+      let imgname = year + '-' + month + '-' + date + '-' + hours + '-' + minutes + '-' + seconds
+
+      var file = new File([u8arr], imgname, {type:"mine"})
       console.log(file)
 
       let form = new FormData()
       form.append('file', file)
       console.log(form)
       axios.post('/question', form, {
-          header: { 'Content-Type': 'multipart/form-data' }
+        header: { 'Content-Type': 'multipart/form-data' }
       })
-      .then((res) => {console.log(res)})
-      .catch((err) => {console.log(err)})
+        .then((res) => {console.log(res)})
+        .catch((err) => {console.log(err)})
 
       link.download = "kons example"
       // fake click
