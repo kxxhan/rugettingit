@@ -17,8 +17,8 @@
           type="range"
           id="jsRange"
           min="0.1"
-          max="5.0"
-          value="2.5"
+          max="15.0"
+          value="7.5"
           step="0.1"
         />
       </div>
@@ -41,6 +41,12 @@
         >
           Save
         </button>
+        <button
+          @click="handleEraserClick"
+          id="jsEraser"
+        >
+          Eraser
+        </button>
       </div>
       <div
         id="jsColors"
@@ -56,6 +62,7 @@
         <div class="controls_color jsColor" style="background-color: #0579ff;"></div>
         <div class="controls_color jsColor" style="background-color: #5856d6;"></div>
       </div>
+      <ColorPicker v-model="ctxcolor"/>
     </div>
   </body>
 </template>
@@ -76,6 +83,9 @@ export default {
       range : undefined,
       mode : undefined,
       saveBtn : undefined,
+
+      //
+      ctxcolor : "#2c2c2c",
 
       painting : false,
       filling : false,
@@ -101,10 +111,19 @@ export default {
         this.ctx.stroke()
       }
     },
+    // Color 클릭
     handleColorClick: function (event) {
+      // console.log(event.target)
       const color = event.target.style.backgroundColor
+      console.log(color)
       this.ctx.strokeStyle = color
       this.ctx.fillStyle = color
+    },
+    // ColorPicker 클릭
+    handleColorPickerClick: function () {
+      console.log(this.ctxcolor)
+      this.ctx.strokeStyle = '#' + this.ctxcolor
+      this.ctx.fillStyle = this.ctxcolor
     },
     handleRangeChange: function (event) {
       const size = event.target.value
@@ -137,9 +156,9 @@ export default {
       // console.log(this.canvas)
       // console.log(image)
       // console.log(link)
-      var bstr = atob(image.split(",")[1])
-      var n = bstr.length
-      var u8arr = new Uint8Array(n)
+      let bstr = atob(image.split(",")[1])
+      let n = bstr.length
+      let u8arr = new Uint8Array(n)
 
       while(n--) {
         u8arr[n] = bstr.charCodeAt(n)
@@ -174,6 +193,14 @@ export default {
     },
     handleClearClick: function () {
       this.ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE)
+    },
+    // handleEraserClick: function () {
+    //   this.ctx.fill
+    // }
+  },
+  watch: {
+    ctxcolor() {
+      this.handleColorPickerClick()
     }
   },
   mounted: function() {
@@ -181,7 +208,6 @@ export default {
     this.ctx = this.canvas.getContext("2d")
     this.colors = document.getElementsByClassName("jsColor")
     this.mode = document.getElementById("jsMode")
-    console.log(this.mode)
     // color 선택 이벤트
     if (this.colors) {
       Array.from(this.colors).forEach(color => color.addEventListener("click", this.handleColorClick))
@@ -194,7 +220,7 @@ export default {
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
     this.ctx.strokeStyle = INITIAL_COLOR
     this.ctx.fillStyle = INITIAL_COLOR
-    this.ctx.lineWidth = 2.5
+    this.ctx.lineWidth = 7.5
   }
 }
 </script>
@@ -255,8 +281,8 @@ body {
 }
 
 .controls_colors .controls_color {
-  width: 50px;
-  height: 50px;
+  width: 50px !important;
+  height: 50px !important;
   border-radius: 25px;
   cursor: pointer;
   box-shadow: 0 4px 6px rgb(50 50 93 / 11%), 0 1px 3px rgb(0 0 0 / 8%);

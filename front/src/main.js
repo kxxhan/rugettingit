@@ -10,6 +10,7 @@ import InputText from 'primevue/inputtext'
 import Avatar from 'primevue/avatar'
 import ScrollTop from 'primevue/scrolltop'
 import ScrollPanel from 'primevue/scrollpanel'
+import ColorPicker from 'primevue/colorpicker'
 
 import 'primevue/resources/themes/saga-blue/theme.css'       //theme
 import 'primevue/resources/primevue.min.css'       //core css
@@ -24,6 +25,7 @@ app.component('InputText', InputText)
 app.component('Avatar', Avatar)
 app.component('ScrollTop', ScrollTop)
 app.component('ScrollPanel', ScrollPanel)
+app.component('ColorPicker', ColorPicker)
 
 app.mount('#app')
 
