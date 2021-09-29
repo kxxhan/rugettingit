@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class QuestionService {
     private QuestionRepository questionRepository;
-    private S3UploadService s3UploadService;
     // DB에 저장
     public void saveImage(QuestionDto questionDto) {
         questionRepository.save(questionDto.toEntity());
@@ -21,6 +20,7 @@ public class QuestionService {
 
     public List<QuestionDto> getList() {
         List<Question> questionEntityList = questionRepository.findAll();
+        System.out.println("@QuestionDto getList: "+questionEntityList);
         List<QuestionDto> questionDtoList = new ArrayList<>();
         // dto 객체 사용을 위해 entity 객체를 dto로 변환?
         for (Question question : questionEntityList) {
@@ -31,8 +31,8 @@ public class QuestionService {
 
     private QuestionDto convertEntityToDto(Question question) {
         return QuestionDto.builder()
-            .imgName(question.getImgName())
-            .imgFullPath(s3UploadService.CLOUD_FRONT_DOMAIN_NAME + "/" + question.getImgName())
+            .imgUrl(question.getImgUrl())
+            .imgCaption(question.getImgCaption())
             .build();
     }
 
