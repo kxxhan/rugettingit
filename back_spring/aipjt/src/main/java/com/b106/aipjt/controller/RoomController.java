@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -44,11 +43,9 @@ public class RoomController {
 
         RoomResponseDto build = RoomResponseDto.toRoom(room, roomUsers);
         System.out.println(build.getUserList());
+
         return new ResponseDto<>(HttpStatus.CREATED.value(), "방 수정 성공", build);
     }
-
-
-
 
     // 유저의 방 입장 : 여기서 id만 보내는게 아니라 아바타랑 닉네임도 보내야 함
     // RoomEnterRequestDto를 수정할 것. 실제로 백에 보내는 요청은 굳이 Param으로 보낼 필요 없으니 Body로 빼도 될듯
@@ -64,7 +61,13 @@ public class RoomController {
         RoomResponseDto build = RoomResponseDto.toRoom(room, roomUsers);
 
         // 방에 있는 다른 사람들에게 다시 방객체 정보 publish
-        template.convertAndSend("/sub/chat/room/" + build.getId(), build);
+        roomRedisService.makeRoomInfoMessage(build);
+
+//        MessageDto messageDto = new MessageDto();
+//        messageDto.setRoomId(build.getId());
+//        messageDto.setMessageTypeCode(MessageTypeCode.ROOM_INFO);
+//        messageDto.setMessage(build.toString());
+//        template.convertAndSend("/sub/chat/room/" + messageDto.getRoomId(), messageDto);
         // 3. RoomResponseDto를 리턴
         return new ResponseDto<>(HttpStatus.OK.value(), "방 입장 성공", build);
     }
@@ -82,7 +85,9 @@ public class RoomController {
         RoomResponseDto build = RoomResponseDto.toRoom(room, roomUsers);
 
         // 방에 있는 다른 사람들에게 다시 방객체 정보 publish
-        template.convertAndSend("/sub/chat/room/" + room.getId(), build);
+        roomRedisService.makeRoomInfoMessage(build);
         return new ResponseDto<>(HttpStatus.OK.value(), "멤버 퇴장", build);
     }
+
+
 }

@@ -1,12 +1,16 @@
 package com.b106.aipjt.service;
 
+import com.b106.aipjt.domain.dto.room.RoomResponseDto;
+import com.b106.aipjt.domain.dto.socket.ChatMessageDto;
+import com.b106.aipjt.domain.dto.socket.MessageTypeCode;
+import com.b106.aipjt.domain.dto.socket.RoomInfoMessageDto;
 import com.b106.aipjt.domain.redishash.Room;
-import com.b106.aipjt.domain.redishash.Round;
 import com.b106.aipjt.domain.redishash.User;
 import com.b106.aipjt.domain.repository.RoomRedisRepository;
 import com.b106.aipjt.domain.repository.RoundRedisRepository;
 import com.b106.aipjt.domain.repository.UserRedisRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +23,7 @@ public class RoomRedisService {
     private final UserRedisRepository userRedisRepository;
     private final RoundRedisRepository roundRedisRepository;
     private final RoomRedisRepository roomRedisRepository;
-
+    private final SimpMessagingTemplate template; // socket 메시지 주고받기용
     // 방 생성
     public Room createRoom(String userId) {
         Optional<User> result = userRedisRepository.findById(userId);
@@ -84,6 +88,11 @@ public class RoomRedisService {
         }
         return room;
     }
-
+    public void makeRoomInfoMessage(RoomResponseDto room) {
+        RoomInfoMessageDto messageDto = new RoomInfoMessageDto();
+        messageDto.setRoomId(room.getId());
+        messageDto.setMessage(room);
+        template.convertAndSend("/sub/chat/room/" + messageDto.getRoomId(), messageDto);
+    }
 
 }
