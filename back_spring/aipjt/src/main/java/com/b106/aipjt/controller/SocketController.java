@@ -4,20 +4,23 @@ import com.b106.aipjt.domain.dto.socket.ChatMessageDto;
 import com.b106.aipjt.domain.dto.socket.ImageMessageDto;
 import com.b106.aipjt.domain.dto.socket.MessageTypeCode;
 import com.b106.aipjt.domain.dto.socket.RoomInfoMessageDto;
+import com.b106.aipjt.domain.redishash.Room;
+import com.b106.aipjt.domain.repository.RoomRedisRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.util.Optional;
+
 @Controller
+@RequiredArgsConstructor
 public class SocketController {
 
     private final SimpMessagingTemplate template;
-
-    @Autowired
-    public SocketController(SimpMessagingTemplate template) {
-        this.template = template;
-    }
+    private final RoomRedisRepository roomRedisRepository;
 
     // prefix로 pub 설정이 되어있으므로 /pub/chat/enter로 퍼블리쉬 요청이 오는 것
     @MessageMapping(value = "/chat/enter")
@@ -43,15 +46,23 @@ public class SocketController {
     }
 
     // /pub/room/info로 퍼블리쉬 요청오면 client.send 오면 현재 방 정보 전체에게 퍼블리쉬
-    @MessageMapping(value =  "/room/info")
+    @MessageMapping(value = "/room/info")
     public void roomInfo(RoomInfoMessageDto messageDto) {
         // 방장인지 체크하고 맞으면 뿌려주는 로직 추가
-        template.convertAndSend("/sub/chat/room/" + messageDto.getRoomId(), messageDto);
+        // Service layer 만들어 줘야 하나 고민
+        Optional<Room> room = roomRedisRepository.findById(messageDto.getRoomId());
+        if (room.isPresent() && messageDto.getSuperUserId().equals(room.get().getSuperUser())) {
+            template.convertAndSend("/sub/room_info/room/" + messageDto.getRoomId(), messageDto);
+        }
+        else {
+            throw new IllegalStateException("방장이 아니거나 존재하지 않는 방입니다.");
+        }
     }
 
     @MessageMapping(value =  "/image")
     public void imageCaption(ImageMessageDto messageDto) {
         // 이미지 전달되면 실행될 메서드 구현 필요
-        // template.convertAndSend("/sub/chat/room/" + messageDto.getRoomId(), messageDto);
+        // 해당 룸에 참여한 사용자들을 위한 이미지가
+         template.convertAndSend("/sub/image/room/" + messageDto.getRoomId(), messageDto);
     }
 }
