@@ -29,8 +29,6 @@ public class GameService {
     private final RoomRedisRepository roomRedisRepository;
     private final SkipRedisRepository skipRedisRepository;
 
-    private final String ROOM_PREFIX = "room/";
-
 
     // 에러 발생 시 캐치해서 방장한테만 알려주기 위해 동기로 동작하도록 작성
     public boolean gameExecute(String userId, String roomId) {
@@ -96,10 +94,11 @@ public class GameService {
             log.error(round.toString());
             log.error("========================라운드 시작 메시지 전달===========================");
             // 방을 담아서 라운드 시작 메시지를 보낸다
-            template.convertAndSend(ROOM_PREFIX+room.getId(), "방객체");
+            String ROOM_PREFIX = "room/";
+            template.convertAndSend(ROOM_PREFIX +room.getId(), "방객체");
             log.error("========================라운드 시작 : 슬립===========================");
             // 라운드 진행시간동안 잔다
-            Thread.sleep(room.getRoundTime()*1000);
+            Thread.sleep(room.getRoundTime()* 1000L);
 
             log.error("========================라운드 시작 : 슬립 종료===========================");
             // 라운드 종료 -> 이제부터 사이시간
@@ -113,7 +112,7 @@ public class GameService {
             log.error("========================사이시간 & 스킵 객체 메시지 전달===========================");
             // 방객체와 스킵 객체id를 보내준다.
             // 사실 여기서 위에서 조회한 정답도 같이 보내줘야 한다.
-            template.convertAndSend(ROOM_PREFIX+room.getId(), "방객체와 슬립객체");
+            template.convertAndSend(ROOM_PREFIX +room.getId(), "방객체와 슬립객체");
             log.error("========================사이시간 & 스킵 객체 메시지 전달 끝===========================");
             log.error("========================사이시간 슬립===========================");
             // 사이시간동안 잔다
