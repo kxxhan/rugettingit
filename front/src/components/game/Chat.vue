@@ -10,11 +10,11 @@
       class="custom"
     >
       <div
-        v-for="(item, idx) in recvList"
+        v-for="(chat, idx) in chatList"
         :key="idx"
       >
         <p>
-          {{ item.writer }} {{ item.message }}
+          {{ chat.writer }} {{ chat.message }}
         </p>
         <ScrollTop />
       </div>
@@ -35,14 +35,15 @@ export default {
       roomId: this.$route.query.room,
       nickname: this.$store.state.nickname,
       message: '',
-      recvList: []
+      chatList: [],
+      roomInfo: {},
     }
   },
   methods: {
     sendMessage (e) {
       if(e.keyCode === 13 && this.userName !== '' && this.message !== ''){
         this.send()
-        //console.log('recieve list', this.recvList)
+        //console.log('recieve list', this.chatList)
         this.message = ''
       }
     },
@@ -59,19 +60,13 @@ export default {
         this.stompClient.send('/pub/chat/message', JSON.stringify(msg))
       }
     },
-    recv() {
-      this.stompClient.subscribe('/sub/chat/room/' + this.roomId, chat => {
-        // 받은 데이터를 json으로 파싱하고 리스트에 넣어줍니다.
-        this.recvList.push(JSON.parse(chat.body))
-        //console.log('구독으로 받은 메시지 입니다.', chat.body)
-      })
-    },
     connect() {
       const serverURL = 'https://j5b106.p.ssafy.io:443/stomp/chat'
       // const serverURL = 'http://localhost:8080/api/stomp/chat'
 
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
+      this.$store.state.stompClient = this.stompClient;
       //console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`)
       this.stompClient.connect(
         {},
@@ -84,7 +79,17 @@ export default {
           //console.log('roomID:' + this.roomId)
           this.stompClient.subscribe('/sub/chat/room/' + this.roomId, chat => {
             // 받은 데이터를 json으로 파싱하고 리스트에 넣어줍니다.
-            this.recvList.push(JSON.parse(chat.body))
+            let recvData = JSON.parse(chat.body)
+            switch (recvData.code) {
+              case 'ROOM_INFO':
+                console.log('방정보 업데이트 받음')
+                this.roomInfo = recvData.message
+                break
+              case 'DRAWING':
+                break
+              default:
+                this.chatList.push(recvData)
+            }
             //console.log('구독으로 받은 메시지 입니다.', chat.body)
           })
           if (this.stompClient && this.stompClient.connected) {
