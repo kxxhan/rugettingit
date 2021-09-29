@@ -80,23 +80,8 @@ export default {
           this.stompClient.subscribe('/sub/chat/room/' + this.roomId, chat => {
             // 받은 데이터를 json으로 파싱하고 리스트에 넣어줍니다.
             let recvData = JSON.parse(chat.body)
-<<<<<<< HEAD
             this.chatList.push(recvData)
             })
-=======
-            switch (recvData.code) {
-            case 'ROOM_INFO':
-              console.log('방정보 업데이트 받음')
-              this.roomInfo = recvData.message
-              break
-            case 'DRAWING':
-              break
-            default:
-              this.chatList.push(recvData)
-            }
-            //console.log('구독으로 받은 메시지 입니다.', chat.body)
-          })
->>>>>>> 764eed7edd5ba0fcf8d831fe715573376b19ec45
           if (this.stompClient && this.stompClient.connected) {
             const greeting = {
               roomId: this.roomId,
