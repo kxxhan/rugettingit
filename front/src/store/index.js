@@ -6,7 +6,8 @@ export default createStore({
     id: '',
     avatar: '',
     nickname: 'nickname',
-    roomId: ''
+    roomId: '',
+    stompClient: ''
   },
   mutations: {
     SET_USERDATA: function (state, data) {
@@ -23,6 +24,9 @@ export default createStore({
     SET_AVATAR: function (state, data) {
       state.avatar = data
     },
+    SET_STOMP_CLIENT: function(state, data) {
+      state.stompClient = data
+    }
   },
   actions: {
     setUserData: function(context, data) {
@@ -36,7 +40,11 @@ export default createStore({
     },
     setAvatar: function(context, data) {
       context.commit('SET_AVATAR', data)
+    },
+    setStompClient: function(context, data) {
+      context.commit('SET_STOMP_CLIENT', data)
     }
+    
   },
   modules: {
   },

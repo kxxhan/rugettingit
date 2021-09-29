@@ -49,6 +49,11 @@
         @click="timer_idx += 1"
       >
       </Button>
+      <Button
+        @click="roomUpdate"
+        >
+        테스트
+      </Button>
     </div>
     <div class="set">
       커스텀 사용
@@ -82,9 +87,27 @@ export default {
       timer_idx: 999,
       is_custom: {0:true, 1:false},
       is_custom_idx: 999,
+      stompClient: this.$store.state.stompClient,
+      roomId: this.$store.state.roomId,
     }
   },
-
+  methods: {
+    // 룸 정보 변경하는 클릭 이벤트 발생할때 마다 실행 
+    roomUpdate: function() { 
+      console.log("방정보 업데이트")
+      // v-model같은걸로 서로...와따가따가능하게
+      const roomInfo = {
+        maxRound: 0,
+        roundTime: 0
+      }
+      const message = {
+        roomId: this.roomId,
+        message: roomInfo
+      }
+      console.log(message)
+      this.stompClient.send('/pub/room/info', JSON.stringify(message))
+    }
+  }
 }
 </script>
 

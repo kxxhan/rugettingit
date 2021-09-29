@@ -45,6 +45,7 @@ public class SocketController {
     // /pub/room/info로 퍼블리쉬 요청오면 client.send 오면 현재 방 정보 전체에게 퍼블리쉬
     @MessageMapping(value =  "/room/info")
     public void roomInfo(RoomInfoMessageDto messageDto) {
+        // 방장인지 체크하고 맞으면 뿌려주는 로직 추가
         template.convertAndSend("/sub/chat/room/" + messageDto.getRoomId(), messageDto);
     }
 
