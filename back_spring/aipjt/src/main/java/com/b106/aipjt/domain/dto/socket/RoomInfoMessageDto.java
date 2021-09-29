@@ -9,6 +9,6 @@ import lombok.Setter;
 public class RoomInfoMessageDto {
     private String roomId;
     private MessageTypeCode code = MessageTypeCode.ROOM_INFO;
-    private String writer;
+    private String superUserId;
     private RoomResponseDto message;
 }

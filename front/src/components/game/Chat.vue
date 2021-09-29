@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import Stomp from 'webstomp-client'
-import SockJS from 'sockjs-client'
+// import Stomp from 'webstomp-client'
+// import SockJS from 'sockjs-client'
 
 export default {
   components: {
@@ -61,44 +61,34 @@ export default {
       }
     },
     connect() {
-      const serverURL = 'https://j5b106.p.ssafy.io:443/stomp/chat'
+      // const serverURL = 'https://j5b106.p.ssafy.io:443/stomp/chat'
       // const serverURL = 'http://localhost:8080/api/stomp/chat'
 
-      let socket = new SockJS(serverURL);
-      this.stompClient = Stomp.over(socket);
-      this.$store.state.stompClient = this.stompClient;
+      // let socket = new SockJS(serverURL);
+      // this.stompClient = Stomp.over(socket);
+      this.stompClient = this.$store.state.stompClient
       //console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`)
       this.stompClient.connect(
         {},
         frame => {
           // 소켓 연결 성공
           this.connected = true
-          console.log('소켓 연결 성공', frame)
+          console.log('채팅 소켓 연결 성공', frame)
           // 서버의 메시지 전송 endpoint를 구독합니다.
           // 이런형태를 pub sub 구조라고 합니다.
           //console.log('roomID:' + this.roomId)
           this.stompClient.subscribe('/sub/chat/room/' + this.roomId, chat => {
             // 받은 데이터를 json으로 파싱하고 리스트에 넣어줍니다.
             let recvData = JSON.parse(chat.body)
-            switch (recvData.code) {
-              case 'ROOM_INFO':
-                console.log('방정보 업데이트 받음')
-                this.roomInfo = recvData.message
-                break
-              case 'DRAWING':
-                break
-              default:
-                this.chatList.push(recvData)
-            }
-            //console.log('구독으로 받은 메시지 입니다.', chat.body)
-          })
+            this.chatList.push(recvData)
+            })
           if (this.stompClient && this.stompClient.connected) {
             const greeting = {
               roomId: this.roomId,
               writer: this.nickname,
               message: this.$store.state.message || this.message
             }
-            //console.log(greeting)
+            console.log(greeting)
             this.stompClient.send('/pub/chat/enter', JSON.stringify(greeting))
           }
         },
@@ -111,8 +101,6 @@ export default {
     }
   },
   created() {
-    // 로비에 입장하면 소켓 연결 시도 핸드셰이킹 요청
-    // console.log('****', this.nickname)
     this.connect()
   },
   updated() {

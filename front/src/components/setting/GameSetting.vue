@@ -105,11 +105,12 @@ export default {
       }
       const message = {
         roomId: this.roomId,
+        superUserId: this.$store.state.id,
         message: roomInfo
       }
       console.log(message)
       this.$store.dispatch('setMessage', message)
-      this.stompClient.send('/pub/room/info', JSON.stringify(message))
+      // this.stompClient.send('/pub/room/info', JSON.stringify(message))
     }
   }
 }
