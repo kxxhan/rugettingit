@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,11 +27,14 @@ SECRET_KEY = "django-insecure--_-*@)-nb_pkc5^l(&#(3yhaa84ficxe-lmqr&%-((ku#xx1#8
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders', # CORS
+
     "rest_framework",  # DRF
     "imagekit",  # django-imagekit
     "storages",  # s3 업로드
@@ -44,14 +48,19 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    
+    # cors middleware
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     # "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 
 ROOT_URLCONF = "django_backend.urls"
 
@@ -82,9 +91,9 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "ssafydb",
         "USER": "root",
-        "PASSWORD": "1111",
+        "PASSWORD": "ssafy",
         "HOST": "127.0.0.1",
-        "PORT": "3307",
+        "PORT": "3306",
     }
 }
 
