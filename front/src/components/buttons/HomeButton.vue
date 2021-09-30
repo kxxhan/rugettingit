@@ -18,14 +18,18 @@
 </template>
 
 <script>
+import {soundEffect} from '../api/sound.js'
 export default {
   name: 'MainButton',
 
   methods: {
+<<<<<<< front/src/components/buttons/HomeButton.vue
     createRoom: function () {
+      soundEffect('http://soundbible.com/mp3/sms-alert-1-daniel_simon.mp3')  // 소리는 쓰고싶은거 어디 올려놓고 써도 될거같음
       this.$store.dispatch("createRoom")
     },
     enterRoom: function () {
+      soundEffect('http://soundbible.com/mp3/sms-alert-1-daniel_simon.mp3')
       if (this.$store.state.roomId) {
         this.$router.push( {name : 'Game', query: {room: this.$store.state.roomId}})
       } else {
