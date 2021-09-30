@@ -99,6 +99,5 @@ export default createStore({
     }
   },
   modules: {},
-  modules: {},
   plugins: [createPersistedState()]
 });
