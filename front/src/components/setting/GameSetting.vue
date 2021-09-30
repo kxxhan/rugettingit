@@ -75,8 +75,7 @@
 </template>
 
 <script>
-// import Stomp from 'webstomp-client'
-// import SockJS from 'sockjs-client'
+import axios from'axios'
 
 export default {
   name: 'GameSetting',
@@ -97,20 +96,28 @@ export default {
   methods: {
     // 룸 정보 변경하는 클릭 이벤트 발생할때 마다 실행
     roomUpdate: function() {
-      console.log("방정보 업데이트")
       // v-model같은걸로 서로...와따가따가능하게
       const roomInfo = {
         maxRound: this.rounds[this.rounds_idx%3],
         roundTime: this.timer[this.timer_idx%3]
       }
-      const message = {
-        roomId: this.roomId,
-        superUserId: this.$store.state.id,
-        message: roomInfo
-      }
-      console.log(message)
-      this.$store.dispatch('setMessage', message)
-      // this.stompClient.send('/pub/room/info', JSON.stringify(message))
+      this.$store.dispatch('setMessage', roomInfo)
+      console.log('게임세팅에서 소켓에 보낼 메시지 세팅, state에 저장', roomInfo)
+      axios({
+        method: 'patch',
+        url: '/room',
+        data: {
+          maxRound: this.$store.state.roomInfo.maxRound,
+          roundTime:this.$store.state.roomInfo.roundTime,
+        },
+        params: {
+          roomId: this.$store.state.roomId
+        }
+      }).then((res) => {
+        console.log(res.data)
+      }).catch((err) => {
+        console.log(err.response)
+      })
     }
   }
 }
