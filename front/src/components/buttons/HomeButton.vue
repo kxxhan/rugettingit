@@ -2,14 +2,14 @@
   <div class="mainButtonBody">
     <Button
       id="createSession"
-      @click="clickCreateSession"
+      @click="createRoom"
       class="p-button-raised p-button-text p-button-secondary p-button-lg"
       label="방만들기"
     >
     </Button>
     <Button
       id="enterSession"
-      @click="clickEnterSession"
+      @click="enterRoom"
       class="p-button-raised p-button-text p-button-secondary p-button-lg"
     >
       입장하기
@@ -18,29 +18,14 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'MainButton',
 
   methods: {
-    clickCreateSession: function () {
-      axios({
-        method: 'post',
-        url: '/room',
-        data: {
-          'avatar': `${this.$store.state.avatar}`,
-          'nickname': `${this.$store.state.nickname}`
-        }
-      }).then((res) => {
-        this.$store.dispatch('setRoomId', res.data.data.id)
-        this.$router.push({ name: "Game", query: {room: res.data.data.id} })
-        console.log(res)
-      }).catch((err) => {
-        console.log(err)
-      })
+    createRoom: function () {
+      this.$store.dispatch("createRoom")
     },
-    clickEnterSession: function () {
+    enterRoom: function () {
       if (this.$store.state.roomId) {
         this.$router.push( {name : 'Game', query: {room: this.$store.state.roomId}})
       } else {

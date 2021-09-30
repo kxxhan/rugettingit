@@ -1,7 +1,7 @@
 <template>
   <div class="gameBody">
     <div>
-      <component :is="currentView">
+      <component :is="currentView" @viewChange="viewChange">
       </component>
       <button @click="roomUpdate">socket test</button>
       <div>{{ roomInfo }}</div>
@@ -36,6 +36,7 @@ export default {
       //currentView의 default값은 lobby로 해야 할 것인가?
       currentView: 'Lobby',
       roomInfo: {},
+      roomId: this.$store.state.roomId
     }
   },
   methods: {
@@ -59,20 +60,9 @@ export default {
         console.log(err.response)
       })
     },
-    roomUpdate: function() {
-      // v-model같은걸로 서로...와따가따가능하게
-      // 변경 필요
-      const message = this.$store.state.message
-      console.log('방정보 이걸로 바꿀거임', message)
-      this.$store.dispatch('setMessage', message)
-      // 업데이트한 방정보 퍼블리쉬
-      console.log('방정보 변경')
-      this.stompClient.send('/pub/room/info', JSON.stringify(message))
-      this.roomInfo = JSON.stringify(message)
-    },
     connect() {
-      const serverURL = 'https://j5b106.p.ssafy.io:443/stomp/chat'
-      // const serverURL = 'http://localhost:8080/api/stomp/chat'
+      const serverURL = 'https://j5b106.p.ssafy.io:443/stomp/room'
+      // const serverURL = 'http://localhost:8080/stomp/room'
 
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
@@ -91,6 +81,7 @@ export default {
             console.log('이거 뜨면 제대로 받은거임 =======', recvData)
             // 받아온 룸정보 데이터 가지고 다시 룸 랜더링 해주는 로직 필요 GameSetting, Init, Play각 필요한 시점별로 달라짐
             this.roomInfo = recvData.message // 수정필요함
+            this.$store.dispatch('setMessage', this.roomInfo)
           })
         },
         error => {
@@ -99,6 +90,9 @@ export default {
           this.connected = false
         }
       )
+    },
+    viewChange : function (viewName) {
+      this.currentView = viewName
     }
   },
   created: function() {

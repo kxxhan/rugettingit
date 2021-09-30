@@ -43,6 +43,7 @@ public class RoomController {
         List<RoomUserResponseDto> roomUsers = RoomUserResponseDto.of(room);
 
         RoomResponseDto build = RoomResponseDto.toRoom(room, roomUsers);
+        roomRedisService.makeRoomInfoMessage(build);
         System.out.println(build.getUserList());
 
         return new ResponseDto<>(HttpStatus.CREATED.value(), "방 수정 성공", build);
@@ -65,11 +66,6 @@ public class RoomController {
         // 방에 있는 다른 사람들에게 다시 방객체 정보 publish
         roomRedisService.makeRoomInfoMessage(build);
 
-//        MessageDto messageDto = new MessageDto();
-//        messageDto.setRoomId(build.getId());
-//        messageDto.setMessageTypeCode(MessageTypeCode.ROOM_INFO);
-//        messageDto.setMessage(build.toString());
-//        template.convertAndSend("/sub/chat/room/" + messageDto.getRoomId(), messageDto);
         // 3. RoomResponseDto를 리턴
         return new ResponseDto<>(HttpStatus.OK.value(), "방 입장 성공", build);
     }

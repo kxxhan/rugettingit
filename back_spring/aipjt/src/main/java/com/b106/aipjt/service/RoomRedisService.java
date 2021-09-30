@@ -93,7 +93,7 @@ public class RoomRedisService {
         RoomInfoMessageDto messageDto = new RoomInfoMessageDto();
         messageDto.setRoomId(room.getId());
         messageDto.setMessage(room);
-        template.convertAndSend("/sub/chat/room/" + messageDto.getRoomId(), messageDto);
+        template.convertAndSend("/sub/room_info/room/" + messageDto.getRoomId(), messageDto);
     }
 
 }
