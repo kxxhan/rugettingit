@@ -26,7 +26,6 @@ export default {
   methods: {
     createRoom: function () {
       soundEffect('http://soundbible.com/mp3/sms-alert-1-daniel_simon.mp3')  // 소리는 쓰고싶은거 어디 올려놓고 써도 될거같음
-
       this.$store.dispatch("createRoom")
     },
     enterRoom: function () {
