@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import router from "@/router";
 import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
@@ -69,7 +70,7 @@ export default createStore({
         .then(res => {
           context.commit("SET_ROOMID", res.data.data.id);
           console.log(res);
-          this.$router.push({
+          router.push({
             name: "Game",
             query: { room: res.data.data.id }
           });
