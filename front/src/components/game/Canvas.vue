@@ -29,43 +29,21 @@
         >
           Fill
         </button> -->
-        <button
-          @click="handlePaintClick"
-          :class="{ picked : mode_painting }"
-        >
+        <button @click="handlePaintClick" :class="{ picked : mode_painting }">
           Paint
         </button>
-        <button
-          @click="handleFillClick"
-          :class="{ picked : mode_filling }"
-        >
+        <button @click="handleFillClick" :class="{ picked : mode_filling }">
           Fill
         </button>
-        <button
-          @click="handleEraseClick"
-          :class="{ picked : mode_erasing }"
-          id="jsEraser"
-        >
+        <button @click="handleEraseClick" :class="{ picked : mode_erasing }" id="jsEraser">
           Eraser
         </button>
-        <button
-          @click="handleClearClick"
-          id="jsClear"
-        >
+        <button @click="handleClearClick" id="jsClear">
           Clear
         </button>
-        <Button
-          @click="handleSaveClick"
-          id="jsSave"
-          icon="pi pi-save"
-          label="Save"
-        >
-        </Button>
+        <Button @click="handleSaveClick" id="jsSave" icon="pi pi-save" label="Save"></Button>
       </div>
-      <div
-        id="jsColors"
-        class="controls_colors"
-      >
+      <div id="jsColors" class="controls_colors">
         <div class="controls_color jsColor" style="background-color: #2c2c2c;"></div>
         <div class="controls_color jsColor" style="background-color: white;"></div>
         <div class="controls_color jsColor" style="background-color: #ff3b30;"></div>
