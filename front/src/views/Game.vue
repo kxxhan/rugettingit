@@ -61,8 +61,8 @@ export default {
       })
     },
     connect() {
-      // const serverURL = 'https://j5b106.p.ssafy.io:443/stomp/chat'
-      const serverURL = 'http://localhost:8080/stomp/room'
+      const serverURL = 'https://j5b106.p.ssafy.io:443/stomp/room'
+      // const serverURL = 'http://localhost:8080/stomp/room'
 
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
