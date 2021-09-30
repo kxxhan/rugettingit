@@ -52,7 +52,7 @@
       <Button
         @click="roomUpdate"
       >
-        테스트
+        방정보 변경
       </Button>
     </div>
     <div class="set">
