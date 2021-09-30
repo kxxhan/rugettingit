@@ -23,8 +23,8 @@
 </template>
 
 <script>
-// import Stomp from 'webstomp-client'
-// import SockJS from 'sockjs-client'
+import Stomp from 'webstomp-client'
+import SockJS from 'sockjs-client'
 
 export default {
   components: {
@@ -62,11 +62,11 @@ export default {
     },
     connect() {
       // const serverURL = 'https://j5b106.p.ssafy.io:443/stomp/chat'
-      // const serverURL = 'http://localhost:8080/api/stomp/chat'
+      const serverURL = 'http://localhost:8080/stomp/chat'
 
-      // let socket = new SockJS(serverURL);
-      // this.stompClient = Stomp.over(socket);
-      this.stompClient = this.$store.state.stompClient
+      let socket = new SockJS(serverURL);
+      this.stompClient = Stomp.over(socket);
+      // this.stompClient = this.$store.state.stompClient
       //console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`)
       this.stompClient.connect(
         {},
@@ -86,7 +86,7 @@ export default {
             const greeting = {
               roomId: this.roomId,
               writer: this.nickname,
-              message: this.$store.state.message || this.message
+              message: this.message
             }
             console.log(greeting)
             this.stompClient.send('/pub/chat/enter', JSON.stringify(greeting))

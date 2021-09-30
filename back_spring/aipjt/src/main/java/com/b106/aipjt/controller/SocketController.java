@@ -48,15 +48,8 @@ public class SocketController {
     // /pub/room/info로 퍼블리쉬 요청오면 client.send 오면 현재 방 정보 전체에게 퍼블리쉬
     @MessageMapping(value = "/room/info")
     public void roomInfo(RoomInfoMessageDto messageDto) {
-        // 방장인지 체크하고 맞으면 뿌려주는 로직 추가
-        // Service layer 만들어 줘야 하나 고민
-        Optional<Room> room = roomRedisRepository.findById(messageDto.getRoomId());
-        if (room.isPresent() && messageDto.getSuperUserId().equals(room.get().getSuperUser())) {
-            template.convertAndSend("/sub/room_info/room/" + messageDto.getRoomId(), messageDto);
-        }
-        else {
-            throw new IllegalStateException("방장이 아니거나 존재하지 않는 방입니다.");
-        }
+        // 방장인지 체크하고 맞으면 뿌려주는 로직 추가 레디스 서비스 단에서 처리중
+        template.convertAndSend("/sub/room_info/room/" + messageDto.getRoomId(), messageDto);
     }
 
     @MessageMapping(value =  "/image")
