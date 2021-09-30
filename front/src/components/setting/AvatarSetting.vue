@@ -47,7 +47,6 @@ export default {
       // 여기로직은 건드리지 않아도 됨
       this.avatar = (direction ==='left' ? this.avatar+this.avatarCount-1 : this.avatar+1) % this.avatarCount
       this.$store.dispatch('setAvatar', this.avatar)
-      console.log(this.$store.state.avatar)
     },
     randomAvatar: function () {
       let rand = this.getRanNum()
