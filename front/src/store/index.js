@@ -35,9 +35,14 @@ export default createStore({
       state.message = data;
     },
     SET_USERLIST: function(state, data) {
+<<<<<<< HEAD
       state.userlist = data;
       console.log(state.userlist);
     }
+=======
+      state.userlist = data
+    },
+>>>>>>> feature/avatar
   },
   actions: {
     createUser: function(context) {
