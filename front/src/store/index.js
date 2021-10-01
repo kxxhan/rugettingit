@@ -8,11 +8,9 @@ export default createStore({
     id: "",
     avatar: 1,
     nickname: "nickname",
-    // userlist: [],
     room: {},
-    invited_roomId: "",
     stompClient: "",
-    message: {},
+    message: {}
   },
   mutations: {
     SET_USERDATA: function(state, data) {
@@ -36,13 +34,9 @@ export default createStore({
       state.message = data;
     },
     SET_USERLIST: function(state, data) {
-      state.room.userList = data
-      console.log('여길봐 여기', state.room.userList)
-    },
-    SET_INVITED_ROOMID: function(state, data) {
-      state.invited_roomId = data
-      console.log(state.invited_roomId)
-    },
+      state.room.userList = data;
+      console.log("여길봐 여기", state.room.userList);
+    }
   },
   actions: {
     createUser: function(context) {
@@ -75,10 +69,10 @@ export default createStore({
         .then(res => {
           context.commit("SET_ROOM", res.data.data);
           //room 자체를 store에 저장
-          console.log('방 자체를 스토어에 저장', res.data.data);
+          console.log("방 자체를 스토어에 저장", res.data.data);
           router.push({
             name: "Game",
-            query: { room: res.data.data.id }
+            query: { room: router.query["room"] }
           });
         })
         .catch(err => {
@@ -104,9 +98,6 @@ export default createStore({
     setNickName: function(context, data) {
       context.commit("SET_NICKNAME", data);
     },
-    setInvitedRoomId: function(context, data) {
-      context.commit("SET_INVITED_ROOMID", data);
-    },
     setAvatar: function(context, data) {
       context.commit("SET_AVATAR", data);
     },
@@ -118,11 +109,11 @@ export default createStore({
     },
     setUserList: function(context, data) {
       context.commit("SET_USERLIST", data);
-    },
+    }
   },
-  getters : {
+  getters: {
     getRoomInfo: state => {
-      return state.message
+      return state.message;
     }
   },
   modules: {},

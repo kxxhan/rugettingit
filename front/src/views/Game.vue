@@ -45,7 +45,6 @@ export default {
       //currentView의 default값은 lobby로 해야 할 것인가?
       currentView: 'Lobby',
       roomInfo: {},
-      roomId: this.$store.state.roomId
     }
   },
   methods: {
@@ -59,11 +58,10 @@ export default {
           'nickname': this.$store.state.nickname,
         },
         params: {
-          roomId: this.$store.state.room.id
+          roomId: this.$route.query["room"]
         }
       }).then((res) => {
-        this.$router.push( {name : 'Game', query: {room: this.$store.state.room.id}})
-        this.$store.dispatch('setUserList', res.data.data.userList)
+        this.$store.dispatch('setUserList', res.data.data.userList) // 여기서 넣어주지 않아도 될 것 같음
         console.log('리스폰스 데이터', res.data)
       }).catch((err) => {
         console.log(err.response)
@@ -79,24 +77,22 @@ export default {
       //console.log(`소켓 연결을 시도합니다. 서버 주소: ${serverURL}`)
       this.stompClient.connect(
         {},
-        frame => {
-          // 소켓 연결 성공
-          this.connected = true
-          console.log('방 정보 교환 소켓 연결 성공', frame)
+        frame => { // 소켓 연결 성공시 실행되는 콜백
+          console.log(frame);
           // 룸객체정보 왔다갔다할 토픽 구독
-          this.stompClient.subscribe('/sub/room_info/room/' + this.roomId, info => {
+          this.stompClient.subscribe('/sub/room_info/room/' + this.$route.query["room"], info => {
             // 받은 데이터를 json으로 파싱하고 리스트에 넣어줍니다.
             let recvData = JSON.parse(info.body)
             console.log('이거 뜨면 제대로 받은거임 =======', recvData)
             // 받아온 룸정보 데이터 가지고 다시 룸 랜더링 해주는 로직 필요 GameSetting, Init, Play각 필요한 시점별로 달라짐
             this.roomInfo = recvData.message // 수정필요함
+
             this.$store.dispatch('setMessage', this.roomInfo)
           })
         },
         error => {
           // 소켓 연결 실패
           console.log('소켓 연결 실패', error)
-          this.connected = false
         }
       )
     },
@@ -109,7 +105,7 @@ export default {
           roundTime: this.$store.state.message.roundTime,
         },
         params: {
-          roomId: this.$store.state.roomId
+          roomId: this.$route.query["room"]
         }
       }).then((res) => {
         console.log('방 정보 업데이트 성공')
@@ -122,10 +118,8 @@ export default {
       this.currentView = viewName
     }
   },
-  created: function() {
+  created: function () {
     this.connect()
-  },
-  mounted: function () {
     this.enterSession()
   }
 }
