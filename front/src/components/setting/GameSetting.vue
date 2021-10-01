@@ -10,7 +10,7 @@
         @click="rounds_idx -= 1"
       >
       </Button>
-      {{ rounds[rounds_idx%3] }}
+      {{ maxRound }}
       <Button
         icon="pi pi-arrow-right"
         class="p-button-rounded p-button-text"
@@ -42,7 +42,7 @@
         @click="timer_idx -= 1"
       >
       </Button>
-      {{ timer[timer_idx%3] }}
+      {{ roundTime }}
       <Button
         icon="pi pi-arrow-right"
         class="p-button-rounded p-button-text"
@@ -70,6 +70,8 @@
 </template>
 
 <script>
+// import axios from'axios'
+
 export default {
   name: 'GameSetting',
   data: function() {
@@ -82,9 +84,57 @@ export default {
       timer_idx: 999,
       is_custom: {0:true, 1:false},
       is_custom_idx: 999,
+      stompClient: this.$store.state.stompClient,
+      roomId: this.$store.state.roomId,
+      maxRound: 1,
+      roundTime: 60,
+
     }
   },
-
+  methods: {
+    // 룸 정보 변경하는 클릭 이벤트 발생할때 마다 실행
+    roomUpdateData: function() {
+      // v-model같은걸로 서로...와따가따가능하게
+      this.maxRound = this.rounds[this.rounds_idx%3]
+      this.roundTime = this.timer[this.timer_idx%3]
+      const roomInfo = {
+        maxRound: this.rounds[this.rounds_idx%3],
+        roundTime: this.timer[this.timer_idx%3]
+      }
+      this.$store.dispatch('setMessage', roomInfo)
+      console.log('게임세팅에서 방 정보들 바뀐거 state에 저장', roomInfo)
+      // axios({
+      //   method: 'patch',
+      //   url: '/room',
+      //   data: {
+      //     maxRound: roomInfo.maxRound,
+      //     roundTime: roomInfo.roundTime,
+      //   },
+      //   params: {
+      //     roomId: this.$store.state.roomId
+      //   }
+      // }).then((res) => {
+      //   console.log(res.data)
+      // }).catch((err) => {
+      //   console.log(err.response)
+      // })
+    }
+  },
+  computed : {
+    check_roomInfo() {return this.$store.getters.getRoomInfo}
+  },
+  watch : {
+    rounds_idx : function () {
+      this.roomUpdateData()
+    },
+    timer_idx : function () {
+      this.roomUpdateData()
+    },
+    check_roomInfo : function(val) {
+      this.maxRound = val.maxRound
+      this.roundTime = val.roundTime
+    }
+  },
 }
 </script>
 

@@ -6,7 +6,7 @@ from gtts import gTTS
 import requests
 from rest_framework import status
 from rest_framework.response import Response
-import scipy.io.wavfile as swavfile
+# import scipy.io.wavfile as swavfile
 import boto3
 
 ACCESS_KEY_ID = os.environ.get("ACCESS_KEY_ID")
@@ -27,7 +27,7 @@ def tts(caption):
     # tts save OSError: [Errno 22] Invalid argument: 'audio/오늘 뭐먹지?.mp3'
     tts.save(save_path)
     handle_upload_mp3(save_path)
-    response = play(save_path)
+    # response = play(save_path)
 
     return Response(response, status=status.HTTP_200_OK)
 # S3 업로드
@@ -38,10 +38,10 @@ def handle_upload_mp3(f):
     response = s3_client.upload_file(
         f, BUCKET_NAME, f)
 
-# 파일 리턴
-def play(file_name):
-    with open(f'{file_name}', 'rb') as f:
-        response = Response(f.read(), status=206)
-        response['content_type'] = 'audio/wav'
-        print("@ response done")
-        return response
+# # 파일 리턴
+# def play(file_name):
+#     with open(f'{file_name}', 'rb') as f:
+#         response = Response(f.read(), status=206)
+#         response['content_type'] = 'audio/wav'
+#         print("@ response done")
+#         return response

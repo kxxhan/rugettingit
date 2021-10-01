@@ -1,4 +1,4 @@
-package com.b106.aipjt.domain.dto;
+package com.b106.aipjt.domain.dto.socket;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +8,7 @@ import lombok.Setter;
 public class ChatMessageDto {
 
     private String roomId;
+    private MessageTypeCode code;
     private String writer;
     private String message;
 }
