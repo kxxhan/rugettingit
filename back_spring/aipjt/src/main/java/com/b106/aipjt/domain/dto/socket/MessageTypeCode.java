@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum MessageTypeCode {
     CHAT,
+    JOIN,
+    LEAVE,
     ROOM_INFO,
     DRAWING;
 }
