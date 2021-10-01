@@ -51,6 +51,7 @@ export default createStore({
       })
         .then(res => {
           axios.defaults.headers.common["User-Id"] = res.data.data.id;
+          console.log(axios.defaults.headers.common["User-Id"]);
           context.commit("SET_USERDATA", res.data.data);
         })
         .catch(err => {
@@ -67,13 +68,8 @@ export default createStore({
         }
       })
         .then(res => {
-          context.commit("SET_ROOM", res.data.data);
-          //room 자체를 store에 저장
-          console.log("방 자체를 스토어에 저장", res.data.data);
-          router.push({
-            name: "Game",
-            query: { room: router.query["room"] }
-          });
+          // room 정보는 여기서 저장하지 않는다. 실제 입장해서 받아오는 방 객체로 방을 저장한다
+          router.push({ name: "Game", query: { room: res.data.data["id"] } });
         })
         .catch(err => {
           console.log("failed");
@@ -109,6 +105,9 @@ export default createStore({
     },
     setUserList: function(context, data) {
       context.commit("SET_USERLIST", data);
+    },
+    setRoom: function(context, data) {
+      context.commit("SET_ROOM", data);
     }
   },
   getters: {
