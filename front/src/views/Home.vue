@@ -35,7 +35,6 @@ export default {
         axios.defaults.headers.common['User-Id'] = res.data.data.id
         // console.log(res.data.data.id)
         this.$store.dispatch('setUserData', res.data.data)
-        console.log('user', this.$store.state.id, 'craeted')
       }).catch((err) => {
         console.log(err.response)
       })
@@ -43,9 +42,6 @@ export default {
     setRoomId: function () {
       if (this.$route.query.room) {
         this.$store.dispatch('setRoomId', this.$route.query.room)
-        console.log('RoomId SET')
-      } else {
-        console.log('No RoomId')
       }
     }
   },

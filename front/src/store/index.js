@@ -34,7 +34,6 @@ export default createStore({
     },
     SET_USERLIST: function(state, data) {
       state.userlist = data
-      console.log(state.userlist)
     },
   },
   actions: {

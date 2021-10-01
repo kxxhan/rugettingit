@@ -133,13 +133,11 @@ export default {
     handleColorClick: function (event) {
       // console.log(event.target)
       const color = event.target.style.backgroundColor
-      console.log(color)
       this.ctx.strokeStyle = color
       this.ctx.fillStyle = color
     },
     // ColorPicker 클릭
     handleColorPickerClick: function () {
-      console.log(this.ctxcolor)
       this.ctx.strokeStyle = '#' + this.ctxcolor
       this.ctx.fillStyle = this.ctxcolor
     },
@@ -155,7 +153,6 @@ export default {
       }
       this.ctx.globalCompositeOperation='source-over'
       this.mode_painting = true
-      console.log(this.mode_filling)
     },
     handleFillClick: function () {
       if (this.mode_painting === true || this.mode_erasing === true) {
@@ -164,7 +161,6 @@ export default {
       }
       this.ctx.globalCompositeOperation='source-over'
       this.mode_filling = true
-      console.log(this.mode_filling)
     },
     handleEraseClick: function () {
       // fill은 true인 상태로 들어온다면
