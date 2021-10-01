@@ -106,7 +106,7 @@ export default {
     this.connect()
   },
   mounted() {
-    window.addEventListener('beforeunload', this.$store.dispatch('unSub'))
+    // window.addEventListener('unload', this.$store.dispatch('unSub'))
   },
   unmounted() {
     // this.stompClient.disconnect('/pub/chat/enter', {}, {})
