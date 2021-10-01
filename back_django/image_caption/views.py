@@ -10,7 +10,7 @@ import requests
 from io import BytesIO
 from PIL import Image
 import tensorflow as tf
-
+from tts.views import tts
 
 # Create your views here.
 @api_view(['POST'])
@@ -44,6 +44,7 @@ def index(request):
     data = {
         'caption': caption
     }
+    tts(caption)
 
     return Response(data, status=status.HTTP_200_OK)
 
@@ -87,6 +88,7 @@ def index_kr(request):
         data = {
             'caption': caption
         }
+        tts(caption)
         return Response(data, status=status.HTTP_200_OK)
     else:
         data = {

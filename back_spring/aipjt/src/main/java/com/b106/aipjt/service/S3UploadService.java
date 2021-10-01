@@ -31,4 +31,9 @@ public class S3UploadService {
             .withCannedAcl(CannedAccessControlList.PublicRead));
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
+
+    // s3에서 audioUrl 받기
+    public String getAudioUrl() {
+        return amazonS3Client.getUrl(bucket, "audio/sample.mp3").toString();
+    }
 }

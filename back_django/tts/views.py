@@ -8,28 +8,30 @@ from rest_framework import status
 from rest_framework.response import Response
 # import scipy.io.wavfile as swavfile
 import boto3
+# from image_caption.views import index_kr
 
 ACCESS_KEY_ID = os.environ.get("ACCESS_KEY_ID")
 ACCESS_SECRET_KEY = os.environ.get("ACCESS_SECRET_KEY")
 BUCKET_NAME = os.environ.get("BUCKET_NAME")
 
-@api_view(['POST'])
+# @api_view(['POST'])
 def tts(caption):
-    caption = caption.data['caption']
+    # print(index_kr)
+    # caption = caption.data['caption']
     print("@caption: ",caption)
 
     tts = gTTS(
         text=caption,
         lang="ko", slow=False
     )
-    print("@ KEY : ",ACCESS_KEY_ID)
     save_path = f'audio/sample.mp3'
     # tts save OSError: [Errno 22] Invalid argument: 'audio/오늘 뭐먹지?.mp3'
     tts.save(save_path)
     handle_upload_mp3(save_path)
     # response = play(save_path)
 
-    return Response(response, status=status.HTTP_200_OK)
+    return Response(status=status.HTTP_200_OK)
+
 # S3 업로드
 def handle_upload_mp3(f):
     s3_client = boto3.client('s3',
