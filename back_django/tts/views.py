@@ -8,7 +8,7 @@ from gtts import gTTS
 import requests
 from rest_framework import status
 from rest_framework.response import Response
-import scipy.io.wavfile as swavfile
+# import scipy.io.wavfile as swavfile
 
 
 # pip install gtts
