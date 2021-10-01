@@ -86,20 +86,20 @@ export default createStore({
           console.log(err.response);
         });
     },
-    unSub: function() {
-      console.log('유저 퇴장')
-      axios({
-        method: 'delete',
-        url: '/room/user',
-        params: {
-          roomId: this.state.roomId
-        }
-      }).then((res) => {
-        console.log(res.data)
-      }).catch((err) => {
-        console.log(err.response)
-      })
-    },
+    // unSub: function() {
+    //   console.log('유저 퇴장')
+    //   axios({
+    //     method: 'delete',
+    //     url: '/room/user',
+    //     params: {
+    //       roomId: this.state.roomId
+    //     }
+    //   }).then((res) => {
+    //     console.log(res.data)
+    //   }).catch((err) => {
+    //     console.log(err.response)
+    //   })
+    // },
 
     setNickName: function(context, data) {
       context.commit("SET_NICKNAME", data);
