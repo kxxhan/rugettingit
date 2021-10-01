@@ -30,13 +30,19 @@ export default {
   },
   computed: {
     usernum: function () {
-      return this.$store.state.userlist.length
+      return this.$store.state.room.userList.length
     },
     // store에 있는 userlist가 변할 때 마다 computed 됨
     userlist: function () {
-      return this.$store.state.userlist
+      return this.$store.state.room.userList
     }
   },
+  watch: {
+    //computed로 store에 있는 room.userList가 변경된것이 감지 된다면 동작
+    userlist: function() {
+      //
+    }
+  }
 }
 </script>
 

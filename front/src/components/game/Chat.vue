@@ -19,12 +19,15 @@
         <ScrollTop />
       </div>
     </ScrollPanel>
+    <button @click="unSub">언섭 테스트</button>
   </div>
 </template>
 
 <script>
 import Stomp from 'webstomp-client'
 import SockJS from 'sockjs-client'
+// import axios from 'axios'
+
 
 export default {
   components: {
@@ -37,6 +40,7 @@ export default {
       message: '',
       chatList: [],
       roomInfo: {},
+      subscription: {}
     }
   },
   methods: {
@@ -61,8 +65,8 @@ export default {
       }
     },
     connect() {
-      const serverURL = 'https://j5b106.p.ssafy.io:443/stomp/chat'
-      // const serverURL = 'http://localhost:8080/stomp/chat'
+      // const serverURL = 'https://j5b106.p.ssafy.io:443/stomp/chat'
+      const serverURL = 'http://localhost:8080/stomp/chat'
 
       let socket = new SockJS(serverURL);
       this.stompClient = Stomp.over(socket);
@@ -74,10 +78,8 @@ export default {
           // 소켓 연결 성공
           this.connected = true
           console.log('채팅 소켓 연결 성공', frame)
-          // 서버의 메시지 전송 endpoint를 구독합니다.
-          // 이런형태를 pub sub 구조라고 합니다.
-          //console.log('roomID:' + this.roomId)
-          this.stompClient.subscribe('/sub/chat/room/' + this.roomId, chat => {
+          // console.log('연결 유알엘', socket._transport.url) 세션아이디 포함되어있음
+          this.subscription = this.stompClient.subscribe('/sub/chat/room/' + this.roomId, chat => {
             // 받은 데이터를 json으로 파싱하고 리스트에 넣어줍니다.
             let recvData = JSON.parse(chat.body)
             this.chatList.push(recvData)
@@ -86,7 +88,7 @@ export default {
             const greeting = {
               roomId: this.roomId,
               writer: this.nickname,
-              message: this.message
+              message: socket._transport.url
             }
             console.log(greeting)
             this.stompClient.send('/pub/chat/enter', JSON.stringify(greeting))
@@ -103,7 +105,11 @@ export default {
   created() {
     this.connect()
   },
-  updated() {
+  mounted() {
+    window.addEventListener('beforeunload', this.$store.dispatch('unSub'))
+  },
+  unmounted() {
+    // this.stompClient.disconnect('/pub/chat/enter', {}, {})
   }
 }
 
