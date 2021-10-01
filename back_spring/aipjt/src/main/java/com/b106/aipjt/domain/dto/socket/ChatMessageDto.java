@@ -8,7 +8,7 @@ import lombok.Setter;
 public class ChatMessageDto {
 
     private String roomId;
-    private MessageTypeCode code = MessageTypeCode.CHAT;
+    private MessageTypeCode code;
     private String writer;
     private String message;
 }

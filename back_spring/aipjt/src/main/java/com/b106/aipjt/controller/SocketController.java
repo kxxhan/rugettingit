@@ -26,6 +26,7 @@ public class SocketController {
     @MessageMapping(value = "/chat/enter")
     public void enterRoom(ChatMessageDto messageDto) {
         System.out.println(messageDto.getRoomId());
+        messageDto.setCode(MessageTypeCode.JOIN);
         messageDto.setMessage("두둥 등장!");
         // /pub/chat/room/{roomId}를 구독하는 애들한테 메시지를 퍼블리쉬
         template.convertAndSend("/sub/chat/room/" + messageDto.getRoomId(), messageDto);
@@ -34,12 +35,14 @@ public class SocketController {
     @MessageMapping(value = "/chat/message")
     public void message(ChatMessageDto messageDto) {
         // /pub/chat/room/{roomId}를 구독하는 애들한테 메시지를 퍼블리쉬
+        messageDto.setCode(MessageTypeCode.CHAT);
         template.convertAndSend("/sub/chat/room/" + messageDto.getRoomId(), messageDto);
     }
 
     @MessageMapping(value = "/chat/exit")
     public void exitRoom(ChatMessageDto messageDto) {
         System.out.println(messageDto.getRoomId());
+        messageDto.setCode(MessageTypeCode.LEAVE);
         messageDto.setMessage(" 나갔다!");
         // /pub/chat/room/{roomId}를 구독하는 애들한테 메시지를 퍼블리쉬
         template.convertAndSend("/sub/chat/room/" + messageDto.getRoomId(), messageDto);
