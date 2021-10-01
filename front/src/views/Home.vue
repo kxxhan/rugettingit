@@ -31,7 +31,6 @@ export default {
     setRoomId: function () {
       if (this.$route.query.room) {
         this.$store.dispatch('setRoomId', this.$route.query.room)
-        console.log('RoomId SET')
       }
     }
   },

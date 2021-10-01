@@ -55,7 +55,6 @@ export default {
       }
       this.avatar = rand
       this.$store.dispatch('setAvatar', this.avatar)
-      console.log(this.$store.state.avatar)
     },
     getRanNum: function () {
       return Math.floor(Math.random()*this.avatarCount)

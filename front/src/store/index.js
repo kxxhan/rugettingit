@@ -35,9 +35,8 @@ export default createStore({
       state.message = data;
     },
     SET_USERLIST: function(state, data) {
-      state.userlist = data;
-      console.log(state.userlist);
-    }
+      state.userlist = data
+    },
   },
   actions: {
     createUser: function(context) {
