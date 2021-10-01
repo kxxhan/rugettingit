@@ -15,6 +15,7 @@
       <div>{{ user.avatar }}</div>
       <div>{{ user.super }}</div>
     </div>
+    <div>{{ userlist }}</div>
   </div>
 </template>
 
@@ -23,17 +24,19 @@ export default {
   name: 'UserList',
   data: function() {
     return {
-      userlist: {}
     }
+  },
+  methods: {
   },
   computed: {
     usernum: function () {
-      return this.userlist.length
+      return this.$store.state.userlist.length
+    },
+    // store에 있는 userlist가 변할 때 마다 computed 됨
+    userlist: function () {
+      return this.$store.state.userlist
     }
   },
-  mounted: function () {
-    this.userlist = this.$store.state.userlist
-  }
 }
 </script>
 
