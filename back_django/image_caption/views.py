@@ -71,6 +71,7 @@ def index_kr(request):
     encod_img = ic.newEncodeImage(cvtimg)
     caption = ic.newGenerateCaption(encod_img)
 
+    # branch complict?
     client_id = "b3HISCq2mJu0enV0Wvog" # 개발자센터에서 발급받은 Client ID 값
     client_secret = "lRHpaTXbnv" # 개발자센터에서 발급받은 Client Secret 값
     encText = urllib.parse.quote(caption)
