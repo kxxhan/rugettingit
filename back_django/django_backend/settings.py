@@ -83,6 +83,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "django_backend.wsgi.application"
 
+# env
+ACCESS_KEY_ID = os.environ.get("ACCESS_KEY_ID")
+ACCESS_SECRET_KEY = os.environ.get("ACCESS_SECRET_KEY")
+BUCKET_NAME = os.environ.get("BUCKET_NAME")
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

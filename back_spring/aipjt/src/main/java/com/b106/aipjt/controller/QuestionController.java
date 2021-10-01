@@ -44,7 +44,7 @@ public class QuestionController {
         questionDto.setImgCaption(imgCaption);
 
         // Dto DB에 저장
-//        questionService.saveImage(questionDto);
+        questionService.saveImage(questionDto);
 
         return questionDto.toString();
     }
