@@ -45,6 +45,7 @@ export default createStore({
         url: "/user",
         //기본 아바타, 닉네임 설정
         data: {
+          id: context.state.id ? context.state.id : null,
           avatar: context.state.avatar,
           nickname: context.state.nickname
         }
