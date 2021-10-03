@@ -112,7 +112,14 @@ export default createStore({
   },
   getters: {
     getRoomInfo: state => {
+<<<<<<< HEAD
       return state.message;
+=======
+      return state.message
+    },
+    getUserList: state => {
+      return state.room.userList
+>>>>>>> feature/avatar
     }
   },
   modules: {},
