@@ -33,14 +33,21 @@ export default {
       return this.$store.state.room.userList.length
     },
     // store에 있는 userlist가 변할 때 마다 computed 됨
+    // userlist: function () {
+    //   return this.$store.state.room.userList
+    // }
+
+    // vuex의 store의 계산된 속성으로 생각할 수 있다.
+    // store의 getter를 사용하는것과 현재 component에서 computed로 접근하는것의 차이는?
     userlist: function () {
-      return this.$store.state.room.userList
+      console.log('유저리스트 변경됐지롱')
+      return this.$store.getters.getUserList
     }
   },
   watch: {
     //computed로 store에 있는 room.userList가 변경된것이 감지 된다면 동작
     userlist: function() {
-      //
+
     }
   }
 }

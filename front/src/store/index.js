@@ -108,6 +108,9 @@ export default createStore({
   getters : {
     getRoomInfo: state => {
       return state.message
+    },
+    getUserList: state => {
+      return state.room.userList
     }
   },
   modules: {},
