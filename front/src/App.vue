@@ -16,16 +16,31 @@ export default {
 
 <style>
 @import "/reset.css";
+@font-face {
+    font-family: 'EliceDigitalBaeum_Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 body {
-  background-color: #f6f9fc;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding: 10rem;
+  background: #000;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 50px;
   padding: 50px 0px;
+  /* border: linear-gradient(#FC5C7D, 50%, #6A82FB) 5px solid !important; */
+  border:magenta 5px solid !important;
 }
-
+div {
+  /* background: maroon; */
+  box-sizing: border-box;
+  /* border: magenta 5px solid !important; */
+}
+html, input, body, div, p, button {
+  font-family: 'EliceDigitalBaeum_Bold' !important;
+}
 .controls {
   margin-top: 80px;
   display: flex;
