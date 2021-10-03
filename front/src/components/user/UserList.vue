@@ -44,15 +44,6 @@ export default {
       return this.$store.getters.getUserList
     }
   },
-<<<<<<< HEAD
-=======
-  watch: {
-    //computed로 store에 있는 room.userList가 변경된것이 감지 된다면 동작
-    userlist: function() {
-
-    }
-  }
->>>>>>> feature/avatar
 }
 </script>
 
