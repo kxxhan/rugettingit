@@ -39,11 +39,19 @@ export default {
   name: 'MainButton',
   methods: {
     createRoom: function () {
+<<<<<<< HEAD
       soundEffect('#enter')
       this.$store.dispatch("createRoom")
     },
     enterRoom: function () {
       soundEffect('#enter')
+=======
+      soundEffect()
+      this.$store.dispatch("createRoom")
+    },
+    enterRoom: function () {
+      soundEffect()
+>>>>>>> 7002819586e738c9dd4479b0f606eb905b0282f2
       const roomId = this.$route.query["room"];
       console.log(this.$route.query["room"]);
       if (roomId) {

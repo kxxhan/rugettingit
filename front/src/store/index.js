@@ -5,11 +5,12 @@ import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
   state: {
-    id: "",
-    avatar: Math.floor(Math.random()*28),
+    id: null,
+    avatar: Math.floor(Math.random() * 28),
     nickname: "nickname",
     super: false,
     room: {},
+    quiz: "",
     stompClient: "",
     // 이 값은 변경하지 말 것.
     // 방장 퇴장시 주소가 먼저 변경되어 제대로 값을 가져오지 못하기 때문에 할당함
@@ -17,9 +18,13 @@ export default createStore({
   },
   mutations: {
     SET_USERDATA: function(state, data) {
+      console.log("SET_USERDATA START");
+      console.log(data);
       state.id = data.id;
       state.avatar = data.avatar;
       state.nickname = data.nickname;
+      console.log("SET_USERDATA END");
+      console.log(data);
     },
     SET_NICKNAME: function(state, data) {
       state.nickname = data;
@@ -38,10 +43,16 @@ export default createStore({
     },
     SET_CURRENT_ROOM_ID: function(state, data) {
       state.currentRoomId = data;
-    }
+    },
+    SET_QUIZ: function(state, data) {
+      state.quiz = data;
+    },
   },
   actions: {
     createUser: function(context) {
+      console.log(
+        "CreateUserStart : " + axios.defaults.headers.common["User-Id"]
+      );
       axios({
         method: "post",
         url: "/user",
@@ -53,12 +64,15 @@ export default createStore({
         }
       })
         .then(res => {
+          console.log(res.data.data);
           axios.defaults.headers.common["User-Id"] = res.data.data.id;
+          console.log(axios.defaults.headers.common["User-Id"]);
           context.commit("SET_USERDATA", res.data.data);
         })
         .catch(err => {
-          console.log(err.response);
+          console.log("CreateUserStart 에러 : " + err.response);
         });
+      console.log(context.state);
     },
     createRoom: function(context) {
       axios({
@@ -110,12 +124,19 @@ export default createStore({
     },
     setCurrentRoomId: function(context, data) {
       context.commit("SET_CURRENT_ROOM_ID", data);
-    }
+    },
+    setQuiz: function(context, data) {
+      context.commit("SET_QUIZ", data);
+    },
+
   },
   getters: {
     isRoomExist: function(state) {
       return Object.keys(state.room).length;
     },
+    currentView: state => {
+      return state.room.status;
+    }
   },
   modules: {},
   plugins: [createPersistedState()]
