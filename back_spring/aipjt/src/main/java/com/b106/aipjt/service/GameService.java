@@ -91,6 +91,7 @@ public class GameService {
             // 사이시간이므로 false 세팅 후 room 갱신을 위해 저장
             room = findRoom(roomId); // 내부 함수
             room.setStatus(GameStatus.RESULT.getValue());
+            room.setTimestamp(System.currentTimeMillis());
             room = roomRedisRepository.save(room);
             log.error(room.toString());
             log.error(skip.toString());
@@ -173,6 +174,6 @@ public class GameService {
             throw new RuntimeException("방이 존재하지 않습니다");
         }
         Question question = questionById.get();
-        return new QuestionSkipDto(new QuestionDto(question.getImgUrl(), question.getImgCaption(), ""), "");
+        return new QuestionSkipDto(new QuestionDto(question.getImgUrl(), question.getImgCaption(), question.getAudioUrl()), "");
     }
 }

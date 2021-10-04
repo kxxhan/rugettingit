@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <div>
-      <img src="@/assets/RUGI.png" alt="">
-    </div>
-    <div>
+  <div class="initBody">
+    <p>
       {{ quiz }}
-    </div>
+    </p>
+    <img src="@/assets/RUGI.png" alt="">
   </div>
 </template>
 
@@ -14,11 +12,9 @@ export default {
   name: 'GameInit',
   data: function() {
     return {
-
     }
   },
   methods: {
-
   },
   computed: {
     quiz: function () {
@@ -29,5 +25,13 @@ export default {
 </script>
 
 <style>
+.initBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.initBody p {
+  font-size: 35px;
+}
 </style>

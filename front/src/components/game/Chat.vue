@@ -1,10 +1,7 @@
 <template>
   <div id="app">
     <div class="chat-box">
-      <ScrollPanel
-        style="width: 100%; height: 400px"
-        class="custom"
-      >
+      <div id="chat_list">
         <div
           v-for="(chat, idx) in chatList"
           :key="idx"
@@ -19,9 +16,8 @@
               <div class="message-box-other">{{ chat.message }}</div>
             </div>
           </div>
-          <ScrollTop />
         </div>
-      </ScrollPanel>
+      </div>
       <div class="p-inputgroup">
         <InputText
           type="text"
@@ -56,6 +52,10 @@ export default {
         this.send()
         //console.log('recieve list', this.chatList)
         this.message = ''
+
+        let chat_list = document.getElementById("chat_list")
+        chat_list.scrollTo({ top: chat_list.scrollHeight, behavior: 'smooth' })
+        chat_list.scrollTop = chat_list.scrollHeight
       }
     },
     send() {
@@ -136,4 +136,22 @@ export default {
   word-break:break-all;
 }
 
+#chat_list {
+  width: 100%;
+  height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+#chat_list::-webkit-scrollbar {
+  width: 10px;
+}
+#chat_list::-webkit-scrollbar-thumb {
+  background-color: #6a82fb;
+  border-radius: 5px;
+}
+#chat_list::-webkit-scrollbar-track {
+  background-color: #fc5c7d;
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 5px white;
+}
 </style>
