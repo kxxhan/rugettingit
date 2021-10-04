@@ -1,7 +1,7 @@
 <template>
   <div class="lobbyBody">
     <div>
-      <UserList v-if="isRoomExist" />
+      <!-- <UserList v-if="isRoomExist" /> -->
       <div class="lobbyComponents">
         <GameSetting v-if="isRoomExist && $store.state.super" />
         <!-- 방장이 아닌 사람한테는 다른걸 보여줘도 좋을 듯 -->
@@ -16,14 +16,12 @@
 
 import LobbyButton from '@/components/buttons/LobbyButton.vue'
 import GameSetting from '@/components/setting/GameSetting.vue'
-import UserList from '@/components/user/UserList.vue'
 
 export default {
   emits: ['viewChange'],
   components: {
     GameSetting,
     LobbyButton,
-    UserList,
   },
   name: 'Lobby',
   computed: {
