@@ -28,7 +28,6 @@
         >  
       </a>
     </div>
-    <audio id="enter"><source id="soundSrc" src="@/assets/sounds/enter.mp3" /></audio>
   </div>
 </template>
 
@@ -39,25 +38,11 @@ export default {
   name: 'MainButton',
   methods: {
     createRoom: function () {
-<<<<<<< HEAD
-<<<<<<< HEAD
       soundEffect('#enter')
       this.$store.dispatch("createRoom")
     },
     enterRoom: function () {
-      soundEffect('#enter')
-=======
-=======
->>>>>>> 7002819586e738c9dd4479b0f606eb905b0282f2
       soundEffect()
-      this.$store.dispatch("createRoom")
-    },
-    enterRoom: function () {
-      soundEffect()
-<<<<<<< HEAD
->>>>>>> 7002819586e738c9dd4479b0f606eb905b0282f2
-=======
->>>>>>> 7002819586e738c9dd4479b0f606eb905b0282f2
       const roomId = this.$route.query["room"];
       console.log(this.$route.query["room"]);
       if (roomId) {
@@ -72,18 +57,6 @@ export default {
 
 <style>
 @import "/style/custom-button.css";
-/* 
-.p-button-jj {
-  text-decoration: none;
-  font-family: "Elice Digital Baeum",sans-serif !important;
-  background-color: transparent !important;
-  color: rgba(0, 0, 0, 0.8) !important;
-  position: relative !important;
-  overflow:hidden !important;
-  transition: .3s !important;
-} */
-
-
 
 #underline-button a {
   font-size: 3rem;
