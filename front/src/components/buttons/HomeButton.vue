@@ -40,17 +40,23 @@ export default {
   methods: {
     createRoom: function () {
 <<<<<<< HEAD
+<<<<<<< HEAD
       soundEffect('#enter')
       this.$store.dispatch("createRoom")
     },
     enterRoom: function () {
       soundEffect('#enter')
 =======
+=======
+>>>>>>> 7002819586e738c9dd4479b0f606eb905b0282f2
       soundEffect()
       this.$store.dispatch("createRoom")
     },
     enterRoom: function () {
       soundEffect()
+<<<<<<< HEAD
+>>>>>>> 7002819586e738c9dd4479b0f606eb905b0282f2
+=======
 >>>>>>> 7002819586e738c9dd4479b0f606eb905b0282f2
       const roomId = this.$route.query["room"];
       console.log(this.$route.query["room"]);
