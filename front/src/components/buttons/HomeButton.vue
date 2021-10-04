@@ -1,31 +1,34 @@
 <template>
-  <div class="main-button-body">
-    <button
-      id="createSession"
+  <div class="main-button-body p-px-5">
+    <div
+      id="underline-button"
       @click="createRoom"
-      class="p-button-jj p-button-lg p-mb-2"
+      class="p-button-jj p-button-lg p-mb-2 p-pb-3"
     >
-      <span class="p-mr-1">방만들기</span>
-      <img class="" src="@/assets/sticker/star01.png" alt="" id="stk">  
-    </button>
-    <Button
-      id="unique-transparent-btn"
-      @click="enterRoom"
-      class="p-button-jj p-button-lg p-mb-2 unique-transparent-btn"
-    >
-    <a>
-      <span class="p-mr-1">입장하기</span>
-      <img class="" src="@/assets/sticker/star01.png" alt="" id="stk">  
-    </a>
-    </Button>
-<!--  test  -->
-    <button class="btn btn-lg p-3" id="unique-transparent-btn">
       <a>
-        <span>로그인하러 가기</span>
-      </a> 🌟
-    </button>
-
-
+        <span class="p-mr-1">방만들기</span>
+        <img 
+          id="stk"
+          src="@/assets/sticker/star01.png" 
+          alt="star" 
+        > 
+      </a> 
+    </div>
+    <div
+      id="underline-button"
+      @click="enterRoom"
+      class="p-button-jj p-button-lg p-mb-2 p-pb-3"
+    >
+      <a>
+        <span class="p-mr-1">입장하기</span>
+        <img 
+          id="stk"
+          src="@/assets/sticker/star01.png" 
+          alt="star" 
+        >  
+      </a>
+    </div>
+    <audio id="enter"><source id="soundSrc" src="@/assets/sounds/enter.mp3" /></audio>
   </div>
 </template>
 
@@ -36,11 +39,11 @@ export default {
   name: 'MainButton',
   methods: {
     createRoom: function () {
-      soundEffect('https://soundbible.com/mp3/sms-alert-1-daniel_simon.mp3')  // 소리는 쓰고싶은거 어디 올려놓고 써도 될거같음
+      soundEffect('#enter')
       this.$store.dispatch("createRoom")
     },
     enterRoom: function () {
-      soundEffect('https://soundbible.com/mp3/sms-alert-1-daniel_simon.mp3')
+      soundEffect('#enter')
       const roomId = this.$route.query["room"];
       console.log(this.$route.query["room"]);
       if (roomId) {
@@ -66,55 +69,37 @@ export default {
   transition: .3s !important;
 } */
 
-/* .highlight {
-  display: inline;
-  box-shadow: inset 0 -10px 0 #D9FCDB; 
-}
-
-.highlight:after{
-  content:"";
-  width: 0;
-  height: 10px;
-  display: inline-block;
-  background: #D9FCDB;
-} */
 
 
-
-#unique-transparent-btn a {
-  /* margin: 10px;
-  padding: 20px; */
-  color: #000084;
+#underline-button a {
+  font-size: 3rem;
+  color: rgba(0, 0, 0, 0.8) !important;
   text-align: center;
   text-transform: uppercase;
   position: relative;
   overflow:hidden;
   transition: .3s;
 }
-#unique-transparent-btn a:after {
+
+#underline-button a:after {
     position: absolute;
     transition: .3s;
     content: '';
     width: 0;
     left: 0;
-    bottom: -3px;
-    height: 2px;
-    background: #000084;
+    bottom: -0.3rem;
+    height: 0.3rem;
+    background: linear-gradient(to right, #FC5C7D, #6A82FB) !important;
   }
 
-#unique-transparent-btn a:hover {
-  /* cursor: pointer; */
-  /* background-color: #fffcc8; */
+#underline-button a:hover {
   transition: .3s;
 }
 
-#unique-transparent-btn a:hover:after {
+#underline-button a:hover:after {
   width: 100%;
   left: 0;
 }
-
-
-
 
 #stk {
   max-height: 2rem;

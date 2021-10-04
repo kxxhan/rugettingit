@@ -1,11 +1,15 @@
 <template>
-  <div class="homeBody">
+  <div class="home-body p-d-flex">
     <header>
-      <img alt="logo" src="../assets/logo.png" height="300" width="450">
+      <img alt="logo" src="../assets/logo.png" height="550">
     </header>
     <div class="main-service">
-      <AvatarSetting />
-      <HomeButton />
+      <div class="p-col-6">
+        <AvatarSetting />
+      </div>
+      <div class="p-col-6">
+        <HomeButton />
+      </div>
     </div>
   </div>
 </template>
@@ -27,8 +31,9 @@ export default {
 .home-body {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: between;
   justify-content: center;
+  padding-bottom: 3rem;
 }
 .main-service {
   background-color: transparent;

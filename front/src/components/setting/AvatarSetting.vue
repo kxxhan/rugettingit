@@ -1,5 +1,5 @@
 <template>
-  <div class="avatarBody">
+  <div class="avatar-body">
     <div>
       <section class="avatar-select-header">
         <span>Avatar</span>
@@ -72,9 +72,9 @@ export default {
 </script>
 
 <style>
-.avatarBody {
+.avatar-body {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
 }
 .hi {
