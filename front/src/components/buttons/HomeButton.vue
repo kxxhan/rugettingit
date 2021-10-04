@@ -14,6 +14,7 @@
     >
       입장하기
     </Button>
+    <audio id="enter"><source id="soundSrc" src="@/assets/sounds/enter.mp3" /></audio>
   </div>
 </template>
 
@@ -23,11 +24,11 @@ export default {
   name: 'MainButton',
   methods: {
     createRoom: function () {
-      soundEffect('https://soundbible.com/mp3/sms-alert-1-daniel_simon.mp3')  // 소리는 쓰고싶은거 어디 올려놓고 써도 될거같음
+      soundEffect('#enter')
       this.$store.dispatch("createRoom")
     },
     enterRoom: function () {
-      soundEffect('https://soundbible.com/mp3/sms-alert-1-daniel_simon.mp3')
+      soundEffect('#enter')
       const roomId = this.$route.query["room"];
       console.log(this.$route.query["room"]);
       if (roomId) {
