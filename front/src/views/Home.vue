@@ -4,7 +4,7 @@
     <header>
       <img alt="logo" src="../assets/logo.png" height="300" width="450">
     </header>
-    <div class="mainService">
+    <div class="main-service">
       <AvatarSetting />
       <HomeButton />
     </div>
@@ -33,11 +33,11 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.mainService {
-  background-color: #f6f9fc;
+.main-service {
+  background-color: transparent;
   display: flex;
   flex-direction: row;
   align-items: center;
-    justify-content: center;
+  justify-content: center;
 }
 </style>
