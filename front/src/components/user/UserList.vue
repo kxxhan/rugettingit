@@ -1,21 +1,21 @@
 <template>
   <div class="userListBody">
+    <span>User</span>
     <AvatarGroup class="p-mb-3">
       <Avatar
         v-for="user in userlist"
         :key="user.nickname"
         :image="require(`@/assets/avatar/${user.avatar}.png`)"
-        size="large"
+        size="xlarge"
         shape="circle"
       />
       <Avatar :label="`${ usernum }`" shape="circle" size="large" style="background-color:#9c27b0; color: #ffffff" />
     </AvatarGroup>
-    <div class="userList" v-for="user in userlist" :key="user.nickname">
+    <!-- <div class="userList" v-for="user in userlist" :key="user.nickname">
       <div>{{ user.nickname }}</div>
       <div>{{ user.avatar }}</div>
       <div>{{ user.super }}</div>
-    </div>
-    <div>{{ userlist }}</div>
+    </div> -->
   </div>
 </template>
 
@@ -36,6 +36,13 @@ export default {
     userlist: function () {
       return this.$store.state.room.userList
     }
+
+    // vuex의 store의 계산된 속성으로 생각할 수 있다.
+    // store의 getter를 사용하는것과 현재 component에서 computed로 접근하는것의 차이는?
+    // userlist: function () {
+    //   console.log('유저리스트 변경됐지롱')
+    //   return this.$store.getters.getUserList
+    // }
   },
 }
 </script>

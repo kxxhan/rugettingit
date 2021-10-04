@@ -6,14 +6,14 @@ import createPersistedState from "vuex-persistedstate";
 export default createStore({
   state: {
     id: "",
-    avatar: 1,
+    avatar: 0,
     nickname: "nickname",
-    // userlist: [],
-    // roomId: "",
-    // 위 userlist와  roomid 모두 room에서 조회 가능
+    super: false,
     room: {},
     stompClient: "",
-    message: {},
+    // 이 값은 변경하지 말 것.
+    // 방장 퇴장시 주소가 먼저 변경되어 제대로 값을 가져오지 못하기 때문에 할당함
+    currentRoomId: ""
   },
   mutations: {
     SET_USERDATA: function(state, data) {
@@ -33,13 +33,12 @@ export default createStore({
     SET_STOMP_CLIENT: function(state, data) {
       state.stompClient = data;
     },
-    SET_MESSAGE: function(state, data) {
-      state.message = data;
+    SET_SUPER: function(state, data) {
+      state.super = data;
     },
-    SET_USERLIST: function(state, data) {
-      state.room.userList = data
-      console.log('여길봐 여기', state.room.userList)
-    },
+    SET_CURRENT_ROOM_ID: function(state, data) {
+      state.currentRoomId = data;
+    }
   },
   actions: {
     createUser: function(context) {
@@ -48,12 +47,14 @@ export default createStore({
         url: "/user",
         //기본 아바타, 닉네임 설정
         data: {
+          id: context.state.id ? context.state.id : null,
           avatar: context.state.avatar,
           nickname: context.state.nickname
         }
       })
         .then(res => {
           axios.defaults.headers.common["User-Id"] = res.data.data.id;
+          console.log(axios.defaults.headers.common["User-Id"]);
           context.commit("SET_USERDATA", res.data.data);
         })
         .catch(err => {
@@ -70,19 +71,29 @@ export default createStore({
         }
       })
         .then(res => {
-          context.commit("SET_ROOM", res.data.data);
-          //room 자체를 store에 저장
-          console.log('방 자체를 스토어에 저장', res.data.data);
-          router.push({
-            name: "Game",
-            query: { room: res.data.data.id }
-          });
+          // room 정보는 여기서 저장하지 않는다. 실제 입장해서 받아오는 방 객체로 방을 저장한다
+          router.push({ name: "Game", query: { room: res.data.data["id"] } });
         })
         .catch(err => {
           console.log("failed");
           console.log(err.response);
         });
     },
+    // unSub: function() {
+    //   console.log('유저 퇴장')
+    //   axios({
+    //     method: 'delete',
+    //     url: '/room/user',
+    //     params: {
+    //       roomId: this.state.roomId
+    //     }
+    //   }).then((res) => {
+    //     console.log(res.data)
+    //   }).catch((err) => {
+    //     console.log(err.response)
+    //   })
+    // },
+
     setNickName: function(context, data) {
       context.commit("SET_NICKNAME", data);
     },
@@ -92,16 +103,19 @@ export default createStore({
     setStompClient: function(context, data) {
       context.commit("SET_STOMP_CLIENT", data);
     },
-    setMessage: function(context, data) {
-      context.commit("SET_MESSAGE", data);
+    setRoom: function(context, data) {
+      context.commit("SET_ROOM", data);
     },
-    setUserList: function(context, data) {
-      context.commit("SET_USERLIST", data);
+    setSuper: function(context, data) {
+      context.commit("SET_SUPER", data === context.state.id);
     },
+    setCurrentRoomId: function(context, data) {
+      context.commit("SET_CURRENT_ROOM_ID", data);
+    }
   },
-  getters : {
-    getRoomInfo: state => {
-      return state.message
+  getters: {
+    isRoomExist: function(state) {
+      return Object.keys(state.room).length;
     }
   },
   modules: {},

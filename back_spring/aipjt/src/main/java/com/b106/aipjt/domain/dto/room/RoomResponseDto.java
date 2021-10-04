@@ -14,8 +14,8 @@ import java.util.List;
 @Builder
 public class RoomResponseDto {
     private String id;
-    @Builder.Default
-    private boolean isStart = false;
+    private String superUser;
+    private String status;
     @Builder.Default
     private int currentRound = 0;
     @Builder.Default
@@ -23,16 +23,21 @@ public class RoomResponseDto {
     @Builder.Default
     private int roundTime = 60;
     @Builder.Default
+    private int personnel = 8;
+    @Builder.Default
     private List<RoomUserResponseDto> userList = new ArrayList<>();
 
 
 
-    public static RoomResponseDto toRoom(Room room, List<RoomUserResponseDto> roomUsers) {
+    public static RoomResponseDto toRoom(Room room, List<RoomUserResponseDto> userListDto) {
         return RoomResponseDto.builder().id(room.getId())
+            .superUser(room.getSuperUser().getId())
+            .status(room.getStatus())
             .currentRound(room.getCurrentRound())
             .maxRound(room.getMaxRound())
             .roundTime(room.getRoundTime())
-            .userList(roomUsers)
+            .personnel(room.getPersonnel())
+            .userList(userListDto)
             .build();
     }
 

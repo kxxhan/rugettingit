@@ -33,17 +33,29 @@ public class RoomController {
         return new ResponseDto<>(HttpStatus.CREATED.value(), "방 생성 성공", build);
     }
 
+    // 방 조회
+    @GetMapping("")
+    public ResponseDto<RoomResponseDto> getRoom(@RequestHeader(value="User-Id") String userId,
+                                                  @RequestParam String roomId){
+        Room room = roomRedisService.getRoom(userId, roomId);
+        List<RoomUserResponseDto> roomUsers = RoomUserResponseDto.of(room);
+        RoomResponseDto build = RoomResponseDto.toRoom(room, roomUsers);
+        System.out.println(build.getUserList());
+
+        return new ResponseDto<>(HttpStatus.CREATED.value(), "방 조회 성공", build);
+    }
+
     // 방 수정 : 방정보에 대한 변경 사항을 받아야 한다
     @PatchMapping("")
     public ResponseDto<RoomResponseDto> patchRoom(@RequestHeader(value="User-Id") String userId,
                                                   @RequestParam String roomId,
                                                   @RequestBody RoomSettingRequestDto roomSettingRequestDto){
-        Room room = roomRedisService.configRoom(userId, roomId, roomSettingRequestDto.getMaxRound(), roomSettingRequestDto.getRoundTime());
+        Room room = roomRedisService.configRoom(userId, roomId, roomSettingRequestDto.getMaxRound(), roomSettingRequestDto.getRoundTime(), roomSettingRequestDto.getPersonnel());
 
         List<RoomUserResponseDto> roomUsers = RoomUserResponseDto.of(room);
-
         RoomResponseDto build = RoomResponseDto.toRoom(room, roomUsers);
-        roomRedisService.makeRoomInfoMessage(build);
+
+        template.convertAndSend("/sub/info/room/" + room.getId(), build);
         System.out.println(build.getUserList());
 
         return new ResponseDto<>(HttpStatus.CREATED.value(), "방 수정 성공", build);
@@ -64,7 +76,7 @@ public class RoomController {
         RoomResponseDto build = RoomResponseDto.toRoom(room, roomUsers);
 
         // 방에 있는 다른 사람들에게 다시 방객체 정보 publish
-        roomRedisService.makeRoomInfoMessage(build);
+        template.convertAndSend("/sub/info/room/" + room.getId(), build);
 
         // 3. RoomResponseDto를 리턴
         return new ResponseDto<>(HttpStatus.OK.value(), "방 입장 성공", build);
@@ -83,7 +95,7 @@ public class RoomController {
         RoomResponseDto build = RoomResponseDto.toRoom(room, roomUsers);
 
         // 방에 있는 다른 사람들에게 다시 방객체 정보 publish
-        roomRedisService.makeRoomInfoMessage(build);
+        template.convertAndSend("/sub/info/room/" + room.getId(), build);
         return new ResponseDto<>(HttpStatus.OK.value(), "멤버 퇴장", build);
     }
 

@@ -24,21 +24,6 @@ export default {
     HomeButton,
     Timer,
   },
-  methods: {
-    createUser: function () {
-      this.$store.dispatch('createUser')
-    },
-    setRoomId: function () {
-      if (this.$route.query.room) {
-        this.$store.dispatch('setRoomId', this.$route.query.room)
-      }
-    }
-  },
-  // mounted: function () 와 동일하게 동작
-  mounted: function() {
-    this.createUser()
-    this.setRoomId()
-  }
 }
 </script>
 <style>

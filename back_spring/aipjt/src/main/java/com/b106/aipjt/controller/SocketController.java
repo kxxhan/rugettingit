@@ -5,7 +5,9 @@ import com.b106.aipjt.domain.dto.socket.ImageMessageDto;
 import com.b106.aipjt.domain.dto.socket.MessageTypeCode;
 import com.b106.aipjt.domain.dto.socket.RoomInfoMessageDto;
 import com.b106.aipjt.domain.redishash.Room;
+import com.b106.aipjt.domain.redishash.User;
 import com.b106.aipjt.domain.repository.RoomRedisRepository;
+import com.b106.aipjt.domain.repository.UserRedisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -21,13 +23,18 @@ public class SocketController {
 
     private final SimpMessagingTemplate template;
     private final RoomRedisRepository roomRedisRepository;
+    private final UserRedisRepository userRedisRepository;
 
     // prefix로 pub 설정이 되어있으므로 /pub/chat/enter로 퍼블리쉬 요청이 오는 것
     @MessageMapping(value = "/chat/enter")
     public void enterRoom(ChatMessageDto messageDto) {
-        System.out.println(messageDto.getRoomId());
+        System.out.println("방 번호: " + messageDto.getRoomId());
         messageDto.setCode(MessageTypeCode.JOIN);
         messageDto.setMessage("두둥 등장!");
+//        Optional<User> newPlayer = userRedisRepository.findByNickname(messageDto.getWriter());
+//        if (newPlayer.isPresent()){
+//            newPlayer.get().setSessionId();
+//        }
         // /pub/chat/room/{roomId}를 구독하는 애들한테 메시지를 퍼블리쉬
         template.convertAndSend("/sub/chat/room/" + messageDto.getRoomId(), messageDto);
     }

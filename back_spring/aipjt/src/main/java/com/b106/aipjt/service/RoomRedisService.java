@@ -1,13 +1,11 @@
 package com.b106.aipjt.service;
 
 import com.b106.aipjt.domain.dto.room.RoomResponseDto;
-import com.b106.aipjt.domain.dto.socket.ChatMessageDto;
-import com.b106.aipjt.domain.dto.socket.MessageTypeCode;
 import com.b106.aipjt.domain.dto.socket.RoomInfoMessageDto;
+import com.b106.aipjt.domain.redishash.GameStatus;
 import com.b106.aipjt.domain.redishash.Room;
 import com.b106.aipjt.domain.redishash.User;
 import com.b106.aipjt.domain.repository.RoomRedisRepository;
-import com.b106.aipjt.domain.repository.RoundRedisRepository;
 import com.b106.aipjt.domain.repository.UserRedisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -21,9 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RoomRedisService {
     private final UserRedisRepository userRedisRepository;
-    private final RoundRedisRepository roundRedisRepository;
     private final RoomRedisRepository roomRedisRepository;
-    private final SimpMessagingTemplate template; // socket 메시지 주고받기용
     // 방 생성
     public Room createRoom(String userId) {
         Optional<User> result = userRedisRepository.findById(userId);
@@ -31,16 +27,27 @@ public class RoomRedisService {
         Room room = roomRedisRepository.save(new Room(null, result.get()));
         return roomRedisRepository.save(room);
     }
+    // 방 조회
+    public Room getRoom(String userId, String roomId) {
+        Optional<User> userById = userRedisRepository.findById(userId);
+        Optional<Room> roomById = roomRedisRepository.findById(roomId);
+        // 검증 로직
+        if (userById.isEmpty()) throw new RuntimeException("유저가 존재하지 않습니다");
+        if (roomById.isEmpty()) throw new RuntimeException("방이 존재하지 않습니다");
+        User user = userById.get();
+        Room room = roomById.get();
+        if (room.isFull()) throw new RuntimeException("방이 가득 찼습니다.");
+        return room;
+    }
+
     // 방 수정
-    public Room configRoom(String userId, String roomId, int maxRound, int roundTime) {
+    public Room configRoom(String userId, String roomId, int maxRound, int roundTime, int personnel) {
         Optional<Room> roomById = roomRedisRepository.findById(roomId);
         if (roomById.isEmpty()) throw new RuntimeException("방이 존재하지 않습니다.");
         Room room = roomById.get();
         if (!room.getSuperUser().getId().equals(userId)) throw new RuntimeException("방장만 방을 변경할 수 있습니다.");
-        if (room.isStart()) throw new RuntimeException("게임중에는 방 설정을 변경할 수 없습니다.");
-
-        room.setMaxRound(maxRound);
-        room.setRoundTime(roundTime);
+        if (!room.getStatus().equals(GameStatus.LOBBY.getValue())) throw new RuntimeException("게임중에는 방 설정을 변경할 수 없습니다.");
+        room = room.gameSetting(maxRound, roundTime, personnel);
         return roomRedisRepository.save(room);
     }
 
@@ -52,10 +59,12 @@ public class RoomRedisService {
         // 검증 로직
         if (!userExist) throw new RuntimeException("유저가 존재하지 않습니다");
         if (roomById.isEmpty()) throw new RuntimeException("방이 존재하지 않습니다");
-        // 유저 정보 갱신 & 저장
-        User user = userRedisRepository.save(new User(userId, avatar, nickname));
         //Optional 꺼내기
         Room room = roomById.get();
+        if (room.isFull()) throw new RuntimeException("방이 가득 찼습니다");
+
+        // 유저 정보 갱신 & 저장
+        User user = userRedisRepository.save(new User(userId, avatar, nickname));
         // 입장 처리하기
         if (!room.getUserList().contains(user)) {
             room.getUserList().add(user);
@@ -89,11 +98,4 @@ public class RoomRedisService {
         }
         return room;
     }
-    public void makeRoomInfoMessage(RoomResponseDto room) {
-        RoomInfoMessageDto messageDto = new RoomInfoMessageDto();
-        messageDto.setRoomId(room.getId());
-        messageDto.setMessage(room);
-        template.convertAndSend("/sub/room_info/room/" + messageDto.getRoomId(), messageDto);
-    }
-
 }

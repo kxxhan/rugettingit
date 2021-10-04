@@ -9,8 +9,9 @@ import urllib.request
 import requests
 from io import BytesIO
 from PIL import Image
-import tensorflow as tf
-from tts.views import tts
+# import tensorflow as tf
+import json
+
 
 # Create your views here.
 @api_view(['POST'])
@@ -71,6 +72,7 @@ def index_kr(request):
     encod_img = ic.newEncodeImage(cvtimg)
     caption = ic.newGenerateCaption(encod_img)
 
+    # branch complict?
     client_id = "b3HISCq2mJu0enV0Wvog" # 개발자센터에서 발급받은 Client ID 값
     client_secret = "lRHpaTXbnv" # 개발자센터에서 발급받은 Client Secret 값
     encText = urllib.parse.quote(caption)
@@ -85,8 +87,10 @@ def index_kr(request):
     if(rescode==200):
         response_body = response.read()
         caption = response_body.decode('utf-8')
+        captionjson = json.loads(caption)
+        captionjson = captionjson['message']['result']['translatedText']
         data = {
-            'caption': caption
+            'caption': captionjson
         }
         tts(caption)
         return Response(data, status=status.HTTP_200_OK)

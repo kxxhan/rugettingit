@@ -1,10 +1,12 @@
 <template>
   <div class="lobbyBody">
     <div>
-      <UserList />
+      <UserList v-if="isRoomExist" />
       <div class="lobbyComponents">
-        <GameSetting />
-        <LobbyButton @viewChange="$emit('viewChange', $event)" />
+        <GameSetting v-if="isRoomExist && $store.state.super" />
+        <!-- 방장이 아닌 사람한테는 다른걸 보여줘도 좋을 듯 -->
+        {{ isRoomExist }}
+        <LobbyButton />
       </div>
     </div>
   </div>
@@ -24,15 +26,11 @@ export default {
     UserList,
   },
   name: 'Lobby',
-  data() {
-    return {
-    }
-  },
-  methods: {
-  },
-  created() {
-    // console.log('query test', this.$route.query.room)
-  },
+  computed: {
+    isRoomExist : function () {
+      return this.$store.getters.isRoomExist
+    },
+  }
 }
 
 </script>
