@@ -38,7 +38,7 @@ export default {
   name: 'MainButton',
   methods: {
     createRoom: function () {
-      soundEffect('#enter')
+      soundEffect()
       this.$store.dispatch("createRoom")
     },
     enterRoom: function () {
