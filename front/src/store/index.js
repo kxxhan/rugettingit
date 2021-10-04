@@ -116,14 +116,6 @@ export default createStore({
     isRoomExist: function(state) {
       return Object.keys(state.room).length;
     },
-    currentView: state => {
-<<<<<<< HEAD
-      return state.room.status;
-    }
-=======
-      return state.room.status
-    },
->>>>>>> feature/userlist
   },
   modules: {},
   plugins: [createPersistedState()]
