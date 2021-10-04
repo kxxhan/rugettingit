@@ -2,8 +2,10 @@
   <div id="app">
     <div class="chat-box">
       <ScrollPanel
+        id="chatlist"
         style="width: 100%; height: 400px"
         class="custom"
+        @scroll="chat_on_scroll"
       >
         <div
           v-for="(chat, idx) in chatList"
@@ -69,6 +71,10 @@ export default {
         })
       )
     },
+    chat_on_scroll() {
+      var objDiv = document.getElementById("chatlist")
+      objDiv.scrollTop = objDiv.scrollHeight
+    }
   },
   created() {
     // this.connect()
