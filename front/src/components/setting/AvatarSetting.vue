@@ -1,25 +1,31 @@
 <template>
   <div class="avatar-body">
     <div>
-      <section class="avatar-select-header">
-        <span>Avatar</span>
+      <section class="avatar-select">
+        <Button class="p-button-outlined p-button-secondary p-button-sm p-my-1" 
+          @click="randomAvatar">
+          shuffle
+        </Button>
       </section>
       <section class="avatar-select">
         <i class="fas fa-chevron-left" @click="changeAvatar('left')"></i>
-        <Avatar class="avatar" :image="require(`@/assets/avatar/${avatar}.png`)" shape="circle" />
+        <Avatar class="avatar" 
+          :image="require(`@/assets/avatar/${avatar}.png`)" 
+          shape="circle" />
         <i class="fas fa-chevron-right" @click="changeAvatar('right')"></i>
       </section>
-      <section class="avatar-select">
-        <i class="fas fa-random" @click="randomAvatar"></i>
-      </section>
-      <p>Nickname</p>
-      <div class="p-float-label why">
+      <div class="p-d-grid">
+        <label class="p-col-8 p-offset-2 mini" 
+          for="nickname">
+          nickname
+        </label>
         <InputText
           id="username"
+          class="p-col-8 p-offset-2"
           type="text"
           v-model="nickname"
           @input="setNickName"
-          place-holder="Hello"
+          place-holder="RUGI"
         >
         </InputText>
       </div>
@@ -72,21 +78,19 @@ export default {
 </script>
 
 <style>
+.p-button, .p-inputtext {
+  font-family: "Elice Digital Baeum",sans-serif !important; 
+  font-size: 0.7rem !important;
+}
 .avatar-body {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.hi {
-  /* padding: 25px 0px; */
-}
-.why {
-  /* avatar랑 nickname 띄어놓기 위함 */
-  margin-top: 25px;
-}
+
 .avatar {
-  width: 150px !important;
-  height: 150px !important;
+  width: 10vh !important;
+  height: 100% !important;
 }
 
 .avatar-select-header {
@@ -103,16 +107,21 @@ export default {
 .avatar-select {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   margin: 5px 0;
 }
 .fa-chevron-left, .fa-chevron-right {
   margin: 20px;
   cursor: pointer;
   font-size: 2rem;
+  color: rgba(0, 0, 0, 0.8) !important;
 }
 .fa-random {
   cursor: pointer;
   font-size: 1.8rem;
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+.mini {
+  font-size: 0.2rem;
 }
 </style>

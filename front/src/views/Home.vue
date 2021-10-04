@@ -1,13 +1,13 @@
 <template>
-  <div class="home-body p-d-flex">
-    <header>
-      <img alt="logo" src="../assets/logo.png" height="550">
+  <div class="home-body p-d-grid">
+    <header class="p-col-12">
+      <img class="logo p-d-flex p-jc-center" alt="logo" src="../assets/logo.png">
     </header>
-    <div class="main-service">
-      <div class="p-col-6">
+    <div class="main-service p-grid p-col-12 p-jc-center">
+      <div class="p-col-5 p-my-auto">
         <AvatarSetting />
       </div>
-      <div class="p-col-6">
+      <div class="p-col-5 p-my-auto">
         <HomeButton />
       </div>
     </div>
@@ -33,13 +33,15 @@ export default {
   flex-direction: column;
   align-items: between;
   justify-content: center;
-  padding-bottom: 3rem;
+  padding-block: 3rem;
 }
 .main-service {
   background-color: transparent;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+}
+
+.logo {
+  aspect-ratio: initial;
+  height: 40vh;
+  margin: auto;
 }
 </style>

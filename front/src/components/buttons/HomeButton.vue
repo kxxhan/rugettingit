@@ -3,7 +3,7 @@
     <div
       id="underline-button"
       @click="createRoom"
-      class="p-button-jj p-button-lg p-mb-2 p-pb-3"
+      class="p-button-jj p-button-lg p-py-3"
     >
       <a>
         <span class="p-mr-1">방만들기</span>
@@ -17,7 +17,7 @@
     <div
       id="underline-button"
       @click="enterRoom"
-      class="p-button-jj p-button-lg p-mb-2 p-pb-3"
+      class="p-button-jj p-button-lg p-py-3"
     >
       <a>
         <span class="p-mr-1">입장하기</span>
@@ -39,10 +39,18 @@ export default {
   methods: {
     createRoom: function () {
       soundEffect()
+      if (!this.$store.state.nickname.length) {
+        alert("닉네임 글자수는 1~8자로 부탁드려요...")
+        return
+      }
       this.$store.dispatch("createRoom")
     },
     enterRoom: function () {
       soundEffect()
+      if (!this.$store.state.nickname.length) {
+        alert("닉네임 글자수는 1~8자로 부탁드려요...")
+        return
+      }
       const roomId = this.$route.query["room"];
       console.log(this.$route.query["room"]);
       if (roomId) {
@@ -59,7 +67,7 @@ export default {
 @import "/style/custom-button.css";
 
 #underline-button a {
-  font-size: 3rem;
+  font-size: 2rem;
   color: rgba(0, 0, 0, 0.8) !important;
   text-align: center;
   text-transform: uppercase;

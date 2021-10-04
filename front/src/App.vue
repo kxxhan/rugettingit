@@ -8,9 +8,12 @@
 <script>
 export default {
   name: 'App',
-  mounted: function() {
+  mounted: async function() {
+    if(1 > this.$store.state.nickname || this.$store.state.nickname > 8) {
+      await this.$store.dispatch("setNickName", "RUGI")
+    }
     console.log("AppStart");
-    this.$store.dispatch('createUser')
+    this.$store.dispatch("createUser")
     this.$store.dispatch("setRoom", {})
     this.$store.dispatch("setStompClient", "");
     this.$store.dispatch("setCurrentRoomId", "");
