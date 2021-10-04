@@ -10,6 +10,7 @@ export default createStore({
     nickname: "nickname",
     super: false,
     room: {},
+    quiz: "",
     stompClient: "",
     // 이 값은 변경하지 말 것.
     // 방장 퇴장시 주소가 먼저 변경되어 제대로 값을 가져오지 못하기 때문에 할당함
@@ -42,7 +43,10 @@ export default createStore({
     },
     SET_CURRENT_ROOM_ID: function(state, data) {
       state.currentRoomId = data;
-    }
+    },
+    SET_QUIZ: function(state, data) {
+      state.quiz = data;
+    },
   },
   actions: {
     createUser: function(context) {
@@ -120,7 +124,11 @@ export default createStore({
     },
     setCurrentRoomId: function(context, data) {
       context.commit("SET_CURRENT_ROOM_ID", data);
-    }
+    },
+    setQuiz: function(context, data) {
+      context.commit("SET_QUIZ", data);
+    },
+
   },
   getters: {
     isRoomExist: function(state) {
