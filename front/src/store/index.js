@@ -6,7 +6,7 @@ import createPersistedState from "vuex-persistedstate";
 export default createStore({
   state: {
     id: "",
-    avatar: 0,
+    avatar: Math.floor(Math.random()*28),
     nickname: "nickname",
     super: false,
     room: {},
@@ -47,14 +47,13 @@ export default createStore({
         url: "/user",
         //기본 아바타, 닉네임 설정
         data: {
-          id: context.state.id ? context.state.id : null,
+          id: context.state.id,
           avatar: context.state.avatar,
           nickname: context.state.nickname
         }
       })
         .then(res => {
           axios.defaults.headers.common["User-Id"] = res.data.data.id;
-          console.log(axios.defaults.headers.common["User-Id"]);
           context.commit("SET_USERDATA", res.data.data);
         })
         .catch(err => {
@@ -117,9 +116,6 @@ export default createStore({
     isRoomExist: function(state) {
       return Object.keys(state.room).length;
     },
-    currentView: state => {
-      return state.room.status
-    }
   },
   modules: {},
   plugins: [createPersistedState()]

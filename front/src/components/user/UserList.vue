@@ -52,7 +52,9 @@ export default {
 .userListBody {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  padding-top: 50px;
+  padding: 50px 10px;
 }
 .userList {
   display: flex;
