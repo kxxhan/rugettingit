@@ -1,10 +1,30 @@
 <template>
-  <div>게임시작</div>
+  <div>
+    <div>
+      <img src="@/assets/RUGI.png" alt="">
+    </div>
+    <div>
+      {{ quiz }}
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'GameInit'
+  name: 'GameInit',
+  data: function() {
+    return {
+
+    }
+  },
+  methods: {
+
+  },
+  computed: {
+    quiz: function () {
+      return this.$store.state.quiz
+    }
+  }
 }
 </script>
 
