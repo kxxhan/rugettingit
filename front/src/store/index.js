@@ -116,6 +116,9 @@ export default createStore({
   getters: {
     isRoomExist: function(state) {
       return Object.keys(state.room).length;
+    },
+    currentView: state => {
+      return state.room.status
     }
   },
   modules: {},

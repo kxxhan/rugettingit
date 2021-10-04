@@ -6,6 +6,7 @@
       <div>라운드 시간 : {{ $store.state.room.roundTime }}</div>
       <div> 정원 : {{ $store.state.room.personnel }}</div>
       <div>{{ $store.state.room }}</div>
+      <div>{{ checkCurrentView }}</div>
     </div>
     <div>
       <Chat :chatList="chatList" />
@@ -102,8 +103,9 @@ export default {
     quizSubscribe: async function () {
       this.quizSubscription = await this.stompClient.subscribe('/sub/quiz/room/' + this.roomId, quiz => {
         // 받은 데이터를 json으로 파싱하고 리스트에 넣어줍니다.
-        // console.log("quiz : ", JSON.parse(quiz.body));
-        console.log(quiz);
+        const result = JSON.parse(quiz.body)
+        // state에 넣어주면 된다. 메소드 작성하면 됨
+        console.log(result);
       })
     },
     sendFindRoom: async function () {
@@ -206,11 +208,21 @@ export default {
   computed: {
     roomId: function () {
       return this.$store.state.currentRoomId
+    },
+    checkCurrentView: function () {
+      return this.$store.getters.currentView
     }
   },
-  // 시작 시 소켓연결과 유저 입장, 유저입장메시지 등을 수행한다
+  watch: {
+    checkCurrentView(val) {
+      console.log('현재 cruuentView를', val, '로 변화')
+      this.currentView = val
+    }
+  },
   created: async function  () {
     await this.$store.dispatch("setCurrentRoomId", this.$route.query["room"])
+    console.log('방 처음 생성시 status', this.$store.state.status)
+    console.log(this.$store.getters.currentView)
     this.connect()
   },
   beforeUnmount: function () {

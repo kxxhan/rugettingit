@@ -3,7 +3,6 @@ package com.b106.aipjt.controller;
 import com.b106.aipjt.domain.dto.question.QuestionDto;
 import com.b106.aipjt.domain.jpaentity.Question;
 import com.b106.aipjt.domain.repository.QuestionRepository;
-import com.b106.aipjt.service.CaptService;
 import com.b106.aipjt.service.QuestionService;
 import com.b106.aipjt.service.S3UploadService;
 import lombok.AllArgsConstructor;
@@ -14,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/question")
@@ -23,7 +23,7 @@ public class QuestionController {
 
     private S3UploadService s3UploadService;
     private QuestionService questionService;
-    private CaptService captService;
+//    private CaptService captService;
 
     // QuestionDto 조회
     @GetMapping("")
@@ -39,19 +39,23 @@ public class QuestionController {
     public String upload(QuestionDto questionDto, MultipartFile file) throws IOException {
         String imgUrl = s3UploadService.upload(file); // key : file
         questionDto.setImgUrl(imgUrl);
-
-        String imgCaption = captService.postCaption(questionDto);
+        System.out.println(questionDto);
+        String imgCaption = questionService.imgUrlPost(questionDto);
         questionDto.setImgCaption(imgCaption);
 
+        String audioUrl = s3UploadService.getAudioUrl();
+        questionDto.setAudioUrl(audioUrl);
+
+        System.out.println("@QuestionController questionDto: "+questionDto);
         // Dto DB에 저장
-//        questionService.saveImage(questionDto);
+        questionService.saveImage(questionDto);
 
         return questionDto.toString();
     }
 
     // random 이미지
     @GetMapping("/exam")
-    public List<Question> findOne() {
+    public Optional<Question> findOne() {
         return questionRepository.randomQuestion();
     }
 }

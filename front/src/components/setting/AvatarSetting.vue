@@ -94,7 +94,6 @@ export default {
   height: 150px !important;
 }
 
-
 .avatar-select-header {
   display: flex;
   justify-content: center;
