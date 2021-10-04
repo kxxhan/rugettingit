@@ -38,7 +38,7 @@ public class QuestionController {
     public String upload(QuestionDto questionDto, MultipartFile file) throws IOException {
         String imgUrl = s3UploadService.upload(file); // key : file
         questionDto.setImgUrl(imgUrl);
-
+        System.out.println(questionDto);
         String imgCaption = questionService.imgUrlPost(questionDto);
         questionDto.setImgCaption(imgCaption);
 

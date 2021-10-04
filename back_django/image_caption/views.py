@@ -9,6 +9,7 @@ import urllib.request
 import requests
 from io import BytesIO
 from PIL import Image
+from tts.views import tts
 # import tensorflow as tf
 import json
 
