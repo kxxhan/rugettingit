@@ -233,15 +233,12 @@ export default {
 </script>
 
 <style>
-@import "../../reset.css";
+/* @import "../../reset.css"; */
 body {
   background-color: #f6f9fc;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 50px;
-  padding: 50px 0px;
 }
 
 .canvas {

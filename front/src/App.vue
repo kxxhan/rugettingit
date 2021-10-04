@@ -1,7 +1,7 @@
 <template>
-  <body>
+  <div id="app-body">
     <router-view />
-  </body>
+  </div>
 </template>
 
 
@@ -16,36 +16,32 @@ export default {
 
 <style>
 @import "/reset.css";
-@font-face {
-    font-family: 'EliceDigitalBaeum_Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Bold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-body {
-  padding: 10rem;
-  background: #000;
+
+#app-body {
+  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 50px;
-  padding: 50px 0px;
-  /* border: linear-gradient(#FC5C7D, 50%, #6A82FB) 5px solid !important; */
-  border:magenta 5px solid !important;
+  align-self: center;
+  justify-content: center;
+  min-width: 96vw;
+  max-width: 96vw;
+  min-height: 92vh;
+  max-height: 92vh;
+  border-radius: 1rem;
+  box-shadow: 0.5rem 0.5rem 1.5rem rgb(38, 38, 38);
 }
+
 div {
-  /* background: maroon; */
   box-sizing: border-box;
-  /* border: magenta 5px solid !important; */
 }
-html, input, body, div, p, button {
-  font-family: 'EliceDigitalBaeum_Bold' !important;
-}
+
 .controls {
   margin-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .controls .controls_btns {

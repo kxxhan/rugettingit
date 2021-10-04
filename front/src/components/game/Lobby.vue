@@ -40,19 +40,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 50px;
-  padding: 50px 0px;
 }
-/* .lobbyComponents {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding-top: 50px;
-  padding: 50px 0px;
-} */
 .lobbyComponents {
   display: flex;
-  flex-direction: column !important;
-  padding: 0px 50px;
+  flex-direction: column;
 }
 </style>
