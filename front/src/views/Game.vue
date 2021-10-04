@@ -1,6 +1,7 @@
 <template>
   <div class="gameBody">
-    <div>
+    <div class="game">
+      <UserList />
       <component :is="currentView"></component>
       <div> 라운드 : {{ $store.state.room.maxRound }}</div>
       <div>라운드 시간 : {{ $store.state.room.roundTime }}</div>
@@ -15,6 +16,7 @@
 </template>
 
 <script>
+import UserList from '@/components/user/UserList.vue'
 import Lobby from '@/components/game/Lobby.vue'
 import GameInit from '@/components/game/GameInit.vue'
 import GamePlay from '@/components/game/GamePlay.vue'
@@ -31,7 +33,8 @@ export default {
     GameInit,
     GamePlay,
     GameResult,
-    Chat
+    Chat,
+    UserList
   },
   data: function() {
     return {

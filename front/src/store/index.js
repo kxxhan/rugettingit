@@ -6,7 +6,7 @@ import createPersistedState from "vuex-persistedstate";
 export default createStore({
   state: {
     id: "",
-    avatar: 0,
+    avatar: Math.floor(Math.random()*28),
     nickname: "nickname",
     super: false,
     room: {},
@@ -54,7 +54,6 @@ export default createStore({
       })
         .then(res => {
           axios.defaults.headers.common["User-Id"] = res.data.data.id;
-          console.log(axios.defaults.headers.common["User-Id"]);
           context.commit("SET_USERDATA", res.data.data);
         })
         .catch(err => {
@@ -119,7 +118,7 @@ export default createStore({
     },
     currentView: state => {
       return state.room.status
-    }
+    },
   },
   modules: {},
   plugins: [createPersistedState()]
