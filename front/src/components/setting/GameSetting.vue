@@ -96,8 +96,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-top: 50px;
-  padding: 50px 0px;
 }
 .set {
   font-size: 30px;

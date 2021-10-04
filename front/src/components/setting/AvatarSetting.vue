@@ -81,11 +81,9 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-top: 50px;
-  padding: 50px 0px;
 }
 .hi {
-  padding: 25px 0px;
+  /* padding: 25px 0px; */
 }
 .why {
   /* avatar랑 nickname 띄어놓기 위함 */

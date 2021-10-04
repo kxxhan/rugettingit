@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Bold.woff">
+    <link href="//font.elice.io/EliceDigitalBaeum.css" rel="stylesheet">
     <!-- font awesome start -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <!--  font awesome end  -->
@@ -13,10 +13,9 @@
   </head>
   <style>
     body, html {
-      padding: 0;
-      margin: 0;
-      width: 100vw;
-      min-height: 95vh;
+      min-width: 100vw;
+      max-width: 100vw;
+      min-height: 100vh;
       max-height: 100vh;
       overflow: hidden;
       /* align-self: center !important; */
@@ -24,8 +23,9 @@
     }
     #edge {
       background: linear-gradient(#FC5C7D, 50%, #6A82FB) !important;
-      padding: 0.5rem !important;
-      margin-left: 0.5rem !important;
+    }
+    #app {
+      margin-top: 0 !important;
     }
   </style>
   <body id="edge">

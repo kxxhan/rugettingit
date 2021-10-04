@@ -1,24 +1,26 @@
 <template>
-  <div class="mainButtonBody">
+  <div class="main-button-body">
     <Button
       id="createSession"
       @click="createRoom"
-      class="p-button-raised p-button-text p-button-secondary p-button-lg"
-      label="방만들기"
+      class="p-button-jj p-button-lg p-mb-2"
     >
+      <span class="p-mr-1">방만들기</span>
+      <img class="" src="@/assets/sticker/star01.png" alt="" id="stk">  
     </Button>
-    <Button
+    <button
       id="enterSession"
       @click="enterRoom"
-      class="p-button-raised p-button-text p-button-secondary p-button-lg"
+      class="p-button-jj p-button-lg p-mb-2"
     >
-      입장하기
+      <span class="p-mr-1">입장하기</span>
+      <img class="" src="@/assets/sticker/star01.png" alt="" id="stk">  
     </Button>
   </div>
 </template>
 
 <script>
-import {soundEffect} from '../api/sound.js'
+import { soundEffect } from '../api/sound.js'
 export default {
   name: 'MainButton',
   methods: {
@@ -41,13 +43,15 @@ export default {
 </script>
 
 <style>
-.mainButtonBody {
+@import "/style/custom-button.css";
+
+#stk {
+  max-height: 2rem;
+}
+.main-button-body {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.p-button-raised {
-  margin-top: 25px !important;
-  margin-left: 25px !important;
+  justify-content: center;
 }
 </style>

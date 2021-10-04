@@ -1,5 +1,5 @@
 <template>
-  <div class="homeBody">
+  <div class="home-body">
     <Timer />
     <header>
       <img alt="logo" src="../assets/logo.png" height="300" width="450">
@@ -27,18 +27,17 @@ export default {
 }
 </script>
 <style>
-.homeBody {
+.home-body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 .mainService {
   background-color: #f6f9fc;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* width: 100%; */
-  padding: 50px 0px;
+    justify-content: center;
 }
 </style>
