@@ -36,6 +36,7 @@ export default {
   max-height: 92vh;
   border-radius: 1rem;
   box-shadow: 0.5rem 0.5rem 1.5rem rgb(38, 38, 38);
+  font-family: "Elice Digital Baeum",sans-serif !important; 
 }
 
 div {
