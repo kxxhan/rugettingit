@@ -2,10 +2,8 @@
 <!-- 방법 2: mounted에서 this.timerStart() 호출 -->
 <template>
   <section>
-    <div>타이머 째깍</div>
+    <div>타이머</div>
     {{ this.time }}
-    <!-- <button @click="timerStart">타이머 시작</button> -->
-    <button @click="timerStop">타이머 종료</button>
   </section>
 </template>
 <script>
@@ -14,7 +12,8 @@ export default {
   data: function () {
     return {
       timer: this.timerStart(),
-      time: 60
+      // roundTime을 가지고 있지 않는 경우가 있을까?
+      time: (this.$store.state.room ? this.$store.state.room.roundTime : 60)
     }
   },
   methods: {
@@ -22,14 +21,11 @@ export default {
     timerStart: function () {
       return setInterval(()=>{
         this.time -= 1
-        if (this.time===50) { // 종료 조건 걸어줄 수 있음
-          this.timerStop()
+        if (this.time === 0) { // 종료 조건 걸어줄 수 있음
+          // 일단 지금은 필요 없다.
         }
       }, 1000)
     },
-    timerStop: function () {
-      clearInterval(this.timer)
-    }
   },
   mounted: function () {
     // this.timerStart()

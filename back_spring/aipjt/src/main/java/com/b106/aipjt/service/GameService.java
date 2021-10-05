@@ -17,6 +17,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,16 +60,19 @@ public class GameService {
         log.error("========================게임 시작===========================");
         while (room.getCurrentRound() < room.getMaxRound()) {
             // 실제 라운드 시작 : 라운드를 0에서 1로 변경해주고, init으로 변경하는 함수 호출 후 리턴값인 방을 저장한다
+            Quiz randomQuiz = findRandomQuiz(roomId);
+            String answer = randomQuiz.removeImgUrl();
+            room.getQuizList().add(randomQuiz);
             room = roomRedisRepository.save(room.roundInit());
             log.error("========================현재 라운드 : "+room.getCurrentRound()+"===========================");
             // dto로 변환해서 메시지 보내기
             template.convertAndSend("/sub/info/room/" + roomId, convertRoomToDto(room));
 
             // 문제를 조회 -> Dto로 변경 -> 문제, 정답(미정), 스킵객체를 Dto 메시지로 전달
-            template.convertAndSend("/sub/quiz/room/" + roomId, findRandomQuestion(roomId));
+            // 여기서 보내기 전에 Quiz 객체를 만들어서 추가해주기
 
-            // 문제주고 10초간 자기
-            Thread.sleep(10000);
+            // 문제주고 5초간 자기
+            Thread.sleep(5000);
             // 질문 조회해서 Round에 넣어주기
             // 질문 조회했다고 가정하고, 라운드 객체에 값 세팅 후 저장
             Round round = roundRedisRepository.save(new Round(null, room.getRoundTime(), "문제", 1L));
@@ -82,7 +86,7 @@ public class GameService {
             template.convertAndSend("/sub/info/room/" +roomId, convertRoomToDto(room));
             log.error("========================라운드 시작 : 슬립===========================");
             // 라운드 진행시간동안 잔다
-            Thread.sleep(room.getRoundTime()* 1000L);
+            Thread.sleep(room.getRoundTime()* 100L);
 
             log.error("========================라운드 시작 : 슬립 종료===========================");
             // 라운드 종료 -> 이제부터 사이시간
@@ -92,6 +96,9 @@ public class GameService {
             room = findRoom(roomId); // 내부 함수
             room.setStatus(GameStatus.RESULT.getValue());
             room.setTimestamp(System.currentTimeMillis());
+            // 여기서 정답을 넣어줘야함
+            room.getQuizList().get(room.getQuizList().size()-1).addImgUrl(answer);
+            // 정답 넣기 종료
             room = roomRedisRepository.save(room);
             log.error(room.toString());
             log.error(skip.toString());
@@ -104,7 +111,7 @@ public class GameService {
             log.error("========================사이시간 & 스킵 객체 메시지 전달 끝===========================");
             log.error("========================사이시간 슬립===========================");
             // 사이시간동안 잔다
-            Thread.sleep(40000);
+            Thread.sleep(4000);
             log.error("========================사이시간 슬립 끝===========================");
 
             // 깨어나면 스킵 객체를 조회해서 스킵했는지 확인
@@ -166,7 +173,7 @@ public class GameService {
     }
 
     // 랜덤 문제를 찾아주는 내부 함수
-    private QuestionSkipDto findRandomQuestion(String roomId){
+    private Quiz findRandomQuiz(String roomId){
         Optional<Question> questionById = questionRepository.randomQuestion();
         if (questionById.isEmpty()) {
             ChatMessageDto messageDto = new ChatMessageDto(roomId, MessageTypeCode.ERROR, "master", "문제가 존재하지 않습니다. 게임을 종료합니다");
@@ -174,6 +181,6 @@ public class GameService {
             throw new RuntimeException("방이 존재하지 않습니다");
         }
         Question question = questionById.get();
-        return new QuestionSkipDto(new QuestionDto(question.getImgUrl(), question.getImgCaption(), question.getAudioUrl()), "");
+        return Quiz.of(question);
     }
 }
