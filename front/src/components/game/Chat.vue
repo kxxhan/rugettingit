@@ -1,9 +1,10 @@
 <template>
   <div id="chat-component p-col-9">
     <div class="chat-box p-flex">
-      
-      <div id="chat_list"
-        :class="[$store.getters.currentView === 'Lobby' ? 'game-before' : 'game-ing', 'p-col-12']">
+      <div
+        id="chat_list"
+        :class="[$store.getters.currentView === 'Lobby' ? 'game-before' : 'game-ing', 'p-col-12']"
+      >
         <div
           v-for="(chat, idx) in chatList"
           :key="idx"
@@ -19,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="p-inputgroup p-mt-3"> 
+      <div class="p-inputgroup p-mt-3">
         <InputText
           class="p-col-10"
           type="text"
@@ -31,11 +32,12 @@
         <Button id=chat-btn icon="pi pi-comment" @click="sendMessage" />
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
+import { soundEffectChat } from '../api/sound.js'
+
 export default {
   name: 'Chat',
   props: {
@@ -53,14 +55,14 @@ export default {
   methods: {
     sendMessage (e) {
       if(e.keyCode === 13 && this.userName !== '' && this.message !== ''){
+        soundEffectChat()
         this.send()
         //console.log('recieve list', this.chatList)
         this.message = ''
-
-        let chat_list = document.getElementById("chat_list")
-        chat_list.scrollTo({ top: chat_list.scrollHeight, behavior: 'smooth' })
-        chat_list.scrollTop = chat_list.scrollHeight
       }
+      let chat_list = document.getElementById("chat_list")
+      chat_list.scrollTo({ top: chat_list.scrollHeight, behavior: 'smooth' })
+      chat_list.scrollTop = chat_list.scrollHeight
     },
     send() {
       console.log("Send message:" + this.message)
