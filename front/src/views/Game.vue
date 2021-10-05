@@ -1,5 +1,5 @@
 <template>
-  <div class="gameBody">
+  <div class="game-body">
     <div class="game">
       <UserList v-if="Object.keys($store.state.room).length" />
       <component :is="currentView"></component>
@@ -246,7 +246,7 @@ export default {
 </script>
 
 <style>
-.gameBody {
+.game-body {
   display: flex;
   flex-direction: row;
   align-items: center;
