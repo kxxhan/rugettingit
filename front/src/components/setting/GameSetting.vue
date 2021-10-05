@@ -1,5 +1,5 @@
 <template>
-  <div class="game-setting-body">
+  <div class="game-setting-body" :class="[$store.state.super ? 'yes-super':'no-super']">
     <!-- <header>Game Settings</header> -->
     <div class="set container">
       <div class="row">
@@ -124,5 +124,11 @@ export default {
 .col {
   text-align: center;
   font-size: 3rem !important;
+}
+.no-super Button{
+  opacity: 0;
+}
+.yes-super Button{
+  opacity: 1;
 }
 </style>
