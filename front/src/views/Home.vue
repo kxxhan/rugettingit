@@ -1,7 +1,7 @@
 <template>
   <div class="home-body p-d-flex p-ai-center">
     <header class="p-col-12">
-      <img class="logo p-d-flex" alt="logo" src="../assets/logo.png">
+      <img class="logo p-d-flex" alt="logo1" src="../assets/logo1.gif">
     </header>
     <div class="main-service p-grid p-col-10 p-jc-center">
       <div class="p-col-5 p-my-auto">

@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center">
       <div class="huge-button shadow-sm rounded"
       :class="[$store.state.super ? 'yes-super':'no-super']">
-        <Popper content="링크 복사 완료 🍿">
+        <Popper content="링크 복사 완료 🍿" id=tips>
           <a class="huge-button" @click="copyLink()">
             초대링크 복사
           </a>
@@ -96,5 +96,9 @@ export default {
   }
   .yes-super {
     margin-top: 10rem;
+  }
+
+  #tips {
+    font-size: 1.5rem;
   }
 </style>
