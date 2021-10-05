@@ -57,7 +57,6 @@ export default {
       if(e.keyCode === 13 && this.userName !== '' && this.message !== ''){
         soundEffectChat()
         this.send()
-        //console.log('recieve list', this.chatList)
         this.message = ''
       }
       let chat_list = document.getElementById("chat_list")
@@ -109,7 +108,9 @@ export default {
   bottom: 0 !important;
   right: 0 !important;
   padding: 1rem;
+  margin: 1rem;
   border-radius: 10px;
+  background-color: rgb(247, 247, 247) !important;
 }
 
 .message-box {
@@ -145,7 +146,7 @@ export default {
   height: 80vh !important;
 }
 .game-ing {
-  height: 50vh !important;
+  height: 60vh !important;
 }
 
 #chat_list {
