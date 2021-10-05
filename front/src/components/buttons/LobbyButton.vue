@@ -1,16 +1,14 @@
 <template>
   <div>
     <div class="d-flex justify-content-center">
-      <div class="huge-button shadow-sm rounded"
-      :class="[$store.state.super ? 'yes-super':'no-super']">
+      <div class="huge-button shadow-sm rounded">
         <Popper content="링크 복사 완료 🍿" id=tips>
           <a class="huge-button" @click="copyLink()">
             초대링크 복사
           </a>
         </Popper>
       </div>
-      <div v-if="$store.state.super" class="huge-button shadow-sm rounded"
-      :class="[$store.state.super ? 'yes-super':'no-super']">
+      <div v-if="$store.state.super" class="huge-button shadow-sm rounded">
       <a class="huge-button" @click="startGame">
         게임 시작
       </a>
@@ -89,13 +87,6 @@ export default {
   }
   .huge-button a:hover {
     color:#fc5c7d;
-  }
-  .no-super {
-    /* position:absolute;
-    bottom: 40%; */
-  }
-  .yes-super {
-    /* margin-top: 10rem; */
   }
 
   #tips {
