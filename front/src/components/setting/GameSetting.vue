@@ -113,6 +113,7 @@ export default {
   flex-direction: column;
   align-items: center;
   font-size: 3rem !important;
+  margin-top: 6rem;
   /* border: 2px black solid; */
   /* width: 50vh !important; */
 }
