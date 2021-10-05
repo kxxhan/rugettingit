@@ -1,10 +1,14 @@
 <template>
   <div class="game-body">
-    <div class="game">
-      <UserList v-if="Object.keys($store.state.room).length" />
-      <component :is="currentView"></component>
+    <div class="col-8" style="  height: 92vh;">
+      <div>
+        <UserList v-if="Object.keys($store.state.room).length" />
+      </div>
+      <div> 
+        <component :is="currentView"></component>
+      </div>
     </div>
-    <div>
+    <div class="col-4">
       <Chat :chatList="chatList" />
     </div>
   </div>
@@ -247,8 +251,16 @@ export default {
 
 <style>
 .game-body {
-  display: flex;
-  flex-direction: row;
+  background-color: white;
+  /* display: flex;
+  flex-direction: column; */
   align-items: center;
+  align-self: center;
+  justify-content: center;
+  width: 96vw;
+  height: 92vh;
+  /* display: flex !important;
+  flex-direction: row;
+  align-items: center; */
 }
 </style>

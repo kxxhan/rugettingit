@@ -1,5 +1,5 @@
 <template>
-  <div class="gameSettingBody">
+  <div class="game-setting-body col-8 my-auto">
     <header>Game Settings</header>
     <div class="set">
       <span>라운드</span>
@@ -92,12 +92,15 @@ export default {
 </script>
 
 <style>
-.gameSettingBody {
+.game-setting-body {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  border: 2px black solid;
+  width: 50vh !important;
 }
 .set {
   font-size: 30px;
+  /* columns:12; */
 }
 </style>
