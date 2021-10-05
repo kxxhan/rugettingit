@@ -1,5 +1,5 @@
 <template>
-  <div id="chat-component p-col-9">
+  <div id="chat-component">
     <div class="chat-box p-flex">
       <div
         id="chat_list"
@@ -108,7 +108,7 @@ export default {
   position: absolute;
   bottom: 0 !important;
   right: 0 !important;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 10px;
 }
 
