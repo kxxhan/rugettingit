@@ -1,8 +1,8 @@
 <template>
-  <div class="lobbyBody">
+  <div class="lobby-body">
     <div>
       <!-- <UserList v-if="isRoomExist" /> -->
-      <div class="lobbyComponents">
+      <div class="lobby-components">
         <GameSetting v-if="isRoomExist && $store.state.super" />
         <!-- 방장이 아닌 사람한테는 다른걸 보여줘도 좋을 듯 -->
         <LobbyButton />
@@ -33,13 +33,13 @@ export default {
 </script>
 
 <style>
-.lobbyBody {
+/* .lobby-body {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.lobbyComponents {
+.lobby-components {
   display: flex;
   flex-direction: column;
-}
+} */
 </style>

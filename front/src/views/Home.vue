@@ -1,9 +1,9 @@
 <template>
-  <div class="home-body p-d-grid">
+  <div class="home-body p-d-flex p-ai-center">
     <header class="p-col-12">
-      <img class="logo p-d-flex p-jc-center" alt="logo" src="../assets/logo.png">
+      <img class="logo p-d-flex" alt="logo" src="../assets/logo.png">
     </header>
-    <div class="main-service p-grid p-col-12 p-jc-center">
+    <div class="main-service p-grid p-col-10 p-jc-center">
       <div class="p-col-5 p-my-auto">
         <AvatarSetting />
       </div>

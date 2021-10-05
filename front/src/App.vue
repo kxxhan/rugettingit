@@ -24,12 +24,12 @@ export default {
 </script>
 
 <style>
-@import "/reset.css";
+/* @import "/reset.css"; */
 
 #app-body {
   background-color: white;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   align-items: center;
   align-self: center;
   justify-content: center;
@@ -40,6 +40,7 @@ export default {
   border-radius: 1rem;
   box-shadow: 0.5rem 0.5rem 1.5rem rgb(38, 38, 38);
   font-family: "Elice Digital Baeum",sans-serif !important;
+  position:relative;
 }
 
 div {

@@ -1,5 +1,5 @@
 <template>
-  <div id="chat-component">
+  <div id="chat-component p-col-9">
     <div class="chat-box p-flex">
       <div
         id="chat_list"
@@ -94,7 +94,7 @@ export default {
 }
 
 .custom .p-scrollpanel-bar {
-    background-color: #1976d2;
+    background-color: #6a82fb;
     opacity: 1;
     transition: background-color .3s;
 }
@@ -105,13 +105,11 @@ export default {
 
 .chat-box {
   width: 30vw;
-  bottom: 0em !important;
-  right: 0em !important;
   position: absolute;
-  padding: 3rem;
+  bottom: 0 !important;
+  right: 0 !important;
+  padding: 2rem;
   border-radius: 10px;
-  min-width: 200px;
-  max-width: 400px;
 }
 
 .message-box {

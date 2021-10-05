@@ -1,7 +1,6 @@
 <template>
-  <div class="userListBody">
-    <span>User</span>
-    <AvatarGroup class="p-mb-3" style="max-height: 60px;">
+  <div class="user-list-body col-8">
+    <AvatarGroup class="p-mb-5" style="max-height: 60px;">
       <div class="avatarImg" v-for="user in userlist" :key="user.nickname">
         <Avatar
           :image="require(`@/assets/avatar/${user.avatar}.png`)"
@@ -12,7 +11,12 @@
           <span id="nickname">{{ user.nickname }}</span>
         </div>
       </div>
-      <Avatar :label="`${ usernum }`" shape="circle" size="small" style="background-color:#9c27b0; color: #ffffff" />
+      <Avatar 
+        :label="`${ usernum }`" 
+        shape="circle" 
+        size="small" 
+        style="background-color:#fc5c7d; color: #ffffff" 
+      />
     </AvatarGroup>
   </div>
 </template>
@@ -46,12 +50,11 @@ export default {
 </script>
 
 <style>
-.userListBody {
+.user-list-body {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-  padding: 20px 10px;
+  align-items: start;
+  padding: 3rem 1rem 1rem 3rem;
 }
 .userList {
   display: flex;
@@ -62,14 +65,21 @@ export default {
 .avatarImg {
   cursor: default;
 }
+
 #nickname{
   display: inline-block;
   text-align: center;
   opacity: 0;
-  width:60px;
+  width: 60px;
   height: 42px;
 }
+
 .avatarImg:hover #nickname{
   opacity: 0.7;
+  font-family: "Elice Digital Baeum",sans-serif !important;
+}
+.p-avatar-circle {
+  background-color: white ;
+  font-family: "Elice Digital Baeum",sans-serif !important;
 }
 </style>
