@@ -14,7 +14,7 @@
               <div class="message-box-my">{{ chat.message }}</div>
             </div>
             <div v-else align="left">
-              <div>{{ chat.writer }}</div>
+              <div class="m-1">{{ chat.writer }}</div>
               <div class="message-box-other">{{ chat.message }}</div>
             </div>
           </div>
@@ -126,6 +126,7 @@ export default {
   display: inline-block;
   word-break:break-all;
   box-shadow: 2px 2px 5px #cacaca;
+  background-color: white;
 }
 
 .message-box-my {
@@ -143,7 +144,7 @@ export default {
 }
 
 .game-before {
-  height: 80vh !important;
+  height: 77vh !important;
 }
 .game-ing {
   height: 60vh !important;
@@ -152,7 +153,6 @@ export default {
 #chat_list {
   font-family: 'IBMPlexSansKR-ExtraLight' !important;
   font-size: 0.8rem;
-  height: 80vh;
   overflow-y: scroll;
   overflow-x: hidden;
 }
