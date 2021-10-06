@@ -2,7 +2,7 @@
   <div class="lobby-body">
     <div>
       <!-- <UserList v-if="isRoomExist" /> -->
-      <div class="lobby-components">
+      <div class="lobby-components pb-0">
         <GameSetting v-if="isRoomExist" />
         <!-- 방장이 아닌 사람한테는 다른걸 보여줘도 좋을 듯 -->
         <div class="offset-1 col-10">
@@ -65,11 +65,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 .lobby-components {
   display: flex;
   flex-direction: column;
-} */
+}
 .sound-button {
   position: absolute;
   bottom: 2rem;

@@ -10,7 +10,6 @@
           <Button
             @click="changeRound('left')"
             icon="pi pi-arrow-left"
-            style="fontSize: 5rem"
             class="p-button-rounded p-button-text arrow"
           >
           </Button>
@@ -33,7 +32,6 @@
           <Button
             @click="changeRoundTime('left')"
             icon="pi pi-arrow-left"
-            style="fontSize: 5rem"
             class="p-button-rounded p-button-text arrow"
           >
           </Button>
@@ -56,7 +54,6 @@
           <Button
             @click="changePersonnel('left')"
             icon="pi pi-arrow-left"
-            style="fontSize: 5rem"
             class="p-button-rounded p-button-text arrow"
           >
           </Button>
@@ -70,14 +67,6 @@
         </div>
       </div>
     </div>
-    <!-- <section id="setting-btn">
-      <Button
-        @click="roomUpdate"
-        icon="pi pi-check"
-        class="p-button-raised p-button-text p-button-plain"
-      >
-      </Button>
-    </section> -->
   </div>
 </template>
 
@@ -152,15 +141,15 @@ export default {
   display: flex;
   flex-direction: column;
   font-size: 3rem !important;
-  margin-top: 6rem;
+  /* margin-top: 6rem; */
 }
 .set {
-  font-size: 30px;
   /* columns:12; */
-  font-size: 3rem !important;
 }
 .col {
+  padding: 1rem;
   text-align: center;
+  font-size: 2rem !important;
 }
 .no-super Button{
   visibility: hidden;
@@ -184,12 +173,12 @@ export default {
 }
 /* game setting 화살표 살짝 내려온거 */
 .col .p-button-icon-only {
-  height: 3.8rem !important;
+  /* height: 3.8rem !important; */
 }
 .pi-arrow-right {
-  font-size:2rem !important;
+  font-size:1.5rem !important;
 }
 .pi-arrow-left {
-  font-size:2rem !important;
+  font-size:1.5rem !important;
 }
 </style>
