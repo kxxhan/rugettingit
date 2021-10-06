@@ -109,17 +109,15 @@ export default {
   margin: 20px;
   cursor: pointer;
   font-size: 2rem;
-  color: rgba(0, 0, 0, 0.8) !important;
-}
-.fa-random {
-  cursor: pointer;
-  font-size: 1.8rem;
-  color: rgba(0, 0, 0, 0.8) !important;
+  color: #6A82FB !important;
 }
 .mini {
   font-size: 0.2rem;
 }
 .sf-btn {
   height: 3vh;
+}
+.sf-btn:hover {
+  cursor: pointer;
 }
 </style>
