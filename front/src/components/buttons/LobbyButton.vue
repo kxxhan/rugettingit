@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div class="d-flex justify-content-center">
-      <div class="huge-button shadow-sm rounded">
+    <div class="d-flex justify-content-center row">
+      <div class="huge-button shadow-sm rounded col-10 col-md-5 text-center">
         <Popper content="링크 복사 완료 🍿" id=tips>
           <a class="huge-button" @click="copyLink()">
             초대링크 복사
           </a>
         </Popper>
       </div>
-      <div v-if="$store.state.super" class="huge-button shadow-sm rounded">
+      <div v-if="$store.state.super" class="huge-button shadow-sm rounded col-10 col-md-5 text-center">
       <a class="huge-button" @click="startGame">
         게임 시작
       </a>
@@ -23,7 +23,7 @@
 import axios from 'axios'
 import Popper from "vue3-popper";
 
-import { soundEffectGamestart } from '../api/sound.js'
+import { soundEffectChat } from '../api/sound.js'
 export default {
   emits: ['viewChange'],
   name: 'LobbyButton',
@@ -37,15 +37,15 @@ export default {
   },
   methods :{
     copyLink: function() {
-      soundEffectGamestart()
-      const copyText = document.getElementById("copyText"); 
+      soundEffectChat()
+      const copyText = document.getElementById("copyText");
       copyText.value = this.inviteLink;
       copyText.focus()
       copyText.select()
       document.execCommand('copy')
     },
     startGame: function () {
-      soundEffectGamestart()
+      soundEffectChat()
       console.log("게임 시작");
       axios({
         method: 'post',
@@ -79,7 +79,7 @@ export default {
   --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
   }
   .huge-button {
-    font-size: 3rem;
+    font-size: 2rem;
     text-decoration: none;
     color: rgba(0, 0, 0, 0.5);
     padding: 2rem;
