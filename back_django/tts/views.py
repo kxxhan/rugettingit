@@ -6,7 +6,7 @@ from gtts import gTTS
 import requests
 from rest_framework import status
 from rest_framework.response import Response
-
+import uuid
 import boto3
 from datetime import datetime
 
@@ -21,7 +21,7 @@ def tts(caption):
     tts = gTTS(text=caption, lang="ko", slow=False)
     makedirs("audio/")
     print("5 1")
-    file_name=get_time()
+    file_name=get_time()+uuid.uuid4()
     file_dir = f"audio/{file_name}.mp3"
     print("5 2")
     tts.save(file_dir)
