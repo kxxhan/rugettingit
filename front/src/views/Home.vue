@@ -11,9 +11,10 @@
         <HomeButton />
       </div>
     </div>
+    <audio id="homebgm"><source src="@/assets/sounds/home.wav"></audio>
     <div class="sound-button">
-      <Button v-if="mute" label="Help" icon="pi pi-volume-off" iconPos="right" @click="soundOn" />
-      <Button v-else label="Help" icon="pi pi-volume-up" iconPos="right" @click="soundOn" />
+      <Button v-if="mute" class="p-button-help p-button-raised p-button-rounded p-button-outlined" icon="pi pi-volume-off" iconPos="right" @click="soundOn" />
+      <Button v-else class="p-button-help p-button-raised p-button-rounded p-button-outlined" icon="pi pi-volume-up" iconPos="right" @click="soundOn" />
     </div>
   </div>
 </template>
@@ -36,13 +37,16 @@ export default {
   },
   methods: {
     soundOn() {
-      var audio = new Audio("@/assets/sounds/home.wav")
       if(this.mute) {
+        const audio = document.getElementById('homebgm')
+        audio.loop = true
+        audio.volume = 1
         audio.play()
         this.mute = false
       }
       else {
-        audio.pause()
+        const audio = document.getElementById('homebgm')
+        audio.volume = 0
         this.mute = true
       }
     }
