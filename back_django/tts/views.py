@@ -21,7 +21,10 @@ def tts(caption):
     tts = gTTS(text=caption, lang="ko", slow=False)
     makedirs("audio/")
     print("5 1")
-    file_name=get_time()+uuid.uuid4()
+    file_name=get_time()+str(uuid.uuid4())
+    print("@uuid : ", uuid.uuid4())
+    print('@uuid 타입: ', type(uuid.uuid4()))
+    print("@ 파일네임: ",file_name)
     file_dir = f"audio/{file_name}.mp3"
     print("5 2")
     tts.save(file_dir)
