@@ -2,10 +2,10 @@
   <div class="avatar-body">
     <div>
       <section class="avatar-select">
-        <Button class="p-button-outlined p-button-secondary p-button-sm p-my-1" 
+        <a class="" 
           @click="randomAvatar">
-          shuffle
-        </Button>
+          <img class="img-fluid sf-btn" src="@/assets/buttons/shufflebtn.png" alt="">
+        </a>
       </section>
       <section class="avatar-select">
         <i class="fas fa-chevron-left" @click="changeAvatar('left')"></i>
@@ -34,7 +34,6 @@
 </template>
 
 <script>
-// import MainButton from '@/components/MainButton'
 
 export default {
   components: {
@@ -123,5 +122,8 @@ export default {
 }
 .mini {
   font-size: 0.2rem;
+}
+.sf-btn {
+  height: 3vh;
 }
 </style>
