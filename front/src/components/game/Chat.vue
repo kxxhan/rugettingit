@@ -1,5 +1,5 @@
 <template>
-  <div id="chat-component p-col-9">
+  <div id="chat-component">
     <div class="chat-box p-flex">
       <div
         id="chat_list"
@@ -57,7 +57,6 @@ export default {
       if(e.keyCode === 13 && this.userName !== '' && this.message !== ''){
         soundEffectChat()
         this.send()
-        //console.log('recieve list', this.chatList)
         this.message = ''
       }
       let chat_list = document.getElementById("chat_list")
@@ -108,8 +107,10 @@ export default {
   position: absolute;
   bottom: 0 !important;
   right: 0 !important;
-  padding: 2rem;
+  padding: 1rem;
+  margin: 1rem;
   border-radius: 10px;
+  background-color: rgb(247, 247, 247) !important;
 }
 
 .message-box {
@@ -145,7 +146,7 @@ export default {
   height: 80vh !important;
 }
 .game-ing {
-  height: 50vh !important;
+  height: 60vh !important;
 }
 
 #chat_list {

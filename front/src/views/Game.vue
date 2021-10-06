@@ -259,6 +259,7 @@ export default {
   justify-content: center;
   width: 96vw;
   height: 92vh;
+  border-radius: 1rem;
   /* display: flex !important;
   flex-direction: row;
   align-items: center; */

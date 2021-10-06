@@ -4,18 +4,18 @@
       <div class="avatarImg" v-for="user in userlist" :key="user.nickname">
         <Avatar
           :image="require(`@/assets/avatar/${user.avatar}.png`)"
-          size="xlarge"
+          size="large"
           shape="circle"
         />
         <div>
           <span id="nickname">{{ user.nickname }}</span>
         </div>
       </div>
-      <Avatar 
-        :label="`${ usernum }`" 
-        shape="circle" 
-        size="small" 
-        style="background-color:#fc5c7d; color: #ffffff" 
+      <Avatar
+        :label="`${ usernum }`"
+        shape="circle"
+        size="small"
+        style="background-color:#fc5c7d; color: #ffffff"
       />
     </AvatarGroup>
   </div>
@@ -53,8 +53,8 @@ export default {
 .user-list-body {
   display: flex;
   flex-direction: column;
-  align-items: start;
-  padding: 3rem 1rem 1rem 3rem;
+  align-items: flex-start;
+  padding: 5rem 1rem 1rem 3rem;
 }
 .userList {
   display: flex;
@@ -81,5 +81,9 @@ export default {
 .p-avatar-circle {
   background-color: white ;
   font-family: "Elice Digital Baeum",sans-serif !important;
+}
+.p-avatar-image {
+  width: 100px !important;
+  height: 100px !important;
 }
 </style>

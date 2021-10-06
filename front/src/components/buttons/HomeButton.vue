@@ -3,7 +3,7 @@
     <div
       id="underline-button"
       @click="createRoom"
-      class="p-button-jj p-button-lg p-py-3"
+      class="p-button-lg p-py-3"
     >
       <a>
         <span class="p-mr-1">방만들기</span>
@@ -17,7 +17,7 @@
     <div
       id="underline-button"
       @click="enterRoom"
-      class="p-button-jj p-button-lg p-py-3"
+      class="p-button-lg p-py-3"
     >
       <a>
         <span class="p-mr-1">입장하기</span>

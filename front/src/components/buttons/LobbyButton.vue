@@ -1,18 +1,22 @@
 <template>
-<div>
-  <div class="d-flex justify-content-center">
-    <Popper content="링크 복사 완료 🍿">
-      <button class="text-center btn btn-light btn-lg mx-1" @click="copyLink()">
-        초대링크 복사
-      </button>
-    </Popper>
-    <button v-if="$store.state.super" class="text-center btn btn-light btn-lg mx-1" @click="startGame">
-      게임 시작
-    </button>
-    <!-- 클립보드 복사용 인풋 -->
-  </div>
+  <div>
+    <div class="d-flex justify-content-center">
+      <div class="huge-button shadow-sm rounded">
+        <Popper content="링크 복사 완료 🍿" id=tips>
+          <a class="huge-button" @click="copyLink()">
+            초대링크 복사
+          </a>
+        </Popper>
+      </div>
+      <div v-if="$store.state.super" class="huge-button shadow-sm rounded">
+      <a class="huge-button" @click="startGame">
+        게임 시작
+      </a>
+      </div>
+      <!-- 클립보드 복사용 인풋 -->
+    </div>
     <input type="text" id="copyText" style="opacity: 0;">
-</div>
+  </div>
 </template>
 
 <script>
@@ -66,12 +70,26 @@ export default {
     margin-right: 5px;
   }
 
-    :root {
-    --popper-theme-text-color: #33333;
-    --popper-theme-border-width: 0px;
-    --popper-theme-border-style: solid;
-    --popper-theme-border-radius: 3rem 3rem 3rem 3rem;
-    --popper-theme-padding: 10px;
-    --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+  :root {
+  --popper-theme-text-color: #33333;
+  --popper-theme-border-width: 0px;
+  --popper-theme-border-style: solid;
+  --popper-theme-border-radius: 3rem 3rem 3rem 3rem;
+  --popper-theme-padding: 10px;
+  --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+  }
+  .huge-button {
+    font-size: 3rem;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+    margin: 1rem;
+  }
+  .huge-button a:hover {
+    color:#fc5c7d;
+  }
+
+  #tips {
+    font-size: 1.5rem;
   }
 </style>
