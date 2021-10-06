@@ -60,6 +60,11 @@ export default {
   left: 5%;
 }
 
+.sound-button-init * {
+  color: #6A82FB;
+  border: 0 !important;
+}
+
 #balloon {
   position: absolute;
   top: 0%;
