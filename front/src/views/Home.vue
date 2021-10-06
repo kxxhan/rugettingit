@@ -11,8 +11,11 @@
         <HomeButton />
       </div>
     </div>
-    <!-- <audio id="audio" autoplay><source src="@/assets/sounds/home.wav"></audio>
-    <button @click="soundsplay">zz</button> -->
+    <audio id="homebgm"><source src="@/assets/sounds/home.wav"></audio>
+    <div class="sound-button">
+      <Button v-if="mute" class="p-button-help p-button-raised p-button-rounded p-button-outlined" icon="pi pi-volume-off" iconPos="right" @click="soundOn" />
+      <Button v-else class="p-button-help p-button-raised p-button-rounded p-button-outlined" icon="pi pi-volume-up" iconPos="right" @click="soundOn" />
+    </div>
   </div>
 </template>
 
@@ -27,6 +30,27 @@ export default {
     AvatarSetting,
     HomeButton,
   },
+  data() {
+    return {
+      mute: true,
+    }
+  },
+  methods: {
+    soundOn() {
+      if(this.mute) {
+        const audio = document.getElementById('homebgm')
+        audio.loop = true
+        audio.volume = 1
+        audio.play()
+        this.mute = false
+      }
+      else {
+        const audio = document.getElementById('homebgm')
+        audio.volume = 0
+        this.mute = true
+      }
+    }
+  }
   // methods: {
   //   soundsplay() {
   //     var promise = document.getElementById('audio')
@@ -59,4 +83,10 @@ export default {
   height: 40vh;
   margin: auto;
 }
+
+.sound-button {
+  position: absolute;
+  bottom: 2rem;
+}
+
 </style>
