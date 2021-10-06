@@ -109,7 +109,7 @@ export default {
   right: 0 !important;
   padding: 1rem;
   margin: 1rem;
-  border-radius: 10px;
+  border-radius: 1.5rem;
   background-color: rgb(247, 247, 247) !important;
 }
 
@@ -144,7 +144,7 @@ export default {
 }
 
 .game-before {
-  height: 77vh !important;
+  height: 78vh !important;
 }
 .game-ing {
   height: 60vh !important;
