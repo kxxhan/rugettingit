@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="d-flex justify-content-center row">
-      <div class="huge-button shadow-sm rounded col-10 col-md-5 text-center">
+      <div class="huge-button shadow-sm rounded col-10 col-lg-5 text-center">
         <Popper content="링크 복사 완료 🍿" id=tips>
           <a class="huge-button" @click="copyLink()">
             초대링크 복사
           </a>
         </Popper>
       </div>
-      <div v-if="$store.state.super" class="huge-button shadow-sm rounded col-10 col-md-5 text-center">
+      <div v-if="$store.state.super" class="huge-button shadow-sm rounded col-10 col-lg-5 text-center">
       <a class="huge-button" @click="startGame">
         게임 시작
       </a>

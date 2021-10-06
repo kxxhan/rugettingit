@@ -7,9 +7,20 @@
           <span>라운드</span>
         </div>
         <div class="col">
-          <Button @click="changeRound('left')" icon="pi pi-arrow-left" style="fontSize: 5rem" class="p-button-rounded p-button-text"></Button>
+          <Button 
+            @click="changeRound('left')" 
+            icon="pi pi-arrow-left" 
+            style="fontSize: 5rem" 
+            class="p-button-rounded p-button-text arrow"
+          >
+          </Button>
           {{ maxRound }}
-          <Button @click="changeRound('right')" icon="pi pi-arrow-right" class="p-button-rounded p-button-text"></Button>
+          <Button 
+            @click="changeRound('right')" 
+            icon="pi pi-arrow-right" 
+            class="p-button-rounded p-button-text arrow"
+          >
+          </Button>
         </div>
       </div>
     </div>
@@ -19,9 +30,19 @@
           <span>라운드 당 시간</span>
         </div>
         <div class="col">
-          <Button @click="changeRoundTime('left')" icon="pi pi-arrow-left" style="fontSize: 5rem" class="p-button-rounded p-button-text"></Button>
+          <Button 
+            @click="changeRoundTime('left')" 
+            icon="pi pi-arrow-left" style="fontSize: 5rem" 
+            class="p-button-rounded p-button-text arrow"
+          >
+          </Button>
           {{ roundTime }}
-          <Button @click="changeRoundTime('right')" icon="pi pi-arrow-right" class="p-button-rounded p-button-text"></Button>
+          <Button 
+            @click="changeRoundTime('right')" 
+            icon="pi pi-arrow-right" 
+            class="p-button-rounded p-button-text arrow"
+          >
+          </Button>
         </div>
       </div>
     </div>
@@ -31,14 +52,30 @@
           <span>최대 인원</span>
         </div>
         <div class="col">
-          <Button @click="changePersonnel('left')" icon="pi pi-arrow-left" style="fontSize: 5rem" class="p-button-rounded p-button-text"></Button>
+          <Button 
+            @click="changePersonnel('left')" 
+            icon="pi pi-arrow-left" 
+            style="fontSize: 5rem" 
+            class="p-button-rounded p-button-text arrow"
+          >
+          </Button>
           {{ personnel }}
-          <Button @click="changePersonnel('right')" icon="pi pi-arrow-right" class="p-button-rounded p-button-text"></Button>
+          <Button 
+            @click="changePersonnel('right')" 
+            icon="pi pi-arrow-right" 
+            class="p-button-rounded p-button-text arrow"
+          >
+          </Button>
         </div>
       </div>
     </div>
     <section id="setting-btn">
-      <Button label="Primary" class="p-button-raised p-button-text p-button-plain" icon="pi pi-check" @click="roomUpdate"></Button>
+      <Button 
+        @click="roomUpdate"
+        icon="pi pi-check" 
+        class="p-button-raised p-button-text p-button-plain" 
+      >
+      </Button>
     </section>
   </div>
 </template>
@@ -121,17 +158,23 @@ export default {
   font-size: 3rem !important;
 }
 .no-super Button{
-  opacity: 0;
+  visibility: hidden;
 }
 #setting-btn {
   display: flex;
   justify-content: flex-end;
-  padding: 4rem;
+  /* padding: 4rem; */
+  padding: 2rem 4rem 2rem 4rem;
 }
 #setting-btn Button{
   border-radius: 100%;
-  align-items: center;
   width: 42px;
   height: 42px;
+  color: #fc5c7d;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.2)!important;
+}
+.arrow {
+  /* margin-top: 1rem !important; */
+  color: #6A82FB !important;
 }
 </style>
