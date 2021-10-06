@@ -1,9 +1,11 @@
 <!-- 방법 1: data.timer에서 this.timerStart() 호출 -->
 <!-- 방법 2: mounted에서 this.timerStart() 호출 -->
 <template>
-  <section class="timer-position">
-    <div>타이머</div>
-    {{ this.time }}
+  <section class="timer-position d-flex flex-column ">
+    <img class="timer" src="@/assets/buttons/timer.png" alt="">
+    <p id=sec class="text-end">
+      {{ this.time }}
+    </p>
   </section>
 </template>
 <script>
@@ -35,8 +37,23 @@ export default {
 
 <style>
 .timer-position {
+  columns: 4;
   position: absolute;
-  top: 5px !important;
-  right: 50px !important;
+  top: 0rem !important;
+  right: 1rem !important;
+  background-image: url(/src/assets/buttons/timer.png);
+}
+.timer {
+  position: absolute;
+  top: 1rem !important;
+  right: 0rem !important;
+  height: 18vh;
+}
+#sec {
+  position: absolute;
+  top: 6.3rem !important;
+  right: 3.3rem !important;
+  font-size: 2em;
+  width: 10rem
 }
 </style>
