@@ -5,7 +5,9 @@
       <div class="lobby-components">
         <GameSetting v-if="isRoomExist" />
         <!-- 방장이 아닌 사람한테는 다른걸 보여줘도 좋을 듯 -->
-        <LobbyButton />
+        <div class="offset-1 col-10">
+          <LobbyButton />
+        </div>
       </div>
     </div>
     <audio id="lobbybgm"><source src="@/assets/sounds/home.wav"></audio>

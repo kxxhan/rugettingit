@@ -36,6 +36,8 @@ def index(request):
     print("Prediction Caption:", " ".join(result))
 
     caption = " ".join(result)
+    caption = caption.replace('<unk>', 'XXXXX')
+    caption = caption.replace('<end>', '.')
 
     # response = requests.get(path)
     # img = Image.open(BytesIO(response.content))
@@ -61,10 +63,14 @@ def index_kr(request):
     new_encoder = ic.new_encoder
     new_decoder = ic.new_decoder
 
+    print('caption1')
     result, _ = evaluate(path, max_length, 64, new_decoder, new_encoder, tokenizer)
     print("Prediction Caption:", " ".join(result))
-
+    print('caption2')
     caption = " ".join(result)
+    caption = caption.replace('<unk>', 'XXXXX')
+    caption = caption.replace('<end>', '.')
+    print('caption3')
 
     # response = requests.get(path)
     # img = Image.open(BytesIO(response.content))
@@ -73,15 +79,20 @@ def index_kr(request):
     # encod_img = ic.newEncodeImage(cvtimg)
     # caption = ic.newGenerateCaption(encod_img)
 
-    client_id = "b3HISCq2mJu0enV0Wvog"  # 개발자센터에서 발급받은 Client ID 값
-    client_secret = "lRHpaTXbnv"  # 개발자센터에서 발급받은 Client Secret 값
+    client_id = "aa_8vYWnc7PHZioJypi8"  # 개발자센터에서 발급받은 Client ID 값
+    client_secret = "gdzERmLcEj"  # 개발자센터에서 발급받은 Client Secret 값
     encText = urllib.parse.quote(caption)
+    print('caption4')
     data = "source=en&target=ko&text=" + encText
+    print('caption5')
     url = "https://openapi.naver.com/v1/papago/n2mt"
     request_trans = urllib.request.Request(url)
     request_trans.add_header("X-Naver-Client-Id", client_id)
+    print('caption6')
     request_trans.add_header("X-Naver-Client-Secret", client_secret)
+    print('caption7')
     response = urllib.request.urlopen(request_trans, data=data.encode("utf-8"))
+    print('caption8')
     rescode = response.getcode()
     if rescode == 200:
         print("1")
@@ -94,6 +105,7 @@ def index_kr(request):
         captionjson = captionjson["message"]["result"]["translatedText"]
         print("5")
         audio = tts(caption)
+        # audio="audio/sample.mp3"
         print("6")
         data = {"caption": captionjson, "audio": audio}
         print("7")

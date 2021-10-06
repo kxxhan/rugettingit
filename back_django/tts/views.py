@@ -6,7 +6,7 @@ from gtts import gTTS
 import requests
 from rest_framework import status
 from rest_framework.response import Response
-
+import uuid
 import boto3
 from datetime import datetime
 
@@ -21,27 +21,33 @@ def tts(caption):
     tts = gTTS(text=caption, lang="ko", slow=False)
     makedirs("audio/")
     print("5 1")
-    file_name = f"audio/{get_time()}.mp3"
+    file_name=get_time()+str(uuid.uuid4())
+    print("@uuid : ", uuid.uuid4())
+    print('@uuid 타입: ', type(uuid.uuid4()))
+    print("@ 파일네임: ",file_name)
+    file_dir = f"audio/{file_name}.mp3"
     print("5 2")
-    tts.save(file_name)
+    tts.save(file_dir)
     print("5 3")
-    handle_upload_mp3(file_name)
+    handle_upload_mp3(file_dir)
     print("5 4")
-    # response = play(file_name)
+    # response = play(file_dir)
     print("5 5")
-    return file_name
+    return file_dir
 
 
 # S3 업로드
-def handle_upload_mp3(f):
+def handle_upload_mp3(file_dir):
     print("5 3 1")
     print("ACCESS_KEY_ID : ", ACCESS_KEY_ID)
     print("ACCESS_SECRET_KEY : ", ACCESS_SECRET_KEY)
+    
     s3_client = boto3.client(
         "s3", aws_access_key_id=ACCESS_KEY_ID, aws_secret_access_key=ACCESS_SECRET_KEY
     )
-    print("5 3 3")
-    response = s3_client.upload_file(f, BUCKET_NAME, f)
+    with open(file_dir, 'rb') as data:
+        response = s3_client.upload_fileobj(data, BUCKET_NAME, file_dir)
+    print("5 3 3 filename : " , file_dir)
     print("response : ", response)
     print("5 3 4")
 
