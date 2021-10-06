@@ -15,7 +15,7 @@
       </div>
       <!-- 클립보드 복사용 인풋 -->
     </div>
-    <input type="text" id="copyText" style="opacity: 0; height:1px; margin-top:0px;">
+    <input type="text" id="copyText" style="opacity: 0;">
   </div>
 </template>
 
@@ -88,7 +88,6 @@ export default {
   }
   .huge-button a:hover {
     color:#fc5c7d;
-    cursor: pointer;
   }
 
   #tips {

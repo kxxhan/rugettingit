@@ -12,9 +12,15 @@
       </div>
     </div>
     <audio id="homebgm"><source src="@/assets/sounds/home.wav"></audio>
-    <div class="sound-button">
-      <button v-if="mute" @click="soundOn"><img src="@/assets/buttons/soundon.png" style="width: 2rem; height:2rem;" alt=""></button>
-      <button v-else @click="soundOn"><img src="@/assets/buttons/soundoff.png" style="width: 2rem; height:2rem;" alt=""></button>
+    <div v-if="mute" class="sound-button">
+      <a @click="soundOn">
+        <img src="@/assets/buttons/soundon.png" class="img-fluid">
+      </a>
+    </div>
+    <div v-else class="sound-button">
+      <a @click="soundOn">
+        <img src="@/assets/buttons/soundoff.png" class="img-fluid">
+      </a>
     </div>
   </div>
 </template>
@@ -85,23 +91,20 @@ export default {
 }
 
 .sound-button {
+  display: flex;
   position: absolute;
+  width: 3rem !important;
+  height: 3rem !important;
   bottom: 2rem;
   left: 2rem;
-}
-.sound-button button {
-  padding: 10px;
-  background-color: white;
   box-shadow: 0.2rem 0.2rem 0.5rem #cacaca;
   border-radius: 50%;
-  border: none;
-  width: 3rem;
-  height: 3rem;
+  padding: 0.5rem;
+  align-items: end;
 }
-.sound-button button:hover {
+.sound-button:hover {
   background-color: #6a82fb;
   border-radius: 50%;
   border: none;
 }
-
 </style>
