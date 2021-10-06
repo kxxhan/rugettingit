@@ -40,7 +40,7 @@ export default {
       if(this.mute) {
         const audio = document.getElementById('lobbybgm')
         audio.loop = true
-        audio.volume = 1
+        audio.volume = 0.5
         audio.play()
         this.mute = false
       }
@@ -76,8 +76,9 @@ export default {
   left: 2rem;
 }
 .sound-button button {
+  padding: 10px;
   background-color: white;
-  box-shadow: 3px 3px 3px gray, 3px 3px 3px gray;
+  box-shadow: 0.2rem 0.2rem 0.5rem #cacaca;
   border-radius: 50%;
   border: none;
   width: 3rem;
