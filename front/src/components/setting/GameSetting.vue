@@ -1,5 +1,5 @@
 <template>
-  <div class="game-setting-body" :class="[$store.state.super ? 'yes-super':'no-super']">
+  <div class="game-setting-body offset-2 col-8" :class="[$store.state.super ? 'yes-super':'no-super']">
     <!-- <header>Game Settings</header> -->
     <div class="set container">
       <div class="row">
@@ -69,14 +69,14 @@
         </div>
       </div>
     </div>
-    <section id="setting-btn">
+    <!-- <section id="setting-btn">
       <Button 
         @click="roomUpdate"
         icon="pi pi-check" 
         class="p-button-raised p-button-text p-button-plain" 
       >
       </Button>
-    </section>
+    </section> -->
   </div>
 </template>
 
@@ -96,18 +96,22 @@ export default {
     changeRound: function (direction) {
       let newRound = direction==="left" ? this.maxRound-1 : this.maxRound+1
       this.maxRound = (1 <= newRound && newRound <= 5) ? newRound : this.maxRound
+      this.roomUpdate()
     },
     changeRoundTime: function (direction) {
       let newRoundTime = direction==="left" ? this.roundTime-10 : this.roundTime+10
       this.roundTime = (40 <= newRoundTime && newRoundTime <= 120) ? newRoundTime : this.roundTime
+      this.roomUpdate()
+
     },
     changePersonnel: function (direction) {
       let newPersonnel = direction==="left" ? this.personnel-1 : this.personnel+1
       this.personnel = (2 <= newPersonnel && newPersonnel <= 8) ? newPersonnel : this.personnel
+      this.roomUpdate()
     },
     roomUpdate : function () {
       if (!this.isSettingChanged) {
-        alert("변경된 설정이 없습니다.");
+        alert("최대 혹은 최소 값 입니다.");
         return
       }
       axios({
@@ -122,7 +126,7 @@ export default {
           roomId: this.$route.query["room"]
         }
       }).then((res) => {
-        alert('방 정보 업데이트 성공')
+        // alert('방 정보 업데이트 성공')
         console.log(res.data)
       }).catch((err) => {
         alert('방 정보 업데이트 실패')
@@ -176,5 +180,11 @@ export default {
 .arrow {
   /* margin-top: 1rem !important; */
   color: #6A82FB !important;
+}
+.pi-arrow-right {
+  font-size:2rem !important;
+}
+.pi-arrow-left {
+  font-size:2rem !important;
 }
 </style>

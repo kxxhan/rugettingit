@@ -15,7 +15,7 @@
         :label="`${ usernum }`"
         shape="circle"
         size="small"
-        style="background-color:#fc5c7d; color: #ffffff"
+        style="background-color:#fc5c7d; color: #ffffff; box-shadow: none;"
       />
     </AvatarGroup>
   </div>
@@ -38,13 +38,6 @@ export default {
     userlist: function () {
       return this.$store.state.room.userList
     }
-
-    // vuex의 store의 계산된 속성으로 생각할 수 있다.
-    // store의 getter를 사용하는것과 현재 component에서 computed로 접근하는것의 차이는?
-    // userlist: function () {
-    //   console.log('유저리스트 변경됐지롱')
-    //   return this.$store.getters.getUserList
-    // }
   },
 }
 </script>
@@ -54,8 +47,13 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 5rem 1rem 1rem 3rem;
+  
+  padding: 4rem 1rem 0rem 2rem;
+  /* box-shadow: 2px 2px 5px #cacaca; */
+  border-radius: 1.5rem;
+  /* background-color: rgb(247, 247, 247) !important; */
 }
+
 .userList {
   display: flex;
   flex-direction: column;
@@ -81,9 +79,12 @@ export default {
 .p-avatar-circle {
   background-color: white ;
   font-family: "Elice Digital Baeum",sans-serif !important;
+  box-shadow: 0.2rem 0.2rem 0.5rem #cacaca;
+  box-sizing: content-box;
+  padding:0.4rem;
 }
 .p-avatar-image {
-  width: 100px !important;
-  height: 100px !important;
+  width: 80px !important;
+  height: 80px !important;
 }
 </style>

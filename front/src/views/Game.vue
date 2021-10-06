@@ -1,14 +1,14 @@
 <template>
   <div class="game-body">
     <div class="col-8" style="  height: 92vh;">
-      <div>
+      <div class="p-3">
         <UserList v-if="Object.keys($store.state.room).length" />
       </div>
       <div> 
         <component :is="currentView"></component>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-4 p-3">
       <Chat :chatList="chatList" />
     </div>
   </div>

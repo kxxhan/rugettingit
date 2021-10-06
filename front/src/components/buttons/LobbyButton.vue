@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div class="d-flex justify-content-center row">
-      <div class="huge-button shadow-sm rounded col-10 col-lg-5 text-center">
+    <div class="d-flex justify-content-center row mt-5">
+      <div class="huge-button shadow-sm col-lg-5">
         <Popper content="링크 복사 완료 🍿" id=tips>
-          <a class="huge-button" @click="copyLink()">
-            초대링크 복사
+          <a @click="copyLink()">
+            <img class="img-fluid" src="@/assets/buttons/linkbtn.png" alt="">
           </a>
         </Popper>
       </div>
-      <div v-if="$store.state.super" class="huge-button shadow-sm rounded col-10 col-lg-5 text-center">
-      <a class="huge-button" @click="startGame">
-        게임 시작
+      <div v-if="$store.state.super" class="huge-button shadow-sm col-lg-5 text-center pt-2">
+      <a @click="startGame">
+        <img class="img-fluid" src="@/assets/buttons/startbtn.png" alt="">
       </a>
       </div>
       <!-- 클립보드 복사용 인풋 -->
@@ -82,8 +82,9 @@ export default {
     font-size: 2rem;
     text-decoration: none;
     color: rgba(0, 0, 0, 0.5);
-    padding: 2rem;
+    /* padding: 2rem; */
     margin: 1rem;
+    border-radius: 1rem;
   }
   .huge-button a:hover {
     color:#fc5c7d;
