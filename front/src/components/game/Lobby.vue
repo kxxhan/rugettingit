@@ -8,6 +8,11 @@
         <LobbyButton />
       </div>
     </div>
+    <audio id="lobbybgm"><source src="@/assets/sounds/home.wav"></audio>
+    <div class="sound-button">
+      <button v-if="mute" @click="soundOn"><i class="pi pi-volume-off"></i></button>
+      <button v-else @click="soundOn"><i class="pi pi-volume-up"></i></button>
+    </div>
   </div>
 </template>
 
@@ -23,6 +28,27 @@ export default {
     LobbyButton,
   },
   name: 'Lobby',
+  data() {
+    return {
+      mute: true
+    }
+  },
+  methods: {
+    soundOn() {
+      if(this.mute) {
+        const audio = document.getElementById('lobbybgm')
+        audio.loop = true
+        audio.volume = 1
+        audio.play()
+        this.mute = false
+      }
+      else {
+        const audio = document.getElementById('lobbybgm')
+        audio.volume = 0
+        this.mute = true
+      }
+    }
+  },
   computed: {
     isRoomExist : function () {
       return this.$store.getters.isRoomExist
@@ -42,4 +68,21 @@ export default {
   display: flex;
   flex-direction: column;
 } */
+.sound-button {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+}
+.sound-button button {
+  background-color: #fc5c7d;
+  border-radius: 50%;
+  border: none;
+  width: 3rem;
+  height: 3rem;
+}
+.sound-button button:hover {
+  background-color: #6a82fb;
+  border-radius: 50%;
+  border: none;
+}
 </style>
