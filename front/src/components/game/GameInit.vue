@@ -1,9 +1,12 @@
 <template>
   <div class="init-component">
     <div class="init-body"></div>
-    <p>
+    <div id=quiz>
+    <img src="@/assets/balloon1.png" alt="">
+      <p>
       {{ quiz }}
-    </p>
+      </p>
+    </div>
     <img src="@/assets/RUGI.png" alt="">
   </div>
 </template>
@@ -39,5 +42,11 @@ export default {
 
 .initBody p {
   font-size: 35px;
+}
+#quiz p {
+  position: absolute;
+  top: 20rem;
+  left: 5rem;
+  /* background: url("@/assets/balloon1.png") no-repeat; */
 }
 </style>
