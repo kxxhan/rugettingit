@@ -222,7 +222,7 @@ export default {
   },
   computed: {
     roomId: function () {
-      return this.$store.state.currentRoomId
+      return this.$store.state.room.id
     },
     checkCurrentView: function () {
       return this.$store.getters.currentView

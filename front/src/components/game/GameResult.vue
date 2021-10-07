@@ -133,7 +133,7 @@ export default {
       url: '/question',
       data: form,
       params: {
-        roomId: this.$store.state.currentRoomId,
+        roomId: this.$store.state.room.id,
         nickname: this.$store.state.nickname
       },
       header: {
