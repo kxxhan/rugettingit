@@ -1,19 +1,33 @@
 <template>
-  <div class="mainButtonBody">
-    <Button
-      id="createSession"
+  <div class="main-button-body p-px-5">
+    <div
+      id="underline-button"
       @click="createRoom"
-      class="p-button-raised p-button-text p-button-secondary p-button-lg"
-      label="방만들기"
+      class="p-button-lg p-py-3"
     >
-    </Button>
-    <Button
-      id="enterSession"
+      <a>
+        <span class="p-mr-1">방만들기</span>
+        <img
+          id="stk"
+          src="@/assets/sticker/star01.png"
+          alt="star"
+        >
+      </a>
+    </div>
+    <div
+      id="underline-button"
       @click="enterRoom"
-      class="p-button-raised p-button-text p-button-secondary p-button-lg"
+      class="p-button-lg p-py-3"
     >
-      입장하기
-    </Button>
+      <a>
+        <span class="p-mr-1">입장하기</span>
+        <img
+          id="stk"
+          src="@/assets/sticker/star01.png"
+          alt="star"
+        >
+      </a>
+    </div>
   </div>
 </template>
 
@@ -21,33 +35,74 @@
 import {soundEffect} from '../api/sound.js'
 export default {
   name: 'MainButton',
-
   methods: {
-<<<<<<< front/src/components/buttons/HomeButton.vue
     createRoom: function () {
-      soundEffect('http://soundbible.com/mp3/sms-alert-1-daniel_simon.mp3')  // 소리는 쓰고싶은거 어디 올려놓고 써도 될거같음
+      soundEffect()
+      if (!this.$store.state.nickname.length) {
+        alert("닉네임 글자수는 1~8자로 부탁드려요...")
+        return
+      }
       this.$store.dispatch("createRoom")
     },
     enterRoom: function () {
-      soundEffect('http://soundbible.com/mp3/sms-alert-1-daniel_simon.mp3')
-      if (this.$store.state.roomId) {
-        this.$router.push( {name : 'Game', query: {room: this.$store.state.roomId}})
+      soundEffect()
+      if (!this.$store.state.nickname.length) {
+        alert("닉네임 글자수는 1~8자로 부탁드려요...")
+        return
+      }
+      const roomId = this.$route.query["room"];
+      console.log(this.$route.query["room"]);
+      if (roomId) {
+        this.$router.push( {name : 'Game', query: {room: roomId}})
       } else {
-        // roomId가 없어요! Random 방 입장
+        console.log("roomId가 없어요", roomId); // roomId가 없어요! Random 방 입장
       }
     },
-  },
+  }
 }
 </script>
 
 <style>
-.mainButtonBody {
+@import "/style/custom-button.css";
+
+#underline-button a {
+  font-size: 2rem;
+  color: rgba(0, 0, 0, 0.8) !important;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  overflow:hidden;
+  transition: .3s;
+}
+
+#underline-button a:after {
+    position: absolute;
+    transition: .3s;
+    content: '';
+    width: 0;
+    left: 0;
+    bottom: -0.3rem;
+    height: 0.3rem;
+    background: linear-gradient(to right, #FC5C7D, #6A82FB) !important;
+  }
+
+#underline-button a:hover {
+  cursor:pointer;
+  transition: .3s;
+}
+
+#underline-button a:hover:after {
+  width: 100%;
+  left: 0;
+}
+
+#stk {
+  max-height: 2rem;
+}
+.main-button-body {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.p-button-raised {
-  margin-top: 25px !important;
-  margin-left: 25px !important;
+  justify-content: center;
 }
 </style>

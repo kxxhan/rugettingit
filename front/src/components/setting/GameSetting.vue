@@ -1,75 +1,77 @@
 <template>
-  <div class="gameSettingBody">
-    <header>game setting</header>
-    <div class="set">
-      라운드
-      <Button
-        icon="pi pi-arrow-left"
-        style="fontSize: 0.1rem"
-        class="p-button-rounded p-button-text"
-        @click="rounds_idx -= 1"
-      >
-      </Button>
-      {{ rounds[rounds_idx%3] }}
-      <Button
-        icon="pi pi-arrow-right"
-        class="p-button-rounded p-button-text"
-        @click="rounds_idx += 1"
-      >
-      </Button>
+  <div class="game-setting-body offset-2 col-8" :class="[$store.state.super ? '':'hidden']">
+    <!-- <header>Game Settings</header> -->
+    <div class="set container">
+      <div class="row">
+        <div class="col-6">
+          <span>라운드</span>
+        </div>
+        <div class="col-2 arrow-box">
+          <div class="arrow-game-setting">
+            <a @click="changeRound('left')">
+              <img src="@/assets/buttons/arrowL.png" class="img-fluid">
+            </a>
+          </div>
+        </div>
+        <div class="col-2">
+          {{ $store.state.super ? maxRound : $store.state.room["maxRound"] }}
+        </div>
+        <div class="col-2 arrow-box">
+          <div class="arrow-game-setting">
+            <a @click="changeRound('right')">
+              <img src="@/assets/buttons/arrowR.png" class="img-fluid">
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="set">
-      인원
-      <Button
-        icon="pi pi-arrow-left"
-        class="p-button-rounded p-button-text"
-        @click="counts_idx -= 1"
-      >
-      </Button>
-      {{ counts[counts_idx%5] }}
-      <Button
-        icon="pi pi-arrow-right"
-        class="p-button-rounded p-button-text"
-        @click="counts_idx += 1"
-      >
-      </Button>
+    <div class="set container">
+      <div class="row">
+        <div class="col-6">
+          <span>라운드 당 시간</span>
+        </div>
+        <div class="col-2 arrow-box">
+          <div class="arrow-game-setting">
+            <a @click="changeRoundTime('left')">
+              <img src="@/assets/buttons/arrowL.png" class="img-fluid">
+            </a>
+          </div>
+        </div>
+        <div class="col-2">
+          {{ $store.state.super ? roundTime : $store.state.room["roundTime"] }}
+        </div>
+        <div class="col-2 arrow-box">
+          <div class="arrow-game-setting">
+            <a @click="changeRoundTime('right')">
+              <img src="@/assets/buttons/arrowR.png" class="img-fluid">
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="set">
-      타이머
-      <Button
-        icon="pi pi-arrow-left"
-        class="p-button-rounded p-button-text"
-        @click="timer_idx -= 1"
-      >
-      </Button>
-      {{ timer[timer_idx%3] }}
-      <Button
-        icon="pi pi-arrow-right"
-        class="p-button-rounded p-button-text"
-        @click="timer_idx += 1"
-      >
-      </Button>
-      <Button
-        @click="roomUpdate"
-      >
-        테스트
-      </Button>
-    </div>
-    <div class="set">
-      커스텀 사용
-      <Button
-        icon="pi pi-arrow-left"
-        class="p-button-rounded p-button-text"
-        @click="is_custom_idx -= 1"
-      >
-      </Button>
-      {{ is_custom[is_custom_idx%2] }}
-      <Button
-        icon="pi pi-arrow-right"
-        class="p-button-rounded p-button-text"
-        @click="is_custom_idx += 1"
-      >
-      </Button>
+    <div class="set container">
+      <div class="row">
+        <div class="col-6">
+          <span>최대 인원</span>
+        </div>
+        <div class="col-2 arrow-box">
+          <div class="arrow-game-setting">
+            <a @click="changePersonnel('left')">
+              <img src="@/assets/buttons/arrowL.png" class="img-fluid">
+            </a>
+          </div>
+        </div>
+        <div class="col-2">
+          {{ $store.state.super ? personnel : $store.state.room["personnel"] }}
+        </div>
+        <div class="col-2 arrow-box">
+          <div class="arrow-game-setting">
+            <a @click="changePersonnel('right')">
+              <img src="@/assets/buttons/arrowR.png" class="img-fluid">
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -81,57 +83,115 @@ export default {
   name: 'GameSetting',
   data: function() {
     return {
-      rounds: {0:1, 1:2, 2:3},
-      rounds_idx: 999,
-      counts: {0:4, 1:5, 2:6, 3:7, 4:8},
-      counts_idx: 999,
-      timer: {0:60, 1:80, 2:100},
-      timer_idx: 999,
-      is_custom: {0:true, 1:false},
-      is_custom_idx: 999,
-      stompClient: this.$store.state.stompClient,
-      roomId: this.$store.state.roomId,
+      maxRound: this.$store.state.room["maxRound"],
+      roundTime: this.$store.state.room["roundTime"],
+      personnel: this.$store.state.room["personnel"],
     }
   },
   methods: {
-    // 룸 정보 변경하는 클릭 이벤트 발생할때 마다 실행
-    roomUpdate: function() {
-      // v-model같은걸로 서로...와따가따가능하게
-      const roomInfo = {
-        maxRound: this.rounds[this.rounds_idx%3],
-        roundTime: this.timer[this.timer_idx%3]
+    changeRound: function (direction) {
+      let newRound = direction==="left" ? this.maxRound-1 : this.maxRound+1
+      this.maxRound = (1 <= newRound && newRound <= 5) ? newRound : this.maxRound
+      this.roomUpdate()
+    },
+    changeRoundTime: function (direction) {
+      let newRoundTime = direction==="left" ? this.roundTime-10 : this.roundTime+10
+      this.roundTime = (40 <= newRoundTime && newRoundTime <= 120) ? newRoundTime : this.roundTime
+      this.roomUpdate()
+
+    },
+    changePersonnel: function (direction) {
+      let newPersonnel = direction==="left" ? this.personnel-1 : this.personnel+1
+      if (this.$store.state.room['userList'].length > newPersonnel) {
+        alert("현재 인원보다 작을 수 없습니다.")
+        return
       }
-      this.$store.dispatch('setMessage', roomInfo)
-      console.log('게임세팅에서 소켓에 보낼 메시지 세팅, state에 저장', roomInfo)
+      this.personnel = (2 <= newPersonnel && newPersonnel <= 8) ? newPersonnel : this.personnel
+      this.roomUpdate()
+    },
+    roomUpdate : function () {
+      if (!this.isSettingChanged) {
+        alert("최대 혹은 최소 값 입니다.");
+        return
+      }
       axios({
         method: 'patch',
         url: '/room',
         data: {
-          maxRound: this.$store.state.roomInfo.maxRound,
-          roundTime:this.$store.state.roomInfo.roundTime,
+          maxRound: this.maxRound,
+          roundTime: this.roundTime,
+          personnel: this.personnel,
         },
         params: {
-          roomId: this.$store.state.roomId
+          roomId: this.$route.query["room"]
         }
       }).then((res) => {
+        // alert('방 정보 업데이트 성공')
         console.log(res.data)
       }).catch((err) => {
+        alert('방 정보 업데이트 실패')
         console.log(err.response)
       })
+    },
+  },
+  computed: {
+    isSettingChanged: function () {
+      return (
+        this.$store.state.room["maxRound"] !== this.maxRound
+        || this.$store.state.room["roundTime"] !== this.roundTime
+        || this.$store.state.room["personnel"] !== this.personnel
+      )
     }
   }
 }
 </script>
 
 <style>
-.gameSettingBody {
+.game-setting-body {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding-top: 50px;
-  padding: 50px 0px;
+  font-size: 3rem !important;
+  /* margin-top: 6rem; */
 }
 .set {
-  font-size: 30px;
+  padding: 1rem;
+  text-align: center;
+  font-size: 2rem;
+}
+.hidden .arrow-game-setting {
+  visibility: hidden;
+}
+#setting-btn {
+  display: flex;
+  justify-content: flex-end;
+  /* padding: 4rem; */
+  padding: 2rem 4rem 2rem 4rem;
+}
+#setting-btn Button{
+  border-radius: 100%;
+  width: 42px;
+  height: 42px;
+  color: #fc5c7d;
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.2)!important;
+}
+.arrow-game-setting {
+  /* margin-top: 1rem !important; */
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
+.arrow-game-setting:hover {
+  cursor: pointer;
+}
+.arrow-box {
+  display: flex;
+  justify-content: center;
+}
+
+.pi-arrow-right {
+  font-size:1.5rem !important;
+}
+.pi-arrow-left {
+  font-size:1.5rem !important;
 }
 </style>

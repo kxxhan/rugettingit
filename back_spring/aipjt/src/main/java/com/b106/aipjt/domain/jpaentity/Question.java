@@ -9,7 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor(access=AccessLevel.PROTECTED)
 @Entity(name="question")
-@Builder
+@Builder @ToString
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +18,12 @@ public class Question {
     @Column(columnDefinition = "TEXT")
     private String imgUrl;
     private String imgCaption;
+    private String audioUrl;
 
-    public Question(String imgUrl, String imgCaption) {
+    public Question(String imgUrl, String imgCaption, String audioUrl) {
         this.imgUrl = imgUrl;
         this.imgCaption = imgCaption;
+        this.audioUrl = audioUrl;
     }
 
 

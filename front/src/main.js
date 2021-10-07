@@ -8,13 +8,16 @@ import PrimeVue from 'primevue/config'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import Avatar from 'primevue/avatar'
+import AvatarGroup from 'primevue/avatargroup'
 import ScrollTop from 'primevue/scrolltop'
 import ScrollPanel from 'primevue/scrollpanel'
 import ColorPicker from 'primevue/colorpicker'
+import Carousel from 'primevue/carousel';
 
 import 'primevue/resources/themes/saga-blue/theme.css'       //theme
-import 'primevue/resources/primevue.min.css'       //core css
+// import 'primevue/resources/primevue.min.css'       //core css
 import 'primeicons/primeicons.css'       //icons
+import 'primeflex/primeflex.css'
 
 const app = createApp(App)
 app.use(router).use(store).use(PrimeVue)
@@ -23,9 +26,11 @@ app.use(router).use(store).use(PrimeVue)
 app.component('Button', Button)
 app.component('InputText', InputText)
 app.component('Avatar', Avatar)
+app.component('AvatarGroup', AvatarGroup)
 app.component('ScrollTop', ScrollTop)
 app.component('ScrollPanel', ScrollPanel)
 app.component('ColorPicker', ColorPicker)
+app.component('Carousel', Carousel)
 
 app.mount('#app')
 

@@ -2,6 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+# import dotenv
+from dotenv import load_dotenv
 
 
 def main():
@@ -19,4 +21,6 @@ def main():
 
 
 if __name__ == '__main__':
+    # dotenv.read_dotenv()
+    load_dotenv()
     main()

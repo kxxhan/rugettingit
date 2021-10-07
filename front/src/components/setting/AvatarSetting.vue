@@ -1,25 +1,35 @@
 <template>
-  <div class="avatarBody">
+  <div class="avatar-body">
     <div>
-      <section class="avatar-select-header">
-        <span>Avatar</span>
+      <section class="avatar-select">
+        <a class="" @click="randomAvatar">
+          <img class="img-fluid sf-btn" src="@/assets/buttons/shufflebtn.png" alt="">
+        </a>
       </section>
       <section class="avatar-select">
-        <i class="fas fa-chevron-left" @click="changeAvatar('left')"></i>
+        <div class="arrow-avatar-setting">
+          <a @click="changeAvatar('left')">
+            <img src="@/assets/buttons/arrowL.png" class="img-fluid">
+          </a>
+        </div>
         <Avatar class="avatar" :image="require(`@/assets/avatar/${avatar}.png`)" shape="circle" />
-        <i class="fas fa-chevron-right" @click="changeAvatar('right')"></i>
+        <div class="arrow-avatar-setting">
+          <a @click="changeAvatar('right')">
+            <img src="@/assets/buttons/arrowR.png" class="img-fluid">
+          </a>
+        </div>
       </section>
-      <section class="avatar-select">
-        <i class="fas fa-random" @click="randomAvatar"></i>
-      </section>
-      <p>Nickname</p>
-      <div class="p-float-label why">
+      <div class="p-d-grid">
+        <label class="p-col-8 p-offset-2 mini" for="nickname">
+          nickname
+        </label>
         <InputText
           id="username"
+          class="p-col-8 p-offset-2"
           type="text"
           v-model="nickname"
           @input="setNickName"
-          place-holder="Hello"
+          place-holder="RUGI"
         >
         </InputText>
       </div>
@@ -28,7 +38,6 @@
 </template>
 
 <script>
-// import MainButton from '@/components/MainButton'
 
 export default {
   components: {
@@ -55,7 +64,6 @@ export default {
       }
       this.avatar = rand
       this.$store.dispatch('setAvatar', this.avatar)
-      console.log(this.$store.state.avatar)
     },
     getRanNum: function () {
       return Math.floor(Math.random()*this.avatarCount)
@@ -65,32 +73,28 @@ export default {
     },
   },
   mounted: function () {
-    // 접속시 아바타 랜덤 설정
-    this.randomAvatar()
-  }
+    if (this.$store.state.avatar !== null) {
+      this.avatar = this.$store.state.avatar
+    }
+  },
 }
 </script>
 
 <style>
-.avatarBody {
+.p-button, .p-inputtext {
+  font-family: "Elice Digital Baeum",sans-serif !important;
+  font-size: 0.7rem !important;
+}
+.avatar-body {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  padding-top: 50px;
-  padding: 50px 0px;
-}
-.hi {
-  padding: 25px 0px;
-}
-.why {
-  /* avatar랑 nickname 띄어놓기 위함 */
-  margin-top: 25px;
-}
-.avatar {
-  width: 150px !important;
-  height: 150px !important;
 }
 
+.avatar {
+  width: 10vh !important;
+  height: 100% !important;
+}
 
 .avatar-select-header {
   display: flex;
@@ -106,16 +110,32 @@ export default {
 .avatar-select {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   margin: 5px 0;
 }
 .fa-chevron-left, .fa-chevron-right {
   margin: 20px;
   cursor: pointer;
   font-size: 2rem;
+  color: #6A82FB !important;
 }
-.fa-random {
+.mini {
+  font-size: 0.2rem;
+}
+.sf-btn {
+  height: 3vh;
+}
+.sf-btn:hover {
   cursor: pointer;
-  font-size: 1.8rem;
+}
+
+.arrow-avatar-setting {
+  /* margin-top: 1rem !important; */
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+}
+.arrow-avatar-setting:hover {
+  box-shadow: 0.2rem 0.2rem 0.5rem #cacaca;
 }
 </style>
