@@ -125,7 +125,7 @@ export default {
     })
   },
   unmounted: function () {
-    console.log('게임리절트가 언마운트 될 때 받아온 정보', this.$store.room.quizList)
+    console.log('게임리절트가 언마운트 될 때 받아온 정보', this.$store.state.room.quizList)
   }
 }
 </script>

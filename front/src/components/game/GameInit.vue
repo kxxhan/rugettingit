@@ -101,5 +101,6 @@ export default {
 #rugi {
   position: absolute;
   top: 80%;
+  height: 50vh;
 }
 </style>
