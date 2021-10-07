@@ -5,15 +5,17 @@
       <p> {{ quiz }} </p>
       <img id="rugi" src="@/assets/RUGI.png" alt="">
     </div>
-    <div v-if="mute" class="sound-button">
-      <a @click="soundOn">
-        <img src="@/assets/buttons/soundon.png" class="img-fluid">
-      </a>
-    </div>
-    <div v-else class="sound-button">
-      <a @click="soundOn">
-        <img src="@/assets/buttons/soundoff.png" class="img-fluid">
-      </a>
+    <div class="sound-button-init">
+      <div v-if="mute" class="sound-button">
+        <a @click="soundOn">
+          <img src="@/assets/buttons/soundon.png" class="img-fluid">
+        </a>
+      </div>
+      <div v-else class="sound-button">
+        <a @click="soundOn">
+          <img src="@/assets/buttons/soundoff.png" class="img-fluid">
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -43,9 +45,6 @@ export default {
     quizaudio: function () {
       return this.$store.state.room.quizList[this.$store.state.room.currentRound - 1].audioUrl
     }
-  },
-  mounted() {
-    this.soundOn()
   }
 }
 </script>
@@ -61,14 +60,23 @@ export default {
   font-size: 35px;
 }
 
+.sound-button-init {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+}
+
+.sound-button-init * {
+  color: #6A82FB;
+  border: 0 !important;
+}
 
 .sound-button {
   display: flex;
-  position: absolute;
   width: 3rem !important;
   height: 3rem !important;
-  top: 20%;
-  left: 5%;
+  /* bottom: 2rem;
+  left: 2rem; */
   box-shadow: 0.2rem 0.2rem 0.5rem #cacaca;
   border-radius: 50%;
   padding: 0.5rem;
@@ -78,28 +86,32 @@ export default {
   background-color: #6a82fb;
   border-radius: 50%;
   border: none;
+  cursor: pointer;
 }
 
 #balloon {
   position: absolute;
   top: 0%;
+  width: 30vw;
 }
 #quiz {
   display: flex;
   flex-direction: column;
   /* 사진 크기만큼 height 줬음 */
-  height: 306px;
+  height: 30vh;
   position: relative;
   align-items: center;
 }
 #quiz p {
   position: absolute;
-  width: 450px;
+  width: 21vw;
   text-align: center;
   top: 40%;
 }
 #rugi {
+  margin-top: 1rem;
   position: absolute;
   top: 80%;
+  height: 50vh;
 }
 </style>

@@ -96,5 +96,6 @@ export default {
   background-color: #6a82fb;
   border-radius: 50%;
   border: none;
+  cursor: pointer;
 }
 </style>
