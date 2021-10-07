@@ -75,7 +75,7 @@
 // import axios from 'axios'
 import 'primevue/resources/primevue.min.css'
 const INITIAL_COLOR = "#2c2c2c"
-const CANVAS_WIDTH = 1100
+const CANVAS_WIDTH = 800
 const CANVAS_HEIGHT = 500
 
 
@@ -260,7 +260,7 @@ export default {
 }
 
 .canvas {
-  width: 1100px;
+  width: 800px;
   height: 500px;
   background-color: white;
   border-radius: 0 15px 15px 15px;

@@ -1,6 +1,6 @@
 <template>
   <div class="lobby-body">
-    <div>
+    <div class="d-flex">
       <!-- <UserList v-if="isRoomExist" /> -->
       <div class="lobby-components pb-0">
         <GameSetting v-if="isRoomExist" />
@@ -76,6 +76,7 @@ export default {
   align-items: center;
 } */
 .lobby-components {
+  padding:3rem;
   display: flex;
   flex-direction: column;
 }
