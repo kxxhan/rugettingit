@@ -88,7 +88,6 @@ export default {
   }
   .huge-button a:hover {
     color:#fc5c7d;
-    cursor: pointer;
   }
 
   #tips {

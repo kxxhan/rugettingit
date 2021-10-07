@@ -2,7 +2,7 @@
   <div class="lobby-body">
     <div>
       <!-- <UserList v-if="isRoomExist" /> -->
-      <div class="lobby-components">
+      <div class="lobby-components pb-0">
         <GameSetting v-if="isRoomExist" />
         <!-- 방장이 아닌 사람한테는 다른걸 보여줘도 좋을 듯 -->
         <div class="offset-1 col-10">
@@ -10,10 +10,16 @@
         </div>
       </div>
     </div>
-    <audio id="lobbybgm"><source src="@/assets/sounds/dugndugn.wav"></audio>
-    <div class="sound-button">
-      <button v-if="mute" @click="soundOn"><img src="@/assets/buttons/soundon.png" style="width: 2.5rem; height:2.5rem;" alt=""></button>
-      <button v-else @click="soundOn"><img src="@/assets/buttons/soundoff.png" style="width: 2.5rem; height:2.5rem;" alt=""></button>
+    <audio id="lobbybgm"><source src="@/assets/sounds/home.wav"></audio>
+    <div v-if="mute" class="sound-button">
+      <a @click="soundOn">
+        <img src="@/assets/buttons/soundon.png" class="img-fluid">
+      </a>
+    </div>
+    <div v-else class="sound-button">
+      <a @click="soundOn">
+        <img src="@/assets/buttons/soundoff.png" class="img-fluid">
+      </a>
     </div>
   </div>
 </template>
@@ -55,6 +61,9 @@ export default {
     isRoomExist : function () {
       return this.$store.getters.isRoomExist
     },
+  },
+  mounted() {
+    this.soundOn()
   }
 }
 
@@ -65,26 +74,25 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 .lobby-components {
   display: flex;
   flex-direction: column;
-} */
+}
 .sound-button {
+  display: flex;
   position: absolute;
+  width: 3rem !important;
+  height: 3rem !important;
   bottom: 2rem;
   left: 2rem;
-}
-.sound-button button {
-  padding: 10px;
-  background-color: white;
   box-shadow: 0.2rem 0.2rem 0.5rem #cacaca;
   border-radius: 50%;
-  border: none;
-  width: 3rem;
-  height: 3rem;
+  padding: 0.5rem;
+  padding-bottom: 1rem;
+  align-items: center;
 }
-.sound-button button:hover {
+.sound-button:hover {
   background-color: #6a82fb;
   border-radius: 50%;
   border: none;

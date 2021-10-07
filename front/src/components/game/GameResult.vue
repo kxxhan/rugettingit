@@ -20,10 +20,11 @@
           <div>
             <img :src="`${this.quizList[currentRound].imgUrl}`" alt="answer">
           </div>
-          <div class="sound-button-init">
-            <Button v-if="mute" class="p-button-help p-button-raised p-button-rounded p-button-outlined" icon="pi pi-volume-off" iconPos="right" @click="soundOn" />
-            <Button v-else class="p-button-help p-button-raised p-button-rounded p-button-outlined" icon="pi pi-volume-up" iconPos="right" @click="soundOn" />
-          </div>
+            <div class="sound-button">
+              <audio id="quizsound"><source :src="`${this.quizList[currentRound].audioUrl}`"></audio>
+              <button v-if="mute" @click="soundOn"><img src="@/assets/buttons/soundon.png" style="width: 2rem; height:2rem;" alt=""></button>
+              <button v-else @click="soundOn"><img src="@/assets/buttons/soundoff.png" style="width: 2rem; height:2rem;" alt=""></button>
+            </div>
         </div>
         <!-- 현재 라운드의 퀴즈리스트, 그 안에 있는 imageList의 image들을 반복문 처리 -->
         <div class="col">
@@ -50,6 +51,9 @@
                     <span style="width:200px">
                       "{{ image.caption }}" !!
                     </span>
+                <div class="sound-button">
+                  <button @click="soundOnElement(image.audioUrl)"><img src="@/assets/buttons/soundon.png" style="width: 1rem; height:1rem;" alt=""></button>
+                </div>
                   <!-- </div> -->
                 <!-- </div> -->
               </div>
@@ -76,26 +80,28 @@ export default {
   data: function () {
     return {
       alert: "",
-      responsiveOptions: [
-        {
-          breakpoint: '480px',
-          numVisible: 3,
-          numScroll: 3
-        },
-        {
-          breakpoint: '600px',
-          numVisible: 2,
-          numScroll: 2
-        },
-        {
-          breakpoint: '480px',
-          numVisible: 1,
-          numScroll: 1
-        }
-      ]
-		}
+      mute: true,
+    }
   },
   methods: {
+    soundOn() {
+      if(this.mute) {
+        const audio = document.getElementById('quizsound')
+        audio.volume = 1
+        audio.play()
+        this.mute = false
+      }
+      else {
+        const audio = document.getElementById('quizsound')
+        audio.volume = 0
+        this.mute = true
+      }
+    },
+    soundOnElement(audioUrl) {
+      const audio = new Audio(audioUrl)
+      audio.loop = false
+      audio.play()
+    }
   },
   computed: {
     quizList: function () {
@@ -147,21 +153,9 @@ export default {
   height: 200px;
   width: 200px;
 }
-#picture {
-  height: 290px;
+.sound-button {
+  border-radius: 50%;
+  width: 2rem !important;
+  height: 2rem !important;
 }
-.product-item-content {
-    border: 1px solid var(--surface-d);
-    border-radius: 3px;
-    margin: .3rem;
-    text-align: center;
-    padding: 2rem 0;
-}
-
-.product-image {
-    width: 50%;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
-}
-
-
 </style>
