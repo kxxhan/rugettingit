@@ -46,7 +46,7 @@ export default {
       if(this.mute) {
         const audio = document.getElementById('homebgm')
         audio.loop = true
-        audio.volume = 1
+        audio.volume = 0.3
         audio.play()
         this.mute = false
       }

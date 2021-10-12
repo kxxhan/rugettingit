@@ -46,7 +46,7 @@ export default {
       if(this.mute) {
         const audio = document.getElementById('lobbybgm')
         audio.loop = true
-        audio.volume = 0.5
+        audio.volume = 0.3
         audio.play()
         this.mute = false
       }
